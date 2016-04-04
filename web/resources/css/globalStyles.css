@@ -1,0 +1,22 @@
+.header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 80px;
+    width: 100%;
+    color: #ccffcc;
+    background-color: #00ccff;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    height: 80px;
+    width: 100%;
+    background-color: #00ccff;
+}
+
+.body {
+    
+}
