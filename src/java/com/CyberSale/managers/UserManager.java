@@ -12,7 +12,7 @@ import javax.inject.Named;
  *
  * @author Braeden
  */
-@Named(value = "itemManager")
+@Named(value = "userManager")
 @SessionScoped
 public class UserManager implements Serializable{
     
