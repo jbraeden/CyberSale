@@ -1,5 +1,4 @@
 .header {
-    position: fixed;
     top: 0px;
     left: 0px;
     height: 80px;
@@ -9,7 +8,6 @@
 }
 
 .footer {
-    position: fixed;
     bottom: 0px;
     left: 0px;
     height: 80px;
@@ -19,4 +17,91 @@
 
 .body {
     
+}
+
+/*Galleria Specific CSS*/
+
+.fullWidthClass {
+    text-align:center;
+    background: transparent;
+    width: 100% !important;
+    margin: auto !important;
+    border: none;
+}
+
+.ui-galleria-caption, .ui-galleria-filmstrip-wrapper, .ui-galleria-nav-prev, .ui-galleria-nav-next {    
+    visibility: hidden;
+    height: 0px !important;
+}
+
+.ui-galleria-panel {
+    width: 100% !important;
+    margin: auto !important;
+    
+}
+
+.ui-galleria-panel-wrapper {    
+    width: 100% !important;
+    margin: auto !important;
+    
+}
+
+/*Carousel Specific CSS*/
+
+.ui-widget-header img{
+    width: auto;
+    height: 300px;
+}
+
+.ui-carousel {
+    width: 100% !important;
+    border: none;
+}
+
+.ui-panelgrid-blank {
+   padding-bottom: 20px; 
+   bottom: 20px;
+}
+
+
+.ui-carousel-viewport{
+    width: auto !important;
+}
+
+.ui-widget-content {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/*Pretty Post Item Button Specific CSS*/
+
+.myButton {
+	background-color:#44c767;
+	-moz-border-radius:42px;
+	-webkit-border-radius:42px;
+	border-radius:42px;
+	border:3px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Verdana;
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #2f6627;
+
+        display: block;
+        margin: 0 auto; 
+        width: 150px;
+        text-align: center;
+        
+}
+
+.myButton:hover {
+	background-color:#5cbf2a;
+}
+
+.myButton:active {
+	position:relative;
+	top:1px;
 }
