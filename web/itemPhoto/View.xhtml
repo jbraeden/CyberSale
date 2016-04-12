@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewItemPhotoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewItemPhotoLabel_id}"/>
+                    <h:outputText value="#{itemPhotoController.selected.id}" title="#{bundle.ViewItemPhotoTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewItemPhotoLabel_itemId}"/>
+                    <h:outputText value="#{itemPhotoController.selected.itemId}" title="#{bundle.ViewItemPhotoTitle_itemId}"/>
+                    <h:outputText value="#{bundle.ViewItemPhotoLabel_photoId}"/>
+                    <h:outputText value="#{itemPhotoController.selected.photoId}" title="#{bundle.ViewItemPhotoTitle_photoId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{itemPhotoController.destroyAndView}" value="#{bundle.ViewItemPhotoDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewItemPhotoEditLink}"/>
+                <br />
+                <h:commandLink action="#{itemPhotoController.prepareCreate}" value="#{bundle.ViewItemPhotoCreateLink}" />
+                <br />
+                <h:commandLink action="#{itemPhotoController.prepareList}" value="#{bundle.ViewItemPhotoShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewItemPhotoIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

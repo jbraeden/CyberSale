@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.03  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,11 +36,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
     @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id"),
-    @NamedQuery(name = "Item.findByIdentifierType", query = "SELECT i FROM Item i WHERE i.identifierType = :identifierType"),
-    @NamedQuery(name = "Item.findByIdentifierValue", query = "SELECT i FROM Item i WHERE i.identifierValue = :identifierValue"),
+    @NamedQuery(name = "Item.findByItemName", query = "SELECT i FROM Item i WHERE i.itemName = :itemName"),
+    @NamedQuery(name = "Item.findByProductCodeType", query = "SELECT i FROM Item i WHERE i.productCodeType = :productCodeType"),
+    @NamedQuery(name = "Item.findByProducrCodeValue", query = "SELECT i FROM Item i WHERE i.producrCodeValue = :producrCodeValue"),
+    @NamedQuery(name = "Item.findByCategory", query = "SELECT i FROM Item i WHERE i.category = :category"),
     @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost"),
-    @NamedQuery(name = "Item.findByPosted", query = "SELECT i FROM Item i WHERE i.posted = :posted"),
-    @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold")})
+    @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate"),
+    @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold"),
+    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits")})
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,15 +52,24 @@ public class Item implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 200)
-    @Column(name = "identifierType")
-    private String identifierType;
-    @Column(name = "identifierValue")
-    private Integer identifierValue;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 256)
+    @Column(name = "item_name")
+    private String itemName;
+    @Size(max = 4)
+    @Column(name = "product_code_type")
+    private String productCodeType;
+    @Size(max = 256)
+    @Column(name = "producr_code_value")
+    private String producrCodeValue;
+    @Size(max = 19)
+    @Column(name = "category")
+    private String category;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost")
-    private int cost;
+    private float cost;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -65,14 +78,22 @@ public class Item implements Serializable {
     private String description;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "posted")
-    @Temporal(TemporalType.DATE)
-    private Date posted;
+    @Column(name = "posted_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date postedDate;
     @Basic(optional = false)
     @NotNull
     @Column(name = "sold")
     private boolean sold;
-    @OneToMany(mappedBy = "itemId")
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "hits")
+    private int hits;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
+    private Collection<ItemComment> itemCommentCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
+    private Collection<ItemCustomer> itemCustomerCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
     public Item() {
@@ -82,12 +103,14 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public Item(Integer id, int cost, String description, Date posted, boolean sold) {
+    public Item(Integer id, String itemName, float cost, String description, Date postedDate, boolean sold, int hits) {
         this.id = id;
+        this.itemName = itemName;
         this.cost = cost;
         this.description = description;
-        this.posted = posted;
+        this.postedDate = postedDate;
         this.sold = sold;
+        this.hits = hits;
     }
 
     public Integer getId() {
@@ -98,27 +121,43 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public String getIdentifierType() {
-        return identifierType;
+    public String getItemName() {
+        return itemName;
     }
 
-    public void setIdentifierType(String identifierType) {
-        this.identifierType = identifierType;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
-    public Integer getIdentifierValue() {
-        return identifierValue;
+    public String getProductCodeType() {
+        return productCodeType;
     }
 
-    public void setIdentifierValue(Integer identifierValue) {
-        this.identifierValue = identifierValue;
+    public void setProductCodeType(String productCodeType) {
+        this.productCodeType = productCodeType;
     }
 
-    public int getCost() {
+    public String getProducrCodeValue() {
+        return producrCodeValue;
+    }
+
+    public void setProducrCodeValue(String producrCodeValue) {
+        this.producrCodeValue = producrCodeValue;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public float getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(float cost) {
         this.cost = cost;
     }
 
@@ -130,12 +169,12 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Date getPosted() {
-        return posted;
+    public Date getPostedDate() {
+        return postedDate;
     }
 
-    public void setPosted(Date posted) {
-        this.posted = posted;
+    public void setPostedDate(Date postedDate) {
+        this.postedDate = postedDate;
     }
 
     public boolean getSold() {
@@ -144,6 +183,32 @@ public class Item implements Serializable {
 
     public void setSold(boolean sold) {
         this.sold = sold;
+    }
+
+    public int getHits() {
+        return hits;
+    }
+
+    public void setHits(int hits) {
+        this.hits = hits;
+    }
+
+    @XmlTransient
+    public Collection<ItemComment> getItemCommentCollection() {
+        return itemCommentCollection;
+    }
+
+    public void setItemCommentCollection(Collection<ItemComment> itemCommentCollection) {
+        this.itemCommentCollection = itemCommentCollection;
+    }
+
+    @XmlTransient
+    public Collection<ItemCustomer> getItemCustomerCollection() {
+        return itemCustomerCollection;
+    }
+
+    public void setItemCustomerCollection(Collection<ItemCustomer> itemCustomerCollection) {
+        this.itemCustomerCollection = itemCustomerCollection;
     }
 
     @XmlTransient

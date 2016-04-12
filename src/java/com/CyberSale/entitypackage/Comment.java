@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.03  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,12 +24,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Braeden
  */
 @Entity
-@Table(name = "Comments")
+@Table(name = "Comment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Comments.findAll", query = "SELECT c FROM Comments c"),
-    @NamedQuery(name = "Comments.findById", query = "SELECT c FROM Comments c WHERE c.id = :id")})
-public class Comments implements Serializable {
+    @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
+    @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id")})
+public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,16 +37,23 @@ public class Comments implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Basic(optional = false)
+    @NotNull
     @Lob
-    @Size(max = 65535)
-    @Column(name = "val")
-    private String val;
+    @Size(min = 1, max = 65535)
+    @Column(name = "description")
+    private String description;
 
-    public Comments() {
+    public Comment() {
     }
 
-    public Comments(Integer id) {
+    public Comment(Integer id) {
         this.id = id;
+    }
+
+    public Comment(Integer id, String description) {
+        this.id = id;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -56,12 +64,12 @@ public class Comments implements Serializable {
         this.id = id;
     }
 
-    public String getVal() {
-        return val;
+    public String getDescription() {
+        return description;
     }
 
-    public void setVal(String val) {
-        this.val = val;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -74,10 +82,10 @@ public class Comments implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Comments)) {
+        if (!(object instanceof Comment)) {
             return false;
         }
-        Comments other = (Comments) object;
+        Comment other = (Comment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -86,7 +94,7 @@ public class Comments implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.Comments[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.Comment[ id=" + id + " ]";
     }
     
 }

@@ -1,10 +1,10 @@
 /*
- * Created by Joseph Sebastian on 2016.04.04  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.sessionbeanpackage;
 
-import com.CyberSale.entitypackage.Comments;
+import com.CyberSale.entitypackage.ItemComment;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Braeden
  */
 @Stateless
-public class CommentsFacade extends AbstractFacade<Comments> {
+public class ItemCommentFacade extends AbstractFacade<ItemComment> {
 
     @PersistenceContext(unitName = "CyberSalePU")
     private EntityManager em;
@@ -24,8 +24,8 @@ public class CommentsFacade extends AbstractFacade<Comments> {
         return em;
     }
 
-    public CommentsFacade() {
-        super(Comments.class);
+    public ItemCommentFacade() {
+        super(ItemComment.class);
     }
     
 }

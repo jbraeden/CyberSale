@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditItemTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditItemLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{itemController.selected.id}" title="#{bundle.EditItemTitle_id}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditItemLabel_itemName}" for="itemName" />
+                    <h:inputText id="itemName" value="#{itemController.selected.itemName}" title="#{bundle.EditItemTitle_itemName}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_itemName}"/>
+                    <h:outputLabel value="#{bundle.EditItemLabel_productCodeType}" for="productCodeType" />
+                    <h:inputText id="productCodeType" value="#{itemController.selected.productCodeType}" title="#{bundle.EditItemTitle_productCodeType}" />
+                    <h:outputLabel value="#{bundle.EditItemLabel_producrCodeValue}" for="producrCodeValue" />
+                    <h:inputText id="producrCodeValue" value="#{itemController.selected.producrCodeValue}" title="#{bundle.EditItemTitle_producrCodeValue}" />
+                    <h:outputLabel value="#{bundle.EditItemLabel_category}" for="category" />
+                    <h:inputText id="category" value="#{itemController.selected.category}" title="#{bundle.EditItemTitle_category}" />
+                    <h:outputLabel value="#{bundle.EditItemLabel_cost}" for="cost" />
+                    <h:inputText id="cost" value="#{itemController.selected.cost}" title="#{bundle.EditItemTitle_cost}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_cost}"/>
+                    <h:outputLabel value="#{bundle.EditItemLabel_description}" for="description" />
+                    <h:inputTextarea rows="4" cols="30" id="description" value="#{itemController.selected.description}" title="#{bundle.EditItemTitle_description}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_description}"/>
+                    <h:outputLabel value="#{bundle.EditItemLabel_postedDate}" for="postedDate" />
+                    <h:inputText id="postedDate" value="#{itemController.selected.postedDate}" title="#{bundle.EditItemTitle_postedDate}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_postedDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditItemLabel_sold}" for="sold" />
+                    <h:inputText id="sold" value="#{itemController.selected.sold}" title="#{bundle.EditItemTitle_sold}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_sold}"/>
+                    <h:outputLabel value="#{bundle.EditItemLabel_hits}" for="hits" />
+                    <h:inputText id="hits" value="#{itemController.selected.hits}" title="#{bundle.EditItemTitle_hits}" required="true" requiredMessage="#{bundle.EditItemRequiredMessage_hits}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{itemController.update}" value="#{bundle.EditItemSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditItemViewLink}"/>
+                <br />
+                <h:commandLink action="#{itemController.prepareList}" value="#{bundle.EditItemShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditItemIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
