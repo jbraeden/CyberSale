@@ -1,16 +1,57 @@
-DROP TABLE IF EXISTS Users;
-DROP TABLE IF EXISTS Item;
-DROP TABLE IF EXISTS Comments;
-DROP TABLE IF EXISTS UserPhoto;
-DROP TABLE IF EXISTS ItemPhoto;
-DROP TABLE IF EXISTS Sell;
-DROP TABLE IF EXISTS Have;
+/* 
+ * Created by Patrick Abod on 2016.04.07  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
+ */
+/**
+ * Author:  patrickabod
+ * Created: Apr 7, 2016
+ */
 
+DROP TABLE IF EXISTS ItemPhoto;
+DROP TABLE IF EXISTS ItemComment;
+DROP TABLE IF EXISTS ItemCustomer;
+DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS Photo;
+DROP TABLE IF EXISTS Item;
+DROP TABLE IF EXISTS Customer;
+
+CREATE TABLE Comment
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    description TEXT (512) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE Photo
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    file_path VARCHAR (256) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+/* Items up for sale*/
+CREATE TABLE Item 
+(
+	id INT NOT NULL AUTO_INCREMENT,
+    item_name VARCHAR(256) NOT NULL,
+	/* ISBN, UPC */
+	product_code_type ENUM('UPC', 'ASIN', 'ISBN'),
+	/* Numerical representation */
+	producr_code_value VARCHAR(256),
+    category ENUM('Appliances', 'Automotives', 'Books', 'Clothing', 'Electronics',
+                  'Home Goods', 'Sports And Outdoors', 'Tools', 'Toys', 'Other'),
+	cost FLOAT NOT NULL,
+	description TEXT NOT NULL, 	
+	posted_date DATETIME NOT NULL,
+    sold BOOLEAN NOT NULL,
+    hits INT NOT NULL,
+	PRIMARY KEY(id)
+);
 
 /* User accounts */
-CREATE TABLE Users 
+CREATE TABLE Customer 
 (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR (32) NOT NULL,
     password VARCHAR (256) NOT NULL,
     first_name VARCHAR (32) NOT NULL,
@@ -19,66 +60,35 @@ CREATE TABLE Users
     security_question INT NOT NULL,
     security_answer VARCHAR (255) NOT NULL,
     email VARCHAR(64) NOT NULL,
-    rating INT	
+    PRIMARY KEY(id)
 );
-
-/* Comments on listed Items */
-CREATE TABLE Comments 
-(
-	id INT NOT NULL AUTO_INCREMENT,
-	val TEXT,
-	PRIMARY KEY(id)
-	
-);
-
-/* Items up for sale*/
-CREATE TABLE Item 
-(
-	id INT NOT NULL AUTO_INCREMENT,
-	/* ISBN, UPC */
-	identifierType VARCHAR(200),
-	/* Numerical representation */
-	identifierValue INT,
-	cost INT NOT NULL,
-	description TEXT NOT NULL, 	
-	posted DATE NOT NULL, 
-	sold BOOLEAN NOT NULL, 
-	PRIMARY KEY(id)
-);
-
-/* User profile pictures */
-CREATE TABLE UserPhoto
-(
-       id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       extension ENUM('jpeg', 'jpg', 'png') NOT NULL,
-       user_id INT,
-       FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
-);
-
-/* Item identification pictures */
 CREATE TABLE ItemPhoto
 (
-       id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-       extension ENUM('jpeg', 'jpg', 'png') NOT NULL,
-       item_id INT,
-       FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE
-);
- 
- /* Below relations link tables together */ 
- 
- /* Links Users to Items they 'sell' */
- CREATE TABLE Sell
-(
-	user_id INT NOT NULL,
-	item_id INT NOT NULL, 
-	PRIMARY KEY (user_id, item_id)
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    item_id INT NOT NULL,
+    photo_id INT NOT NULL,
+    FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
+    FOREIGN KEY (photo_id) REFERENCES Photo(id) ON DELETE CASCADE
 );
 
-/* Links Items to Comments they 'have' */ 
- CREATE TABLE Have
+CREATE TABLE ItemComment
 (
-	comment_id INT NOT NULL,
-	item_id INT NOT NULL, 
-	PRIMARY KEY (comment_id, item_id)
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    item_id INT NOT NULL,
+    comment_id INT NOT NULL,
+    FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
+    FOREIGN KEY (comment_id) REFERENCES Photo(id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE ItemCustomer
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    item_id INT NOT NULL,
+    customer_id INT NOT NULL,
+    FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
+    FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
+);
