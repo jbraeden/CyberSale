@@ -26,45 +26,36 @@
 
                 <h:panelGrid columns="3" cellpadding="5">
                     <p:outputLabel for="itemName" value="Item Name" />
-                    <h:inputText id="itemName" value="#{.itemName}" 
+                    <h:inputText id="itemName" value="#{ItemManager.name}" 
                                  required="true" label="Item Name">
                         <f:validateLength minimum="2" />
                     </h:inputText>
                     <p:message for="itemName" display="icon" />
                     
                     <p:outputLabel for="itemDescription" value="Listing Description/Item Details" />
-                    <h:inputText id="itemDescription" value="#{.itemDescription}" 
-                                 required="false" label="Listing Description/Item Details"">
+                    <h:inputText id="itemDescription" value="#{ItemManager.description}" 
+                                 required="false" label="Listing Description/Item Details">
                     </h:inputText>
                     <p:message for="itemDescription" display="icon" />                    
 
                     <p:outputLabel for="pIType" value="Product Identifier Type" />
-                    <h:selectOneMenu id="pIType" value="#{.pIType}" required="false">
-                        <f:selectItems value="#{.pIType}"/>
+                    <h:selectOneMenu id="pIType" value="#{ItemManager.productCodeTypes}" required="false">
+                        <f:selectItems value="#{ItemManager.productCodeTypes}"/>
                     </h:selectOneMenu>
                     <p:message for="pIType" display="icon" />
                     
                     <p:outputLabel for="productIdentifier" value="Product Identifier" />
-                    <h:inputText id="lastName" value="#{.productIdentifier}" 
+                    <h:inputText id="productIdentifier" value="#{ItemManager.productCodeValue}" 
                                  required="false" label="Product Identifier">
                     </h:inputText>
                     <p:message for="productIdentifier" display="icon" />                   
                     
-                                        
-                  
                     <p:outputLabel for="listingPrice" value="Listing Price" />
-                    <h:inputText id="listingPrice" value="#{.listingPrice}" 
+                    <h:inputText id="listingPrice" value="#{ItemManager.cost}" 
                                  required="true" label="city">
                         <f:validateLength minimum="4" />
                     </h:inputText>
                     <p:message for="listingPrice" display="icon" />                    
-                    
-                    <p:outputLabel for="zipcode" value="Zip Code" />
-                    <h:inputText id="zipcode" value="#{.zipcode}" 
-                                 required="true" label="Zip Code">
-                        <f:validateLength minimum="5" maximum="5"/>
-                    </h:inputText>
-                    <p:message for="zipcode" display="icon" />    
                     
                     <h:form class="form-horizontal" enctype="multipart/form-data">
                         <p:growl id="messages" showDetail="true" redisplay="false"/>
@@ -85,7 +76,7 @@
             <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
             <br/>
             <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                             action="#{.createItem()}" value="Submit" />   
+                             action="#{ItemManager.create()}" value="Submit" />   
             <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" />
             </h:form>
         </div>
