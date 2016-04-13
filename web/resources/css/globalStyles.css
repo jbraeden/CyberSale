@@ -45,6 +45,11 @@
     width: 150px;
 }
 
+.headerButtonsGrid {
+    margin-left: 15px;
+    text-align: center;
+}
+
 .headerButton {
     font-size: 15px;
 }
