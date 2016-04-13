@@ -43,7 +43,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost"),
     @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate"),
     @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold"),
-    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits")})
+    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits"),
+    @NamedQuery(name = "Item.findItemsByName", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern"),
+    @NamedQuery(name = "Item.findItemsByCost", query = "SELECT i FROM Item i WHERE i.cost >= :costMin AND i.cost <= :costMax"),
+    @NamedQuery(name = "Item.findItemsByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits ORDER BY i.hits")}
+)
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
