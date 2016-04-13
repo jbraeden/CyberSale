@@ -5,11 +5,13 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Item;
+import com.CyberSale.entitypackage.Photo;
 import com.CyberSale.jsfclassespackage.util.ItemCategory;
 import com.CyberSale.jsfclassespackage.util.ProductCodeType;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -21,8 +23,7 @@ import javax.inject.Named;
  */
 @Named(value = "itemManager")
 @SessionScoped
-public class ItemManager implements Serializable
-{
+public class ItemManager implements Serializable {
     private String name;
     private String productCodeValue;
     private ProductCodeType[] productCodeTypes;
@@ -32,6 +33,8 @@ public class ItemManager implements Serializable
     private Date postedDate;
     private boolean sold;
     private int hits;
+    
+    private Photo[] photos;
     
     @EJB
     private ItemFacade itemFacade;
@@ -113,6 +116,16 @@ public class ItemManager implements Serializable
     public void setHits(int hits) {
         this.hits = hits;
     }
+
+    public Photo[] getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(Photo[] photos) {
+        this.photos = photos;
+    }
+    
+    
     
     private ItemFacade getFacade() {
         return itemFacade;
@@ -163,6 +176,64 @@ public class ItemManager implements Serializable
         
     }
     
+    /*
+        Additional Item Table queries
+    */
+    
+    public Item getItemById(Integer id) {
+        Item item = null;
+        try {
+            item = getFacade().findItemById(id);
+            return item;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+    
+    public Item getItemByName(String name) {
+        Item item = null;
+        try {
+            item = getFacade().findItemByName(name);
+            return item;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+    
+    public List<Item> getItemsByName(String name) {
+        List<Item> items = null;
+        try {
+            items = getFacade().findItemsByName(name);
+            return items;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+    
+    public List<Item> getItemsByCost(double costMin, double costMax) {
+        List<Item> items = null;
+        try {
+            items = getFacade().findItemsByCost(costMin, costMax);
+            return items;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
+    
+    public List<Item> getItemsByHits(int hits) {
+        List<Item> items = null;
+        try {
+            items = getFacade().findItemsByHits(hits);
+            return items;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return items;
+    }
     
             
 }
