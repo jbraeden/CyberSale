@@ -9,7 +9,6 @@
     <h:head>
         <title>Cyber Sale</title>
         <h:outputStylesheet library="css" name="globalStyles.css"/>
- 
     </h:head>
     <h:body>
         <!-- Header -->
@@ -24,36 +23,84 @@
             </p:galleria>
             
             <h:form id="form">
-                <p:carousel value="#{carouselView.items}" headerText="Recently Posted" var="item" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
-                    <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                <p:carousel value="#{carouselView.items}" headerText="Recently Posted" var="item" itemStyle="text-align:center">
+                    <p:panelGrid columns="2" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                         <f:facet name="header">
                             <p:graphicImage name="/images/items/#{item.image}.jpg"/> 
                         </f:facet>
                         
+                        <h:outputText value="Name" />
                         <h:outputText value="#{item.name}" />
 
+                        <h:outputText value="Price" />
                         <h:outputText value="#{item.price}" />
 
+                        <h:outputText value="Descriptoin" />
                         <h:outputText value="#{item.description}"/>
                         
                         <f:facet name="footer">
-                            <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" icon="ui-icon-search">
+                            <p:commandButton style="width: 100% !important;margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                
                             </p:commandButton>
                         </f:facet>
                         
                     </p:panelGrid>
 
                 </p:carousel>
-                
-                <br/>
-                <br/>
+                <br/><br/>
+                <p:carousel value="#{carouselView.items}" headerText="Most Popular" var="item" itemStyle="text-align:center">
+                    <p:panelGrid columns="2" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <f:facet name="header">
+                            <p:graphicImage name="/images/items/#{item.image}.jpg"/> 
+                        </f:facet>
+                        
+                        <h:outputText value="Name" />
+                        <h:outputText value="#{item.name}" />
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="#{item.price}" />
+
+                        <h:outputText value="Descriptoin" />
+                        <h:outputText value="#{item.description}"/>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton style="width: 100% !important;margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                
+                            </p:commandButton>
+                        </f:facet>
+                        
+                    </p:panelGrid>
+
+                </p:carousel>
+                <br/><br/>
+                <p:carousel value="#{carouselView.items}" headerText="Best Deals" var="item" itemStyle="text-align:center">
+                    <p:panelGrid columns="2" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <f:facet name="header">
+                            <p:graphicImage name="/images/items/#{item.image}.jpg"/> 
+                        </f:facet>
+                        
+                        <h:outputText value="Name" />
+                        <h:outputText value="#{item.name}" />
+
+                        <h:outputText value="Price" />
+                        <h:outputText value="#{item.price}" />
+
+                        <h:outputText value="Descriptoin" />
+                        <h:outputText value="#{item.description}"/>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton style="width: 100% !important;margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                
+                            </p:commandButton>
+                        </f:facet>
+                        
+                    </p:panelGrid>
+
+                </p:carousel>
+                </h:form>
             
-                <p:commandButton styleClass="myButton" value="Post Item" action="AddItem"/>
-                
-            </h:form>
-              
-            
-            
+            <br/>
+            <br/>
             
             <a href="#" class="myButton">Post New Item</a>
             

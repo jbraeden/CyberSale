@@ -48,20 +48,8 @@
 
 /*Carousel Specific CSS*/
 
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-content.ui-widget-content, 
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header.ui-widget-header,
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer.ui-widget-header,
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header > tr.ui-widget-header, 
-.ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content,
-.ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content > td.ui-panelgrid-cell,
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer > tr.ui-widget-footer {
-    background: none !important;
-    border: 0 none !important;
-}
-
-
 .ui-widget-header img{
-    width: 400px;
+    width: auto;
     height: 300px;
 }
 
@@ -70,16 +58,11 @@
     border: none;
 }
 
-.ui-carousel-header {
-    background-color: #44c767;
-
-    border:3px solid #18ab29;
-
-    color:black;
-    font-family:Verdana;
-    font-size:17px;
-      
+.ui-panelgrid-blank {
+   padding-bottom: 20px; 
+   bottom: 20px;
 }
+
 
 .ui-carousel-viewport{
     width: auto !important;
