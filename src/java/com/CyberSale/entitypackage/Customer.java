@@ -1,12 +1,13 @@
 /*
- * Created by Joseph Sebastian on 2016.04.03  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,21 +27,20 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Braeden
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "Customer")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"),
-    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
-    @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName"),
-    @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName"),
-    @NamedQuery(name = "Users.findByZipcode", query = "SELECT u FROM Users u WHERE u.zipcode = :zipcode"),
-    @NamedQuery(name = "Users.findBySecurityQuestion", query = "SELECT u FROM Users u WHERE u.securityQuestion = :securityQuestion"),
-    @NamedQuery(name = "Users.findBySecurityAnswer", query = "SELECT u FROM Users u WHERE u.securityAnswer = :securityAnswer"),
-    @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
-    @NamedQuery(name = "Users.findByRating", query = "SELECT u FROM Users u WHERE u.rating = :rating")})
-public class Users implements Serializable {
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c"),
+    @NamedQuery(name = "Customer.findById", query = "SELECT c FROM Customer c WHERE c.id = :id"),
+    @NamedQuery(name = "Customer.findByUsername", query = "SELECT c FROM Customer c WHERE c.username = :username"),
+    @NamedQuery(name = "Customer.findByPassword", query = "SELECT c FROM Customer c WHERE c.password = :password"),
+    @NamedQuery(name = "Customer.findByFirstName", query = "SELECT c FROM Customer c WHERE c.firstName = :firstName"),
+    @NamedQuery(name = "Customer.findByLastName", query = "SELECT c FROM Customer c WHERE c.lastName = :lastName"),
+    @NamedQuery(name = "Customer.findByZipcode", query = "SELECT c FROM Customer c WHERE c.zipcode = :zipcode"),
+    @NamedQuery(name = "Customer.findBySecurityQuestion", query = "SELECT c FROM Customer c WHERE c.securityQuestion = :securityQuestion"),
+    @NamedQuery(name = "Customer.findBySecurityAnswer", query = "SELECT c FROM Customer c WHERE c.securityAnswer = :securityAnswer"),
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -87,19 +87,17 @@ public class Users implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "email")
     private String email;
-    @Column(name = "rating")
-    private Integer rating;
-    @OneToMany(mappedBy = "userId")
-    private Collection<UserPhoto> userPhotoCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
+    private Collection<ItemCustomer> itemCustomerCollection;
 
-    public Users() {
+    public Customer() {
     }
 
-    public Users(Integer id) {
+    public Customer(Integer id) {
         this.id = id;
     }
 
-    public Users(Integer id, String username, String password, String firstName, String lastName, int zipcode, int securityQuestion, String securityAnswer, String email) {
+    public Customer(Integer id, String username, String password, String firstName, String lastName, int zipcode, int securityQuestion, String securityAnswer, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -183,21 +181,13 @@ public class Users implements Serializable {
         this.email = email;
     }
 
-    public Integer getRating() {
-        return rating;
-    }
-
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
-
     @XmlTransient
-    public Collection<UserPhoto> getUserPhotoCollection() {
-        return userPhotoCollection;
+    public Collection<ItemCustomer> getItemCustomerCollection() {
+        return itemCustomerCollection;
     }
 
-    public void setUserPhotoCollection(Collection<UserPhoto> userPhotoCollection) {
-        this.userPhotoCollection = userPhotoCollection;
+    public void setItemCustomerCollection(Collection<ItemCustomer> itemCustomerCollection) {
+        this.itemCustomerCollection = itemCustomerCollection;
     }
 
     @Override
@@ -210,10 +200,10 @@ public class Users implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Users)) {
+        if (!(object instanceof Customer)) {
             return false;
         }
-        Users other = (Users) object;
+        Customer other = (Customer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -222,7 +212,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.Users[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.Customer[ id=" + id + " ]";
     }
     
 }

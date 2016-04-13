@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.03  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -25,13 +23,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Braeden
  */
 @Entity
-@Table(name = "UserPhoto")
+@Table(name = "ItemComment")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserPhoto.findAll", query = "SELECT u FROM UserPhoto u"),
-    @NamedQuery(name = "UserPhoto.findById", query = "SELECT u FROM UserPhoto u WHERE u.id = :id"),
-    @NamedQuery(name = "UserPhoto.findByExtension", query = "SELECT u FROM UserPhoto u WHERE u.extension = :extension")})
-public class UserPhoto implements Serializable {
+    @NamedQuery(name = "ItemComment.findAll", query = "SELECT i FROM ItemComment i"),
+    @NamedQuery(name = "ItemComment.findById", query = "SELECT i FROM ItemComment i WHERE i.id = :id")})
+public class ItemComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,25 +36,18 @@ public class UserPhoto implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "extension")
-    private String extension;
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne
-    private Users userId;
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Item itemId;
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Photo commentId;
 
-    public UserPhoto() {
+    public ItemComment() {
     }
 
-    public UserPhoto(Integer id) {
+    public ItemComment(Integer id) {
         this.id = id;
-    }
-
-    public UserPhoto(Integer id, String extension) {
-        this.id = id;
-        this.extension = extension;
     }
 
     public Integer getId() {
@@ -68,20 +58,20 @@ public class UserPhoto implements Serializable {
         this.id = id;
     }
 
-    public String getExtension() {
-        return extension;
+    public Item getItemId() {
+        return itemId;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setItemId(Item itemId) {
+        this.itemId = itemId;
     }
 
-    public Users getUserId() {
-        return userId;
+    public Photo getCommentId() {
+        return commentId;
     }
 
-    public void setUserId(Users userId) {
-        this.userId = userId;
+    public void setCommentId(Photo commentId) {
+        this.commentId = commentId;
     }
 
     @Override
@@ -94,10 +84,10 @@ public class UserPhoto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserPhoto)) {
+        if (!(object instanceof ItemComment)) {
             return false;
         }
-        UserPhoto other = (UserPhoto) object;
+        ItemComment other = (ItemComment) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -106,7 +96,7 @@ public class UserPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.UserPhoto[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.ItemComment[ id=" + id + " ]";
     }
     
 }

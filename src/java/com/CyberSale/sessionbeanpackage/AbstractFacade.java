@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.04  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.sessionbeanpackage;
 

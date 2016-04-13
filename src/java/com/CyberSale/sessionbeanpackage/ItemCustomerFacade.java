@@ -1,10 +1,10 @@
 /*
- * Created by Joseph Sebastian on 2016.04.04  * 
- * Copyright © 2016 Joseph Sebastian. All rights reserved. * 
+ * Created by Joseph Sebastian on 2016.04.12  * 
+ * Copyright © 2016 Osman Balci. All rights reserved. * 
  */
 package com.CyberSale.sessionbeanpackage;
 
-import com.CyberSale.entitypackage.UserPhoto;
+import com.CyberSale.entitypackage.ItemCustomer;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  * @author Braeden
  */
 @Stateless
-public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
+public class ItemCustomerFacade extends AbstractFacade<ItemCustomer> {
 
     @PersistenceContext(unitName = "CyberSalePU")
     private EntityManager em;
@@ -24,8 +24,8 @@ public class UserPhotoFacade extends AbstractFacade<UserPhoto> {
         return em;
     }
 
-    public UserPhotoFacade() {
-        super(UserPhoto.class);
+    public ItemCustomerFacade() {
+        super(ItemCustomer.class);
     }
     
 }
