@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Ryan Asper on 2016.04.12 
+Copyright © 2016 Ryan Asper. All rights reserved.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+        
+    <h:form>
+        <h:panelGrid columns="8" >
+            <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
+                            value="#{resource['images/Logo.png']}" />
+
+            <p:splitButton value="All" class="headerDropDown">
+                <p:menuitem value="Shawn" />
+                <p:menuitem value="Joe" />
+                <p:menuitem value="Pat" />
+                <p:menuitem value="Braeden" />
+                <p:separator />
+                <p:menuitem value="Homepage" url="index.xhtml" />
+            </p:splitButton>
+            
+            
+            <p:inputText class="headerSearchBox" value="Search . . . "  />
+            
+            
+            <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                            value="#{resource['images/icons/username_icon.png']}" />
+
+            <p:inputText class="headerField" />
+            
+            
+            <p:graphicImage class="headerIcon" alt="Password Field Icon"
+                            value="#{resource['images/icons/password_icon.png']}" />
+
+            <p:inputText class="headerField" />
+            
+            <h:panelGrid columns="1" style="text-align: center;">
+                <h:panelGrid columns="2">
+                    <p:commandButton class="headerButton" value="Login" />
+                    
+                    <p:commandButton class="headerButton" value="Register" />
+                </h:panelGrid>
+                
+                <p:commandLink value="Forgot Password" />
+            </h:panelGrid>
+            
+        </h:panelGrid>
+    </h:form>
+</html>

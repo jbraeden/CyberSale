@@ -1,7 +1,7 @@
 .header {
     top: 0px;
     left: 0px;
-    height: 80px;
+    height: auto;
     width: 100%;
     color: #ccffcc;
     background-color: #00ccff;
@@ -10,13 +10,75 @@
 .footer {
     bottom: 0px;
     left: 0px;
-    height: 80px;
+    height: auto;
     width: 100%;
     background-color: #00ccff;
 }
 
 .body {
     
+}
+
+/* Template Specific CSS */
+
+.headerLogo {
+    margin-left: 10px;
+    margin-top: 5px;
+    max-height: 70px;
+}
+
+.headerDropDown {
+    margin-left: 50px;
+    font-size: 15px;
+}
+
+.headerSearchBox {
+    width: 400px;
+}
+
+.headerIcon {
+    margin-left: 10px;
+    max-height: 30px;
+}
+
+.headerField {
+    width: 150px;
+}
+
+.headerButton {
+    font-size: 15px;
+}
+
+.footerLeftColumn {
+    width: auto;
+}
+
+.footerMiddleColumn {
+    width: 100%;
+}
+
+.footerRightColumn {
+    width: auto;
+}
+
+.footerText {
+    font-size: 30px;
+}
+
+.footerMediumText {
+    font-size: 20px;
+}
+
+.footerSmallText {
+    font-size: 15px;
+}
+
+.footerLogo {
+    max-height: 70px;
+}
+
+.footerIcon {
+    max-height: 30px;
 }
 
 /*Galleria Specific CSS*/
