@@ -1,3 +1,7 @@
+html {
+   background: #ddf4fc !important;
+}
+
 .header {
     top: 0px;
     left: 0px;
@@ -16,7 +20,7 @@
 }
 
 .body {
-    
+    padding: 20px;
 }
 
 /* Template Specific CSS */
@@ -94,6 +98,27 @@
     width: 100% !important;
     margin: auto !important;
     border: none;
+    
+    
+    background: #ddf4fc !important;
+}
+
+.fullWidthClass img {
+    
+    /*border: 2px solid black;*/
+    
+    max-height: 100%;  
+    max-width: 100%; 
+    width: auto;
+    height: auto;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;
+    
+    
 }
 
 .ui-galleria-caption, .ui-galleria-filmstrip-wrapper, .ui-galleria-nav-prev, .ui-galleria-nav-next {    
@@ -126,45 +151,86 @@
     border: 0 none !important;
 }
 
+.ui-widget-header {
+    
+    border: none;
+    background: transparent;
+    
+
+}
 
 .ui-widget-header img{
     width: 400px;
     height: 300px;
+    /*border: 2px solid black;*/
+    
+    
 }
 
 .ui-carousel {
     width: 100% !important;
+}
+
+.ui-carousel-item {
+    background: white !important;
     border: none;
 }
 
-.ui-carousel-header {
-    background-color: #44c767;
+.ui-carousel-header  {
+    
+    background: #44c767 -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0)));
 
-    border:3px solid #18ab29;
+    /*border:3px solid #008fb3;*/
+    
+    color: white;
+    
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
-    color:black;
-    font-family:Verdana;
-    font-size:17px;
-      
+.ui-carousel .ui-carousel-header .ui-carousel-header-title {
+    padding: 0px !important;
 }
 
 .ui-carousel-viewport{
     width: auto !important;
+        
+    border: 2px solid black;
 }
 
 .ui-widget-content {
     padding-left: 10px;
     padding-right: 10px;
+    
+    background: #44c767;
 }
+
+.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
+    background: #00ccff -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,0)), to(rgba(255,255,255,0)));
+    -moz-border-radius:42px;
+    -webkit-border-radius:42px;
+   
+    border: 3px solid #008fb3;
+
+        font-family:Verdana;
+    font-weight: normal;
+    
+    text-shadow:0px 0px 0px #2f6627;
+    color: white;
+}
+
 
 /*Pretty Post Item Button Specific CSS*/
 
 .myButton {
-	background-color:#44c767;
+	/*background-color:#44c767;*/
+        background-color: #00ccff;
 	-moz-border-radius:42px;
 	-webkit-border-radius:42px;
 	border-radius:42px;
-	border:3px solid #18ab29;
+	/*border:3px solid #18ab29;*/
+        border: 3px solid #008fb3;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -182,7 +248,8 @@
 }
 
 .myButton:hover {
-	background-color:#5cbf2a;
+	/*background-color:#00ccaa;*/
+        background-color: #00b8e6;
 }
 
 .myButton:active {

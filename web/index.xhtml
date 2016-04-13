@@ -17,45 +17,105 @@
             <!-- Body -->
             <ui:define name="content">
                 <div class="body">
-                    <p:galleria styleClass="fullWidthClass" value="#{imagesView.images}" panelHeight="350" var="img" showCaption="true">
-                        <p:graphicImage name="/images/#{img}" width="1000" height="300"/>
-                    </p:galleria>
+    
+                <p:galleria styleClass="fullWidthClass" value="#{imagesView.images}" var="img" showCaption="false">
+                    <p:graphicImage name="/images/#{img}"/>
+                </p:galleria>
 
-                    <h:form id="form">
-                        <p:carousel value="#{carouselView.items}" headerText="Recently Posted" var="item" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
-                            <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-                                <f:facet name="header">
-                                    <p:graphicImage name="/images/items/#{item.image}.jpg"/> 
-                                </f:facet>
-
-                                <h:outputText value="#{item.name}" />
-
-                                <h:outputText value="#{item.price}" />
-
-                                <h:outputText value="#{item.description}"/>
-
-                                <f:facet name="footer">
-                                    <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" icon="ui-icon-search">
-                                    </p:commandButton>
-                                </f:facet>
-
-                            </p:panelGrid>
-
-                        </p:carousel>
-
-                        <br/>
-                        <br/>
-
-                        <p:commandButton styleClass="myButton" value="Post Item" action="AddItem"/>
-
-                    </h:form>
-                    
-
-                    <a href="#" class="myButton">Post New Item</a>
+                <h:form id="form">
 
                     <br/>
                     <br/>
-                </div>
+
+
+                    <p:carousel value="#{carouselView.recent}" headerText="Recently Posted" var="recent" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
+                            </f:facet>
+
+                            <h:outputText value="#{recent.name}" />
+
+                            <h:outputText value="#{recent.price}" />
+
+                            <!--<h:outputText value="#{recent.description}"/>-->
+
+                            <f:facet name="footer">
+                                <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </p:carousel>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <p:carousel value="#{carouselView.popular}" headerText="Most Popular" var="popular" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:graphicImage name="/images/items/#{popular.image}.jpg"/> 
+                            </f:facet>
+
+                            <h:outputText value="#{popular.name}" />
+
+                            <h:outputText value="#{popular.price}" />
+
+                            <!--<h:outputText value="#{popular.description}"/>-->
+
+                            <f:facet name="footer">
+                                <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </p:carousel>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <p:carousel value="#{carouselView.deals}" headerText="Best Deals" var="deal" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:graphicImage name="/images/items/#{deal.image}.jpg"/> 
+                            </f:facet>
+
+                            <h:outputText value="#{deal.name}" />
+
+                            <h:outputText value="#{deal.price}" />
+
+                            <!--<h:outputText value="#{deal.description}"/>-->
+
+                            <f:facet name="footer">
+                                <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" icon="ui-icon-search">
+                                </p:commandButton>
+                            </f:facet>
+
+                        </p:panelGrid>
+
+                    </p:carousel>
+
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <!--<p:commandButton styleClass="myButton" value="Post Item" action="AddItem"/>-->
+
+                </h:form>
+
+                <a href="#" class="myButton">Post New Item</a>
+
+                <br/>
+                <br/>
+
+            </div>
             </ui:define>
         
         </ui:composition>
