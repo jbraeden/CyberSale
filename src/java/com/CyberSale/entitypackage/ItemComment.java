@@ -27,7 +27,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemComment.findAll", query = "SELECT i FROM ItemComment i"),
-    @NamedQuery(name = "ItemComment.findById", query = "SELECT i FROM ItemComment i WHERE i.id = :id")})
+    @NamedQuery(name = "ItemComment.findById", query = "SELECT i FROM ItemComment i WHERE i.id = :id"),
+    @NamedQuery(name = "ItemComment.findItemCommentByItem", query = "SELECT i FROM ItemComment i WHERE i.itemId = :itemId"),
+    @NamedQuery(name = "ItemComment.findItemCommentByComment", query = "SELECT i FROM ItemComment i WHERE i.commentId = :commentId")
+})
 public class ItemComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +44,7 @@ public class ItemComment implements Serializable {
     private Item itemId;
     @JoinColumn(name = "comment_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Photo commentId;
+    private Comment commentId;
 
     public ItemComment() {
     }
@@ -66,11 +69,11 @@ public class ItemComment implements Serializable {
         this.itemId = itemId;
     }
 
-    public Photo getCommentId() {
+    public Comment getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Photo commentId) {
+    public void setCommentId(Comment commentId) {
         this.commentId = commentId;
     }
 

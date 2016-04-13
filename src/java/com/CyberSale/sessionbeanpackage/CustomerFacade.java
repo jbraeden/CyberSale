@@ -5,6 +5,7 @@
 package com.CyberSale.sessionbeanpackage;
 
 import com.CyberSale.entitypackage.Customer;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,5 +28,62 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     public CustomerFacade() {
         super(Customer.class);
     }
+    
+    /*
+        The following code is added to the generated code
+    */
+    
+    public Customer findCustomerById(Integer id) {
+        try {
+            if (em.createNamedQuery("findById", Customer.class)
+                    .setParameter("id", id)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("findById", Customer.class)
+                    .setParameter("id", id).getResultList().get(0);
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public Customer findCustomerByEmail(String email) {
+        try {
+            if (em.createNamedQuery("findByEmail", Customer.class)
+                    .setParameter("email", email)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("findByEmail", Customer.class)
+                    .setParameter("email", email).getResultList().get(0);
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Customer> findByCustomersZipcode(int zipcode) {
+        try {
+            if (em.createNamedQuery("findByZipcode", Customer.class)
+                    .setParameter("zipcode", zipcode)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("findByZipcode", Customer.class)
+                    .setParameter("zipcode", zipcode).getResultList();
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    
     
 }

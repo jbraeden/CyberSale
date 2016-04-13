@@ -28,4 +28,24 @@ public class PhotoFacade extends AbstractFacade<Photo> {
         super(Photo.class);
     }
     
+    /*
+        The following code is added to the generated code
+    */
+    public Photo findPhotoById(Integer id) {
+        try {
+            if (em.createNamedQuery("findById", Photo.class)
+                    .setParameter("id", id)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("findById", Photo.class)
+                    .setParameter("id", id).getResultList().get(0);
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
 }
