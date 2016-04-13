@@ -20,7 +20,9 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class CarouselView implements Serializable {
      
-    private List<TempItem> items;
+    private List<TempItem> recent;
+    private List<TempItem> popular;
+    private List<TempItem> deals;
     private TempItem selectedItem;
      
      
@@ -28,12 +30,24 @@ public class CarouselView implements Serializable {
     public void init() {
        
         
-        items = createItems(9);
+        recent = createItems(1);
+        
+        popular = createItems(2);
+        
+        deals = createItems(3);
         
     }
  
-    public List<TempItem> getItems() {
-        return items;
+    public List<TempItem> getRecent() {
+        return recent;
+    }
+    
+    public List<TempItem> getPopular() {
+        return popular;
+    }
+    
+    public List<TempItem> getDeals() {
+        return deals;
     }
 
  
@@ -46,18 +60,49 @@ public class CarouselView implements Serializable {
     }
     
      
-    public List<TempItem> createItems(int size) {
+    public List<TempItem> createItems(int id) {
         List<TempItem> list = new ArrayList<>();
         
-        list.add(new TempItem("Apple TV", "Description...", "appletv", getRandomPrice()));
-        list.add(new TempItem("Nike Bag", "Description...", "bag", getRandomPrice()));
-        list.add(new TempItem("Chevy Cruze 2015", "Description...", "car", getRandomPrice()));
-        list.add(new TempItem("Brown Couch", "Description...", "couch", getRandomPrice()));
-        list.add(new TempItem("Like-new Desk", "Description...", "desk", getRandomPrice()));
-        list.add(new TempItem("Burton Snowboard package", "Description...", "snowboard", getRandomPrice()));
-        list.add(new TempItem("Dinner Table", "Description...", "table", getRandomPrice()));
-        list.add(new TempItem("50\" LCD TV", "Description...", "tv", getRandomPrice()));
-        list.add(new TempItem("Xbox One w/ Controller", "Description...", "xbox", getRandomPrice()));
+        if(id == 1)
+        {
+            list.add(new TempItem("Mac Mini", "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core", "appletv", 200));
+            list.add(new TempItem("Nike Bag", "Brand New w/ Tag", "bag", 75));
+            list.add(new TempItem("Chevy Cruze 2015", "10k miles", "car", 18000));
+            list.add(new TempItem("Brown Couch", "small wear and tear", "couch", 100));
+            list.add(new TempItem("Computer Desk", "fits in most standard college dorms", "desk", 90));
+            list.add(new TempItem("Burton Snowboard package", "Bindings, Board, and bag all included", "snowboard", 120));
+            list.add(new TempItem("Dinner Table", "Table and four chairs", "table", 50));
+            list.add(new TempItem("50\" LCD TV", "Samsung. 3 HDMI ports. Wi-Fi", "tv", 499));
+            list.add(new TempItem("Xbox One w/ Controller", "Just the console and one controller", "xbox", 350));
+        
+        }
+        else if(id == 2)
+        {
+            list.add(new TempItem("Brown Couch", "small wear and tear", "couch", 100));
+            list.add(new TempItem("Computer Desk", "fits in most standard college dorms", "desk", 90));
+            list.add(new TempItem("Burton Snowboard package", "Bindings, Board, and bag all included", "snowboard", 120));
+            list.add(new TempItem("Dinner Table", "Table and four chairs", "table", 50));
+            list.add(new TempItem("50\" LCD TV", "Samsung. 3 HDMI ports. Wi-Fi", "tv", 499));
+            list.add(new TempItem("Xbox One w/ Controller", "Just the console and one controller", "xbox", 350));
+            list.add(new TempItem("Mac Mini", "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core", "appletv", 200));
+            list.add(new TempItem("Nike Bag", "Brand New w/ Tag", "bag", 75));
+            list.add(new TempItem("Chevy Cruze 2015", "10k miles", "car", 18000));
+            
+        }
+        else
+        {
+            list.add(new TempItem("Dinner Table", "Table and four chairs", "table", 50));
+            list.add(new TempItem("50\" LCD TV", "Samsung. 3 HDMI ports. Wi-Fi", "tv", 499));
+            list.add(new TempItem("Xbox One w/ Controller", "Just the console and one controller", "xbox", 350));
+            list.add(new TempItem("Mac Mini", "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core", "appletv", 200));
+            list.add(new TempItem("Nike Bag", "Brand New w/ Tag", "bag", 75));
+            list.add(new TempItem("Chevy Cruze 2015", "10k miles", "car", 18000)); 
+            list.add(new TempItem("Brown Couch", "small wear and tear", "couch", 100));
+            list.add(new TempItem("Computer Desk", "fits in most standard college dorms", "desk", 90));
+            list.add(new TempItem("Burton Snowboard package", "Bindings, Board, and bag all included", "snowboard", 120));
+            
+        }
+        
         
          
         return list;
