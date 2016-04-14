@@ -229,6 +229,15 @@ html {
     color: white;
 }
 
+/* Recover Pages CSS */
+.recover-form {
+    width: 650px;
+    margin: 0 auto;
+    margin-top: 150px;
+    margin-bottom: 100px;
+    border-width: 1px;
+    
+}
 
 /*Pretty Post Item Button Specific CSS*/
 
