@@ -8,10 +8,10 @@ Copyright © 2016 Ryan Asper. All rights reserved.
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
     
-    <h:panelGrid columns="3" 
-                 columnClasses="footerLeftColumn, footerMiddleColumn, footerRightColumn">
+    <!--<h:panelGrid columns="3" 
+                 columnClasses="footerLeftColumn, footerMiddleColumn, footerRightColumn">-->
         
-        <h:panelGrid columns="1">
+        <h:panelGrid columns="1" class="footerShare">
             <p:outputLabel class="footerText" 
                            value="Share Us!" />
 
@@ -29,6 +29,14 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                                 value="#{resource['images/icons/email_icon.png']}" />
             </h:panelGrid>
         </h:panelGrid>
+                
+        <h:panelGrid columns="1" class="footerContact">
+            <p:outputLabel class="footerText" 
+                           value="Contact Us!" />
+
+            <p:outputLabel class="footerMediumText" 
+                           value="info@cybersale.com" />
+        </h:panelGrid>
         
         <h:panelGrid columns="1" class="footerBanner">
             <p:graphicImage class="footerLogo" alt="Cyber Sale Logo"
@@ -37,15 +45,7 @@ Copyright © 2016 Ryan Asper. All rights reserved.
             <p:outputLabel class="footerSmallText" 
                            value="Copyright CYBER SALE 2016" />
         </h:panelGrid>
-                
-        <h:panelGrid columns="1">
-            <p:outputLabel class="footerText" 
-                           value="Contact Us!" />
-
-            <p:outputLabel class="footerMediumText" 
-                           value="info@cybersale.com" />
-        </h:panelGrid>
         
-    </h:panelGrid>
+    <!--</h:panelGrid>-->
     
 </html>

@@ -64,16 +64,22 @@ html {
     font-size: 15px;
 }
 
-.footerLeftColumn {
-    width: auto;
+.footerShare {
+    position: absolute;
+    left: 0px;
+    margin-top: 15px;
 }
 
-.footerMiddleColumn {
-    width: 100%;
+.footerBanner {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
-.footerRightColumn {
-    width: auto;
+.footerContact {
+    position: absolute;
+    right: 0px;
+    margin-top: 15px;
 }
 
 .footerText {
@@ -96,12 +102,6 @@ html {
     max-height: 30px;
 }
 
-.footerBanner {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-
 /*Galleria Specific CSS*/
 
 .fullWidthClass {
@@ -110,7 +110,7 @@ html {
     width: 100% !important;
     margin-left: auto;
     margin-right: auto;
-    border: none;    
+    border: none;
     
     background: #ddf4fc !important;
 }
@@ -236,10 +236,8 @@ html {
 .recover-form {
     width: 650px;
     margin: 0 auto;
-    margin-top: 150px;
     margin-bottom: 100px;
-    border-width: 1px;
-    
+    border-width: 1px;    
 }
 
 /*Pretty Post Item Button Specific CSS*/

@@ -10,16 +10,16 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         
     <h:form>
         <h:panelGrid columns="11" >
-            <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
-                            value="#{resource['images/Logo.png']}" />
+            <h:commandLink action="index">
+                <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
+                                value="#{resource['images/Logo.png']}" />
+            </h:commandLink>
 
             <p:splitButton value="All" class="headerDropDown">
                 <p:menuitem value="Shawn" />
                 <p:menuitem value="Joe" />
                 <p:menuitem value="Pat" />
                 <p:menuitem value="Braeden" />
-                <p:separator />
-                <p:menuitem value="Homepage" url="index.xhtml" />
             </p:splitButton>
             
             
