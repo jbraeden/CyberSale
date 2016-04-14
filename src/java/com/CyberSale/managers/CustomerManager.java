@@ -8,11 +8,14 @@ import com.CyberSale.entitypackage.Customer;
 import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerFacade;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
 
 /**
  *
@@ -22,6 +25,7 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class CustomerManager implements Serializable {
     
+    /* Customer Fields */
     private String username;
     private String password;
     private String firstName;
@@ -32,14 +36,78 @@ public class CustomerManager implements Serializable {
     private String securityQuestionAnswer;
     private String email;
 
+    /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerFacade customerFacade;
     
+    /* True when the Customer has logged in */
+    private boolean loggedIn;
     
     /**
-     * Creates a new instance of CustomerManager
+     * Creates a new instance of CustomerManager.
+     * 
+     * Initialize necessary variables.
      */
     public CustomerManager() {
+        loggedIn = false;
+        
+        // Initialize Customer fields
+        username = password = firstName = lastName = "";
+        securityQuestionAnswer = email = "";
+        zipcode = securityQuestionKey = 0;
+        securityQuestions = new HashMap<>();
+    }
+
+    /*
+        Public Methods
+    */
+    
+    public String loginCustomer() {
+        Customer customer = customerFacade.findCustomerByUsername(username);
+        
+        if (customer == null) {
+            addErrorMessage("Login Error", "Invalid username or password!");
+            return "";
+        } 
+        else {
+            if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                loggedIn = true;
+                initializeSessionMap(customer);
+                return "index?faces-redirect=true";
+            }
+
+            addErrorMessage("Login Error", "Invalid username or password!");
+            return "";
+        }
+    }
+    
+    public String logoutCustomer() {
+        // Reset Fields
+        loggedIn = false;
+        username = password = firstName = lastName = "";
+        securityQuestionAnswer = email = "";
+        zipcode = securityQuestionKey = 0;
+        securityQuestions = new HashMap<>();
+
+        // Clear SessionMap of Bean objects
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().clear();        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
+        return "index?faces-redirect=true";
+    }
+
+    
+
+    /*
+    Setters & Getters
+     */
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+    
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
     }
 
     public String getUsername() {
@@ -168,4 +236,33 @@ public class CustomerManager implements Serializable {
         Additional Customer Table Queries
     */
     
+    
+    /*
+        Private Methods
+    */
+    
+    /**
+     * 
+     * @param error 
+     */
+    private void addErrorMessage(String summary, String error) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, error));
+    }
+    
+    /**
+     * Initializes the Session variable for the customer bean.
+     * 
+     * @param customer The Customer object that has been initialized.
+     */
+    private void initializeSessionMap(Customer customer) {
+      FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("first_name", customer.getFirstName());
+      FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("last_name", customer.getLastName());
+      FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("username", username);
+      FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("user_id", customer.getId());
+    }
 }

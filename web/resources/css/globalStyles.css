@@ -56,13 +56,17 @@ html {
 }
 
 .headerButtonsGrid {
-    margin-left: 15px;
+    margin-left: 10px;
     text-align: center;
 }
 
 .headerButton {
     font-size: 15px;
+    position: absolute;
+    right: 5px;
+    margin-top: 22px;
 }
+
 
 .footerShare {
     position: absolute;

@@ -35,13 +35,13 @@ public class ItemFacade extends AbstractFacade<Item> {
     
     public Item findItemById(Integer id) {
         try {
-            if (em.createNamedQuery("findById", Item.class)
+            if (em.createNamedQuery("Item.findById", Item.class)
                     .setParameter("id", id)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findById", Item.class)
+                 return em.createNamedQuery("Item.findById", Item.class)
                     .setParameter("id", id).getResultList().get(0);
                             }
         } catch (Exception e) {
@@ -52,13 +52,13 @@ public class ItemFacade extends AbstractFacade<Item> {
     
     public Item findItemByName(String name) {
         try {
-            if (em.createNamedQuery("findByItemName", Item.class)
+            if (em.createNamedQuery("Item.findByItemName", Item.class)
                     .setParameter("itemName", name)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findByItemName", Item.class)
+                 return em.createNamedQuery("Item.findByItemName", Item.class)
                     .setParameter("itemName", name).getResultList().get(0);
                             }
         } catch (Exception e) {

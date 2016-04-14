@@ -7,8 +7,15 @@ Copyright © 2016 Ryan Asper. All rights reserved.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-        
+    
     <h:form>
+        <h:panelGroup rendered="#{customerManager.loggedIn == true}">
+            <div class="headerButton">
+                <p:commandButton value="Logout"
+                                 action="#{customerManager.logoutCustomer()}" />
+            </div>
+        </h:panelGroup>
+        
         <h:panelGrid columns="11" >
             <h:commandLink action="index">
                 <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
@@ -27,30 +34,45 @@ Copyright © 2016 Ryan Asper. All rights reserved.
             
             <p:watermark for="searchBox" value="Search ..." />
             
-            <p:graphicImage class="headerIcon" alt="Username Field Icon"
-                            value="#{resource['images/icons/username_icon.png']}" />
+            <h:panelGroup rendered="#{customerManager.loggedIn == false}">
+                <h:panelGrid columns="1">
+                    <h:panelGrid columns="6">
+                        <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                                        value="#{resource['images/icons/username_icon.png']}" />
 
-            <p:inputText id="usernameBox" class="headerField" />
-            
-            <p:watermark for="usernameBox" value="Username" />
-            
-            
-            <p:graphicImage class="headerIcon" alt="Password Field Icon"
-                            value="#{resource['images/icons/password_icon.png']}" />
+                        <p:inputText id="usernameBox" class="headerField"
+                                     value="#{customerManager.username}" />
 
-            <p:inputText id="passwordBox" class="headerField" />
-            
-            <p:watermark for="passwordBox" value="Password" />
-            
-            <h:panelGrid columns="1" class="headerButtonsGrid">
-                <h:panelGrid columns="2">
-                    <p:commandButton class="headerButton" value="Login" />
-                    
-                    <p:commandButton class="headerButton" value="Register" />
+                        <p:watermark for="usernameBox" value="Username" />
+
+
+                        <p:graphicImage class="headerIcon" alt="Password Field Icon"
+                                        value="#{resource['images/icons/password_icon.png']}" />
+
+                        <p:password id="passwordBox" class="headerField"
+                                    value="#{customerManager.password}"/>
+
+                        <p:watermark for="passwordBox" value="Password" />
+                    </h:panelGrid>
+
+                    <p:messages id="loginError" showDetail="true" />
                 </h:panelGrid>
-                
-                <p:link value="Forgot Password" outcome="RecoverEmail"/>
-            </h:panelGrid>
+            </h:panelGroup>
+                       
+            
+            <h:panelGroup rendered="#{customerManager.loggedIn == false}">
+                <h:panelGrid columns="1" class="headerButtonsGrid">
+                    <h:panelGrid columns="2">
+                        <p:commandButton class="headerButton" value="Login"
+                                         action="#{customerManager.loginCustomer()}"
+                                         update="loginError"/>
+
+                        <p:commandButton class="headerButton" value="Register" />
+                    </h:panelGrid>
+
+                    <p:link value="Forgot Password" outcome="RecoverEmail"/>
+                </h:panelGrid>
+            </h:panelGroup>
             
         </h:panelGrid>
     </h:form>

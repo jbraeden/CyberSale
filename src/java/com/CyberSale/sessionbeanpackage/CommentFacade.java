@@ -34,13 +34,13 @@ public class CommentFacade extends AbstractFacade<Comment> {
     
     public Comment findCommentById(Integer id) {
         try {
-            if (em.createNamedQuery("findById", Comment.class)
+            if (em.createNamedQuery("Comment.findById", Comment.class)
                     .setParameter("id", id)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findById", Comment.class)
+                 return em.createNamedQuery("Comment.findById", Comment.class)
                     .setParameter("id", id).getResultList().get(0);
                             }
         } catch (Exception e) {

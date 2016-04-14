@@ -33,15 +33,32 @@ public class CustomerFacade extends AbstractFacade<Customer> {
         The following code is added to the generated code
     */
     
+    public Customer findCustomerByUsername(String username) {
+        try {
+            if (em.createNamedQuery("Customer.findByUsername", Customer.class)
+                    .setParameter("username", username)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("Customer.findByUsername", Customer.class)
+                    .setParameter("username", username).getResultList().get(0);
+            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
     public Customer findCustomerById(Integer id) {
         try {
-            if (em.createNamedQuery("findById", Customer.class)
+            if (em.createNamedQuery("Customer.findById", Customer.class)
                     .setParameter("id", id)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findById", Customer.class)
+                 return em.createNamedQuery("Customer.findById", Customer.class)
                     .setParameter("id", id).getResultList().get(0);
                             }
         } catch (Exception e) {
@@ -52,13 +69,13 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     
     public Customer findCustomerByEmail(String email) {
         try {
-            if (em.createNamedQuery("findByEmail", Customer.class)
+            if (em.createNamedQuery("Customer.findByEmail", Customer.class)
                     .setParameter("email", email)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findByEmail", Customer.class)
+                 return em.createNamedQuery("Customer.findByEmail", Customer.class)
                     .setParameter("email", email).getResultList().get(0);
                             }
         } catch (Exception e) {
@@ -69,13 +86,13 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     
     public List<Customer> findByCustomersZipcode(int zipcode) {
         try {
-            if (em.createNamedQuery("findByZipcode", Customer.class)
+            if (em.createNamedQuery("Customer.findByZipcode", Customer.class)
                     .setParameter("zipcode", zipcode)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findByZipcode", Customer.class)
+                 return em.createNamedQuery("Customer.findByZipcode", Customer.class)
                     .setParameter("zipcode", zipcode).getResultList();
                             }
         } catch (Exception e) {
