@@ -28,4 +28,25 @@ public class CommentFacade extends AbstractFacade<Comment> {
         super(Comment.class);
     }
     
+    /*
+        The following methods are added to the generated code
+    */
+    
+    public Comment findCommentById(Integer id) {
+        try {
+            if (em.createNamedQuery("findById", Comment.class)
+                    .setParameter("id", id)
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("findById", Comment.class)
+                    .setParameter("id", id).getResultList().get(0);
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
 }

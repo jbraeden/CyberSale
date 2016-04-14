@@ -11,15 +11,22 @@ Copyright © 2016 Ryan Asper. All rights reserved.
       xmlns:f="http://java.sun.com/jsf/core">
     
     <h:head>
+        <!-- Pull in CSS Files -->
         <h:outputStylesheet library="css" name="globalStyles.css"/>
         
+        <!-- Enable Webpage Portability to Mobile Devices -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        
+        <!-- Pull in Javascript Libraries -->
+        <h:outputScript library="javascript" name="jquery.js"></h:outputScript>
+        <h:outputScript library="javascript" name="jquery.dimensions.js"></h:outputScript>
+        <h:outputScript library="javascript" name="floating-header.js"></h:outputScript>
     </h:head>
  
     <h:body style="margin: 0px;">
         <div class="page">
             <!-- Header Section -->
-            <div class="header">
+            <div id="floatHeader" class="header">
                 <ui:include src="/default_header.xhtml" />
                 
                 <ui:insert name="header">
