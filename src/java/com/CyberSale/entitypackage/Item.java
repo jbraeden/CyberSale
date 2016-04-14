@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "Item")
@@ -43,11 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost"),
     @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate"),
     @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold"),
-    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits"),
-    @NamedQuery(name = "Item.findItemsByName", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern"),
-    @NamedQuery(name = "Item.findItemsByCost", query = "SELECT i FROM Item i WHERE i.cost >= :costMin AND i.cost <= :costMax"),
-    @NamedQuery(name = "Item.findItemsByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits ORDER BY i.hits")}
-)
+    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits")})
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -246,7 +242,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.Item[ id=" + id + " ]";
+        return "com.mycompany.entity.Item[ id=" + id + " ]";
     }
     
 }

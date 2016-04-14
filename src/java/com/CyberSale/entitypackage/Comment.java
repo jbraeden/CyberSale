@@ -1,11 +1,13 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,14 +16,16 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "Comment")
@@ -43,6 +47,8 @@ public class Comment implements Serializable {
     @Size(min = 1, max = 65535)
     @Column(name = "description")
     private String description;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commentId")
+    private Collection<ItemComment> itemCommentCollection;
 
     public Comment() {
     }
@@ -72,6 +78,15 @@ public class Comment implements Serializable {
         this.description = description;
     }
 
+    @XmlTransient
+    public Collection<ItemComment> getItemCommentCollection() {
+        return itemCommentCollection;
+    }
+
+    public void setItemCommentCollection(Collection<ItemComment> itemCommentCollection) {
+        this.itemCommentCollection = itemCommentCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -94,7 +109,7 @@ public class Comment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.Comment[ id=" + id + " ]";
+        return "com.mycompany.entity.Comment[ id=" + id + " ]";
     }
     
 }

@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "Photo")
@@ -46,8 +46,6 @@ public class Photo implements Serializable {
     @Size(min = 1, max = 256)
     @Column(name = "file_path")
     private String filePath;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commentId")
-    private Collection<ItemComment> itemCommentCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "photoId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
@@ -77,15 +75,6 @@ public class Photo implements Serializable {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
-    }
-
-    @XmlTransient
-    public Collection<ItemComment> getItemCommentCollection() {
-        return itemCommentCollection;
-    }
-
-    public void setItemCommentCollection(Collection<ItemComment> itemCommentCollection) {
-        this.itemCommentCollection = itemCommentCollection;
     }
 
     @XmlTransient
@@ -119,7 +108,7 @@ public class Photo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.Photo[ id=" + id + " ]";
+        return "com.mycompany.entity.Photo[ id=" + id + " ]";
     }
     
 }

@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -20,18 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "ItemPhoto")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemPhoto.findAll", query = "SELECT i FROM ItemPhoto i"),
-    @NamedQuery(name = "ItemPhoto.findById", query = "SELECT i FROM ItemPhoto i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemPhoto.findItemPhotoByItem", query = "SELECT i FROM ItemPhoto i WHERE i.itemId = :itemId"),
-    @NamedQuery(name = "ItemPhoto.findItemPhotoByPhoto", query = "SELECT i FROM ItemPhoto i WHERE i.photoId = :photoId"),
-
-})
+    @NamedQuery(name = "ItemPhoto.findById", query = "SELECT i FROM ItemPhoto i WHERE i.id = :id")})
 public class ItemPhoto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -100,7 +96,7 @@ public class ItemPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.ItemPhoto[ id=" + id + " ]";
+        return "com.mycompany.entity.ItemPhoto[ id=" + id + " ]";
     }
     
 }

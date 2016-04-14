@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -20,17 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "ItemComment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemComment.findAll", query = "SELECT i FROM ItemComment i"),
-    @NamedQuery(name = "ItemComment.findById", query = "SELECT i FROM ItemComment i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemComment.findItemCommentByItem", query = "SELECT i FROM ItemComment i WHERE i.itemId = :itemId"),
-    @NamedQuery(name = "ItemComment.findItemCommentByComment", query = "SELECT i FROM ItemComment i WHERE i.commentId = :commentId")
-})
+    @NamedQuery(name = "ItemComment.findById", query = "SELECT i FROM ItemComment i WHERE i.id = :id")})
 public class ItemComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,7 +96,7 @@ public class ItemComment implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.ItemComment[ id=" + id + " ]";
+        return "com.mycompany.entity.ItemComment[ id=" + id + " ]";
     }
     
 }

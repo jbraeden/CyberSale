@@ -1,6 +1,6 @@
 /*
- * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Created by Patrick Abod on 2016.04.13  * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -20,17 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Braeden
+ * @author patrickabod
  */
 @Entity
 @Table(name = "ItemCustomer")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemCustomer.findAll", query = "SELECT i FROM ItemCustomer i"),
-    @NamedQuery(name = "ItemCustomer.findById", query = "SELECT i FROM ItemCustomer i WHERE i.id = :id"),
-    @NamedQuery(name = "ItemCustomer.findItemCustomerByCustomer", query = "SELECT i FROM ItemCustomer i WHERE i.customerId = :customerId"),
-    @NamedQuery(name = "ItemCustomer.findItemCustomerByItem", query = "SELECT i FROM ItemCustomer i WHERE i.itemId = :itemId"),
-})
+    @NamedQuery(name = "ItemCustomer.findById", query = "SELECT i FROM ItemCustomer i WHERE i.id = :id")})
 public class ItemCustomer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -99,7 +96,7 @@ public class ItemCustomer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.ItemCustomer[ id=" + id + " ]";
+        return "com.mycompany.entity.ItemCustomer[ id=" + id + " ]";
     }
     
 }

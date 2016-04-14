@@ -79,7 +79,7 @@ CREATE TABLE ItemComment
     item_id INT NOT NULL,
     comment_id INT NOT NULL,
     FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
-    FOREIGN KEY (comment_id) REFERENCES Photo(id) ON DELETE CASCADE
+    FOREIGN KEY (comment_id) REFERENCES Comment(id) ON DELETE CASCADE
 );
 
 
