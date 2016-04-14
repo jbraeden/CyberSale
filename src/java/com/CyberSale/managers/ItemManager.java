@@ -12,6 +12,7 @@ import com.CyberSale.sessionbeanpackage.ItemFacade;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -38,6 +39,14 @@ public class ItemManager implements Serializable {
     
     @EJB
     private ItemFacade itemFacade;
+    
+    @PostConstruct
+    public void init() {
+       
+        this.name = "Mac Mini";
+        this.cost = 200.00;
+        this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
+    }
 
     public String getName() {
         return name;

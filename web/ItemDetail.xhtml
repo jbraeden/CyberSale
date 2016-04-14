@@ -17,7 +17,7 @@
             <ui:define name="content">
                 <div class="body" >
                     <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
-                        <p:carousel value="#{carouselView.recent}" headerText="#{itemManager.name}" var="recent" style="width:400px; height: 385px;" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="1" pageLinks="9">
+                        <p:carousel value="#{carouselView.recent}" headerText="#{itemManager.name}" var="recent" style="width:400px; height: 385px;" itemStyle="height: 307px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="1" pageLinks="9">
                             <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                                 <f:facet name="header">
                                     <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
@@ -33,7 +33,7 @@
                                 <p:outputLabel for="description" value="Item Description:" />
                                 <h:outputLabel id="description" value="#{itemManager.description}" />
                                 <p:outputLabel for="price" value="Item Price" />
-                                <h:outputLabel id="price" value="#{itemManager.cost}" />
+                                <h:outputLabel id="price" value="$#{itemManager.cost}" />
                         </h:panelGrid>
                     </div>
                     
@@ -41,7 +41,7 @@
                     <br/>
                     
                     <div style="height: 100%;">
-                        <p:carousel value="#{carouselView.recent}" headerText="Related Items" var="recent" style="height: 485px;" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                        <p:carousel value="#{carouselView.recent}" headerText="Related Items" var="recent" style="height: 485px;" itemStyle="height: 407px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
                             <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                                 <f:facet name="header">
                                     <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
@@ -60,7 +60,8 @@
 
                         </p:carousel>
                     </div>
-                    
+                    <br/>
+                    <br/>
                     <div style="margin: 0 auto;" align="center">
                         <h:panelGrid columns="3" cellpadding="5">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" value="Compare Price" action="index"/>
