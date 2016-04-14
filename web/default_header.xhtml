@@ -9,7 +9,7 @@ Copyright © 2016 Ryan Asper. All rights reserved.
       xmlns:p="http://primefaces.org/ui">
         
     <h:form>
-        <h:panelGrid columns="8" >
+        <h:panelGrid columns="11" >
             <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
                             value="#{resource['images/Logo.png']}" />
 
@@ -23,19 +23,24 @@ Copyright © 2016 Ryan Asper. All rights reserved.
             </p:splitButton>
             
             
-            <p:inputText class="headerSearchBox" value="Search . . . "  />
+            <p:inputText id="searchBox" class="headerSearchBox" />
             
+            <p:watermark for="searchBox" value="Search ..." />
             
             <p:graphicImage class="headerIcon" alt="Username Field Icon"
                             value="#{resource['images/icons/username_icon.png']}" />
 
-            <p:inputText class="headerField" />
+            <p:inputText id="usernameBox" class="headerField" />
+            
+            <p:watermark for="usernameBox" value="Username" />
             
             
             <p:graphicImage class="headerIcon" alt="Password Field Icon"
                             value="#{resource['images/icons/password_icon.png']}" />
 
-            <p:inputText class="headerField" />
+            <p:inputText id="passwordBox" class="headerField" />
+            
+            <p:watermark for="passwordBox" value="Password" />
             
             <h:panelGrid columns="1" class="headerButtonsGrid">
                 <h:panelGrid columns="2">

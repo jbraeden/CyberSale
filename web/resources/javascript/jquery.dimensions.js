@@ -71,43 +71,51 @@ $.each( ['Left', 'Top'], function(i, name) {
 	};
 });
 
-$.fn.extend({
-	position: function() {
-		var left = 0, top = 0, elem = this[0], offset, parentOffset, offsetParent, results;
-		
-		if (elem) {
-			// Get *real* offsetParent
-			offsetParent = this.offsetParent();
-			
-			// Get correct offsets
-			offset       = this.offset();
-			parentOffset = offsetParent.offset();
-			
-			// Subtract element margins
-			offset.top  -= num(elem, 'marginTop');
-			offset.left -= num(elem, 'marginLeft');
-			
-			// Add offsetParent borders
-			parentOffset.top  += num(offsetParent, 'borderTopWidth');
-			parentOffset.left += num(offsetParent, 'borderLeftWidth');
-			
-			// Subtract the two offsets
-			results = {
-				top:  offset.top  - parentOffset.top,
-				left: offset.left - parentOffset.left
-			};
-		}
-		
-		return results;
-	},
-	
-	offsetParent: function() {
-		var offsetParent = this[0].offsetParent;
-		while ( offsetParent && (!/^body|html$/i.test(offsetParent.tagName) && $.css(offsetParent, 'position') == 'static') )
-			offsetParent = offsetParent.offsetParent;
-		return $(offsetParent);
-	}
-});
+/* Commented Out Code.
+ * 
+ * Was throwing error when trying to expand dropdown menu.
+ * 
+ * -Ryan Asper
+ */
+
+//$.fn.extend({
+//	position: function() {
+//	
+//		var left = 0, top = 0, elem = this[0], offset, parentOffset, offsetParent, results;
+//		
+//		if (elem) {
+//			// Get *real* offsetParent
+//			offsetParent = this.offsetParent();
+//			
+//			// Get correct offsets
+//			offset       = this.offset();
+//			parentOffset = offsetParent.offset();
+//			
+//			// Subtract element margins
+//			offset.top  -= num(elem, 'marginTop');
+//			offset.left -= num(elem, 'marginLeft');
+//			
+//			// Add offsetParent borders
+//			parentOffset.top  += num(offsetParent, 'borderTopWidth');
+//			parentOffset.left += num(offsetParent, 'borderLeftWidth');
+//			
+//			// Subtract the two offsets
+//			results = {
+//				top:  offset.top  - parentOffset.top,
+//				left: offset.left - parentOffset.left
+//			};
+//		}
+//		
+//		return results;
+//	},
+//	
+//	offsetParent: function() {
+//		var offsetParent = this[0].offsetParent;
+//		while ( offsetParent && (!/^body|html$/i.test(offsetParent.tagName) && $.css(offsetParent, 'position') == 'static') )
+//			offsetParent = offsetParent.offsetParent;
+//		return $(offsetParent);
+//	}
+//});
 
 function num(el, prop) {
 	return parseInt($.css(el.jquery?el[0]:el,prop))||0;

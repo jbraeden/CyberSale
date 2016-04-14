@@ -27,6 +27,10 @@ html {
 
 /* Template Specific CSS */
 
+.content {    
+    margin-top: 100px;
+}
+
 .headerLogo {
     margin-left: 10px;
     margin-top: 5px;
@@ -39,7 +43,7 @@ html {
 }
 
 .headerSearchBox {
-    width: 400px;
+    width: 380px;
 }
 
 .headerIcon {
@@ -106,7 +110,6 @@ html {
     width: 100% !important;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
     border: none;    
     
     background: #ddf4fc !important;

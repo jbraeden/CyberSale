@@ -6,9 +6,7 @@ Copyright © 2016 Ryan Asper. All rights reserved.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:h="http://java.sun.com/jsf/html">
     
     <h:head>
         <!-- Pull in CSS Files -->
@@ -18,7 +16,8 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         
         <!-- Pull in Javascript Libraries -->
-        <h:outputScript library="javascript" name="jquery.js"></h:outputScript>
+        <!-- The jquery.js code is very buggy and crashes the website -->
+        <!-- <h:outputScript library="javascript" name="jquery.js"></h:outputScript> -->
         <h:outputScript library="javascript" name="jquery.dimensions.js"></h:outputScript>
         <h:outputScript library="javascript" name="floating-header.js"></h:outputScript>
     </h:head>
