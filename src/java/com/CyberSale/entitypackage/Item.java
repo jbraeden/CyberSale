@@ -1,5 +1,5 @@
 /*
- * Created by Patrick Abod on 2016.04.13  * 
+ * Created by Patrick Abod on 2016.04.19  * 
  * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost"),
     @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate"),
     @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold"),
-    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits")})
+    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits"),
+    @NamedQuery(name = "Item.findByZipcode", query = "SELECT i FROM Item i WHERE i.zipcode = :zipcode")})
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -89,10 +90,12 @@ public class Item implements Serializable {
     @NotNull
     @Column(name = "hits")
     private int hits;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "zipcode")
+    private int zipcode;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
-    private Collection<ItemComment> itemCommentCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
-    private Collection<ItemCustomer> itemCustomerCollection;
+    private Collection<CustomerItem> customerItemCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
@@ -103,7 +106,7 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public Item(Integer id, String itemName, float cost, String description, Date postedDate, boolean sold, int hits) {
+    public Item(Integer id, String itemName, float cost, String description, Date postedDate, boolean sold, int hits, int zipcode) {
         this.id = id;
         this.itemName = itemName;
         this.cost = cost;
@@ -111,6 +114,7 @@ public class Item implements Serializable {
         this.postedDate = postedDate;
         this.sold = sold;
         this.hits = hits;
+        this.zipcode = zipcode;
     }
 
     public Integer getId() {
@@ -193,22 +197,21 @@ public class Item implements Serializable {
         this.hits = hits;
     }
 
+    public int getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(int zipcode) {
+        this.zipcode = zipcode;
+    }
+
     @XmlTransient
-    public Collection<ItemComment> getItemCommentCollection() {
-        return itemCommentCollection;
+    public Collection<CustomerItem> getCustomerItemCollection() {
+        return customerItemCollection;
     }
 
-    public void setItemCommentCollection(Collection<ItemComment> itemCommentCollection) {
-        this.itemCommentCollection = itemCommentCollection;
-    }
-
-    @XmlTransient
-    public Collection<ItemCustomer> getItemCustomerCollection() {
-        return itemCustomerCollection;
-    }
-
-    public void setItemCustomerCollection(Collection<ItemCustomer> itemCustomerCollection) {
-        this.itemCustomerCollection = itemCustomerCollection;
+    public void setCustomerItemCollection(Collection<CustomerItem> customerItemCollection) {
+        this.customerItemCollection = customerItemCollection;
     }
 
     @XmlTransient
@@ -242,7 +245,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.entity.Item[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.Item[ id=" + id + " ]";
     }
     
 }

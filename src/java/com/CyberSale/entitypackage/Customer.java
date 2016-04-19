@@ -1,5 +1,5 @@
 /*
- * Created by Patrick Abod on 2016.04.13  * 
+ * Created by Patrick Abod on 2016.04.19  * 
  * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
@@ -39,7 +39,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Customer.findByZipcode", query = "SELECT c FROM Customer c WHERE c.zipcode = :zipcode"),
     @NamedQuery(name = "Customer.findBySecurityQuestion", query = "SELECT c FROM Customer c WHERE c.securityQuestion = :securityQuestion"),
     @NamedQuery(name = "Customer.findBySecurityAnswer", query = "SELECT c FROM Customer c WHERE c.securityAnswer = :securityAnswer"),
-    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+    @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email"),
+    @NamedQuery(name = "Customer.findByPhoneNumber", query = "SELECT c FROM Customer c WHERE c.phoneNumber = :phoneNumber")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -87,8 +88,11 @@ public class Customer implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "email")
     private String email;
+    @Size(max = 15)
+    @Column(name = "phone_number")
+    private String phoneNumber;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
-    private Collection<ItemCustomer> itemCustomerCollection;
+    private Collection<CustomerItem> customerItemCollection;
 
     public Customer() {
     }
@@ -181,13 +185,21 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    @XmlTransient
-    public Collection<ItemCustomer> getItemCustomerCollection() {
-        return itemCustomerCollection;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setItemCustomerCollection(Collection<ItemCustomer> itemCustomerCollection) {
-        this.itemCustomerCollection = itemCustomerCollection;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @XmlTransient
+    public Collection<CustomerItem> getCustomerItemCollection() {
+        return customerItemCollection;
+    }
+
+    public void setCustomerItemCollection(Collection<CustomerItem> customerItemCollection) {
+        this.customerItemCollection = customerItemCollection;
     }
 
     @Override
@@ -212,7 +224,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.entity.Customer[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.Customer[ id=" + id + " ]";
     }
     
 }

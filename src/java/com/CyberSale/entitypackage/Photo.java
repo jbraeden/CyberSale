@@ -1,5 +1,5 @@
 /*
- * Created by Patrick Abod on 2016.04.13  * 
+ * Created by Patrick Abod on 2016.04.19  * 
  * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
@@ -108,7 +108,7 @@ public class Photo implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mycompany.entity.Photo[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.Photo[ id=" + id + " ]";
     }
     
 }

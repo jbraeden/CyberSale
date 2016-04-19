@@ -23,12 +23,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author patrickabod
  */
 @Entity
-@Table(name = "ItemPhoto")
+@Table(name = "CustomerItem")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ItemPhoto.findAll", query = "SELECT i FROM ItemPhoto i"),
-    @NamedQuery(name = "ItemPhoto.findById", query = "SELECT i FROM ItemPhoto i WHERE i.id = :id")})
-public class ItemPhoto implements Serializable {
+    @NamedQuery(name = "CustomerItem.findAll", query = "SELECT c FROM CustomerItem c"),
+    @NamedQuery(name = "CustomerItem.findById", query = "SELECT c FROM CustomerItem c WHERE c.id = :id")})
+public class CustomerItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,14 +39,14 @@ public class ItemPhoto implements Serializable {
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Item itemId;
-    @JoinColumn(name = "photo_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Photo photoId;
+    private Customer customerId;
 
-    public ItemPhoto() {
+    public CustomerItem() {
     }
 
-    public ItemPhoto(Integer id) {
+    public CustomerItem(Integer id) {
         this.id = id;
     }
 
@@ -66,12 +66,12 @@ public class ItemPhoto implements Serializable {
         this.itemId = itemId;
     }
 
-    public Photo getPhotoId() {
-        return photoId;
+    public Customer getCustomerId() {
+        return customerId;
     }
 
-    public void setPhotoId(Photo photoId) {
-        this.photoId = photoId;
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
     }
 
     @Override
@@ -84,10 +84,10 @@ public class ItemPhoto implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ItemPhoto)) {
+        if (!(object instanceof CustomerItem)) {
             return false;
         }
-        ItemPhoto other = (ItemPhoto) object;
+        CustomerItem other = (CustomerItem) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -96,7 +96,7 @@ public class ItemPhoto implements Serializable {
 
     @Override
     public String toString() {
-        return "com.CyberSale.entitypackage.ItemPhoto[ id=" + id + " ]";
+        return "com.CyberSale.entitypackage.CustomerItem[ id=" + id + " ]";
     }
     
 }

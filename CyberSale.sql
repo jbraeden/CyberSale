@@ -8,19 +8,10 @@
  */
 
 DROP TABLE IF EXISTS ItemPhoto;
-DROP TABLE IF EXISTS ItemComment;
-DROP TABLE IF EXISTS ItemCustomer;
-DROP TABLE IF EXISTS Comment;
+DROP TABLE IF EXISTS CustomerItem;
 DROP TABLE IF EXISTS Photo;
 DROP TABLE IF EXISTS Item;
 DROP TABLE IF EXISTS Customer;
-
-CREATE TABLE Comment
-(
-    id INT NOT NULL AUTO_INCREMENT,
-    description TEXT (512) NOT NULL,
-    PRIMARY KEY(id)
-);
 
 CREATE TABLE Photo
 (
@@ -45,6 +36,7 @@ CREATE TABLE Item
 	posted_date DATETIME NOT NULL,
     sold BOOLEAN NOT NULL,
     hits INT NOT NULL,
+    zipcode INT NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -60,6 +52,7 @@ CREATE TABLE Customer
     security_question INT NOT NULL,
     security_answer VARCHAR (255) NOT NULL,
     email VARCHAR(64) NOT NULL,
+    phone_number VARCHAR(15),
     PRIMARY KEY(id)
 );
 CREATE TABLE ItemPhoto
@@ -72,18 +65,8 @@ CREATE TABLE ItemPhoto
     FOREIGN KEY (photo_id) REFERENCES Photo(id) ON DELETE CASCADE
 );
 
-CREATE TABLE ItemComment
-(
-    id INT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (id),
-    item_id INT NOT NULL,
-    comment_id INT NOT NULL,
-    FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
-    FOREIGN KEY (comment_id) REFERENCES Comment(id) ON DELETE CASCADE
-);
 
-
-CREATE TABLE ItemCustomer
+CREATE TABLE CustomerItem
 (
     id INT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (id),
