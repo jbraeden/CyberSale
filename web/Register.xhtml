@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cyber Sale</title>
+    </h:head>
+    
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            
+            <!-- Body -->
+            <ui:define name="content">
+                <div class="body">
+                    <h:form class="form-signin" enctype="multipart/form-data" styleClass="margin:0 auto;">
+                        <h2 align="center" class="form-signin-heading" style="margin:0 auto;">Register Account</h2>
+                        <br/>
+                        <p:panel id="panel" 
+                                 style="margin: 0 auto; width: 500px; border: 1px solid black">
+                        <p:messages id="msgs" />
+
+                        <h:panelGrid columns="3" cellpadding="5">
+                            <p:outputLabel for="firstName" value="First Name" />
+                            <h:inputText id="firstName" value="" 
+                                         required="true" label="First Name">
+                                <f:validateLength minimum="2" />
+                            </h:inputText>
+                            <p:message for="firstName" display="icon" />
+
+                            <p:outputLabel for="lastName" value="Last Name" />
+                            <h:inputText id="lastName" value="" 
+                                         required="true" label="Last Name">
+                            </h:inputText>
+                            <p:message for="lastName" display="icon" />   
+                            
+                            <p:outputLabel for="zipCode" value="Zip Code" />
+                            <h:inputText id="zipCode" value="" 
+                                         required="true" label="Zip Code">
+                                <f:validateLength minimum="5" maximum="5"/>
+                            </h:inputText>
+                            <p:message for="zipCode" display="icon" /> 
+                            
+                            <p:outputLabel for="email" value="Email" />
+                            <h:inputText id="email" value="" 
+                                         required="true" label="Email">
+                            </h:inputText>
+                            <p:message for="email" display="icon" /> 
+                            
+                            <p:outputLabel for="phoneNumber" value="Phone Number" />
+                            <h:inputText id="phoneNumber" value="" 
+                                         required="true" label="Phone Number">
+                                <f:validateLength minimum="10" maximum="10"/>
+                            </h:inputText>
+                            <p:message for="phoneNumber" display="icon" /> 
+                            
+                            
+                            <p:outputLabel for="security_ques" value="Security Question" />
+                            <h:selectOneMenu id="security_ques" value="" required="true">
+                                <f:selectItems value="#{customerManager.securityQuestions}"/>
+                            </h:selectOneMenu>
+                            <p:message for="security_ques" display="icon" />                    
+
+                            <p:outputLabel for="security_ans" value="Answer" />
+                            <h:inputText id="security_ans" value="" 
+                                         required="true" label="security_ans">
+                                <f:validateLength minimum="4" />
+                            </h:inputText>
+                            <p:message for="security_ans" display="icon" /> 
+                            
+                            
+                            <p:outputLabel for="username" value="Username" />
+                            <h:inputText id="username" value="" 
+                                         required="true" label="Username">
+                            </h:inputText>
+                            <p:message for="username" display="icon" />  
+                            
+                            <p:outputLabel for="password" value="Password" /> 
+                            <p:password id="password" value="" feedback="true" required="true"/>
+                            <p:message for="password" display="icon" /> 
+
+                            <p:growl id="messages" showDetail="true" redisplay="false"/>
+
+                        </h:panelGrid>
+                    </p:panel>
+                        
+                    <div align="center">
+                        <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
+                        <br/>
+                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                         action="#{ItemManager.create()}" value="Submit" style="margin:auto;"/>   
+                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                    </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
