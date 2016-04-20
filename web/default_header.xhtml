@@ -32,6 +32,17 @@ Copyright © 2016 Ryan Asper. All rights reserved.
             
             <p:inputText id="searchBox" class="headerSearchBox" />
             <p:watermark for="searchBox" value="Search ..." />
+            <p:link style="font-size: 12px;" value="Search" outcome="Search"/>
+            
+<!--            <h:panelGroup>
+                <h:panelGrid columns="1" class="headerButtonsGrid">
+                    <h:panelGrid columns="1">
+                            <p:inputText id="searchBox" class="headerSearchBox" />
+                            <p:watermark for="searchBox" value="Search ..." />
+                    </h:panelGrid>
+                    <p:link style="" value="Search" outcome="Search"/>
+                </h:panelGrid>
+            </h:panelGroup>-->
             
             <h:panelGrid columns="1">
                 <h:outputText id="slideout" value="#{sliderView.number1} miles away" />
