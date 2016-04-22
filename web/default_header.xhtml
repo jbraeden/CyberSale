@@ -39,9 +39,9 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                     
                     <p:splitButton id="LoginSplitButton" value="Login"
                                    action="#{customerManager.loginCustomer()}" update="loginError">
-                        <p:menuitem value="Register" update="LoginSplitButton" />
+                        <p:menuitem value="Register" update="LoginSplitButton" action="Register"/>
                         <p:separator />
-                        <p:menuitem value="Forgot Password" update="LoginSplitButton"  />
+                        <p:menuitem value="Forgot Password" update="LoginSplitButton" action="RecoverEmail"/>
                     </p:splitButton>
                 </h:panelGrid>
 
