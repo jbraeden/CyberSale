@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -36,7 +37,7 @@ public class CustomerManager implements Serializable {
     private String securityQuestionAnswer;
     private String email;
     private String phoneNumber;
-    private String statusMessage;
+    private String statusMessage = "";
 
     /* Java Bean that is initialized at runtime */
     @EJB
@@ -57,7 +58,6 @@ public class CustomerManager implements Serializable {
         username = password = firstName = lastName = "";
         securityQuestionAnswer = email = "";
         zipcode = securityQuestionKey = 0;
-        securityQuestions = new HashMap<>();
     }
 
     /*
@@ -87,7 +87,7 @@ public class CustomerManager implements Serializable {
         // Reset Fields
         loggedIn = false;
         username = password = firstName = lastName = "";
-        securityQuestionAnswer = email = "";
+        securityQuestionAnswer = email = phoneNumber = "";
         zipcode = securityQuestionKey = 0;
         securityQuestions = new HashMap<>();
 
@@ -152,12 +152,17 @@ public class CustomerManager implements Serializable {
         this.zipcode = zipcode;
     }
 
+    public void setSecurityQuestions(Map<String, Object> securityQuestions) {
+        this.securityQuestions = securityQuestions;
+    }
+
     public Map<String, Object> getSecurityQuestions() {
         if (securityQuestions == null) {
             securityQuestions = new LinkedHashMap<>();
             for (int i = 0; i < Constants.QUESTIONS.length; i++) {
                 securityQuestions.put(Constants.QUESTIONS[i], i);
             }
+            //System.out.println(securityQuestions.toString());
         }
         return securityQuestions;
     }
@@ -210,18 +215,37 @@ public class CustomerManager implements Serializable {
         CRUD operations
     */
     
-    public void prepareCreate() {
-
-    }
-    
-    public Customer create(Customer i) {
-        try {
-            getFacade().create(i);
-            return i;
-        } catch (Exception e) {
-            e.printStackTrace();
+    public String createAccount() {
+    // Check to see if a user already exists with the username given.
+        Customer c = customerFacade.findCustomerByUsername(username);
+        
+        if (c != null) {
+            username = "";
+            statusMessage = "Username already exists! Please select a different one!";
+            return "";
         }
-        return null;
+
+        if (statusMessage.isEmpty()) {
+            try {
+                Customer customer = new Customer();
+                customer.setFirstName(firstName);
+                customer.setLastName(lastName);                
+                customer.setZipcode(zipcode);
+                customer.setEmail(email);
+                customer.setPhoneNumber(phoneNumber);
+                customer.setSecurityQuestion(securityQuestionKey);
+                customer.setSecurityAnswer(securityQuestionAnswer);
+                customer.setUsername(username);
+                customer.setPassword(password);
+                customerFacade.create(customer);                
+            } catch (EJBException e) {
+                username = "";
+                statusMessage = "Something went wrong while creating your account!";
+                return "";
+            }
+            return "/index.xhtml?faces-redirect=true";
+        }
+        return "";
     }
     
     public Customer read(Customer i) {
