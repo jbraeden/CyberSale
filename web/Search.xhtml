@@ -14,17 +14,17 @@
             
             <!-- Body -->
             <ui:define name="content">
-                <div class="body">
+                <div class="body" align="center" style="margin: auto; width: 850px;">
                 
                     <h:form> 
-                        <p:dataScroller value="#{carouselView.recent}" var="item" chunkSize="10">
+                        <p:dataScroller value="#{carouselView.recent}" var="item" chunkSize="7">
                             <f:facet name="header">
                                 Scroll Down to Load More Items
                             </f:facet>
 
-                            <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                                <p:graphicImage style="width: 150px;height:100px;" name="/images/items/#{item.image}.jpg" /> 
-
+                            <h:panelGrid columns="3" style="width:800px;" columnClasses="searchLogo,searchDetail,searchButtonItem">
+                                <p:graphicImage style="width: 150px; height:100px; margin: auto;" name="/images/items/#{item.image}.jpg" /> 
+                                
                                 <p:outputPanel>
                                     <h:panelGrid columns="2" cellpadding="5">
                                         <h:outputText value="Name:" />
@@ -37,7 +37,11 @@
                                         <h:outputText value="#{item.description}" style="font-weight: bold"/>
                                     </h:panelGrid>
                                 </p:outputPanel>
+                                
+                                <p:commandButton style="width: 100% !important; margin: auto !important; color: black" value="View" icon="ui-icon-search" action="ItemDetail">
+                                </p:commandButton>
                             </h:panelGrid>
+                            <hr/>
                         </p:dataScroller>
                     </h:form> 
                     

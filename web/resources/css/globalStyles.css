@@ -279,3 +279,21 @@ html {
 	position:relative;
 	top:1px;
 }
+
+.searchLogo{
+    width: 25%;
+    height: auto;
+    margin: auto;
+}
+
+.searchDetail{
+    width: 60%;
+    height:auto;
+    margin: auto;
+}
+
+.searchButtonItem{
+    width: 15%;
+    height: auto;
+    margin: auto;
+}
