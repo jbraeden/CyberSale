@@ -6,12 +6,13 @@ package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Item;
 import com.CyberSale.entitypackage.Photo;
-import com.CyberSale.jsfclassespackage.util.ItemCategory;
-import com.CyberSale.jsfclassespackage.util.ProductCodeType;
+import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -26,9 +27,10 @@ import javax.inject.Named;
 @SessionScoped
 public class ItemManager implements Serializable {
     private String name;
-    private String productCodeValue;
-    private ProductCodeType[] productCodeTypes;
-    private ItemCategory[] categories;
+    private Map<String, Object> productCodes;
+    private int productCode;
+    private Map<String, Object> categories;
+    private int category;
     private double cost;
     private String description;
     private Date postedDate;
@@ -56,34 +58,48 @@ public class ItemManager implements Serializable {
         this.name = name;
     }
 
-    public String getProductCodeValue() {
-        return productCodeValue;
-    }
-
-    public void setProductCodeValue(String productCodeValue) {
-        this.productCodeValue = productCodeValue;
-    }
-
-    public ProductCodeType[] getProductCodeTypes() {
-        if (productCodeTypes == null) {
-            setProductCodeTypes(ProductCodeType.values());
+    public Map<String, Object> getProductCodes() {
+        if (productCodes == null) {
+            productCodes = new LinkedHashMap<>();
+            for (int i = 0; i < Constants.PRODUCT_CODE_TYPE.length; i++) {
+                productCodes.put(Constants.PRODUCT_CODE_TYPE[i], i);
+            }
         }
-        return productCodeTypes;
+        return productCodes;
     }
 
-    public void setProductCodeTypes(ProductCodeType[] productCodeTypes) {
-        this.productCodeTypes = productCodeTypes;
+    public void setProductCodes(Map<String, Object> productCodes) {
+        this.productCodes = productCodes;
     }
 
-    public ItemCategory[] getCategories() {
+    public int getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(int productCode) {
+        this.productCode = productCode;
+    }
+
+    public Map<String, Object> getCategories() {
         if (categories == null) {
-            setCategories(ItemCategory.values());
+            categories = new LinkedHashMap<>();
+            for (int i = 0; i < Constants.ITEM_CATEGORY.length; i++) {
+                categories.put(Constants.ITEM_CATEGORY[i], i);
+            }
         }
         return categories;
     }
 
-    public void setCategories(ItemCategory[] categories) {
+    public void setCategories(Map<String, Object> categories) {
         this.categories = categories;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 
     public double getCost() {
