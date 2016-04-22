@@ -2,7 +2,7 @@ html {
    background: #ddf4fc !important;
 }
 
-#floatHeader {
+.header {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -31,19 +31,41 @@ html {
     margin-top: 100px;
 }
 
+.header .ui-splitbutton,.ui-button {
+    font-size: 15px;
+}
+
+.headerLoginLogoutArea {
+    position: absolute;
+    right: 5px;
+    margin-top: 22px;    
+}
+
+.headerLoginLogoutArea .ui-splitbutton {
+    margin-left: 10px;
+}
+
 .headerLogo {
     margin-left: 10px;
     margin-top: 5px;
     max-height: 70px;
 }
 
-.headerDropDown {
-    margin-left: 30px;
-    font-size: 15px;
+.headerCategories {
+    margin-left: 50px;
 }
 
 .headerSearchBox {
-    width: 300px;
+    width: 350px;
+}
+
+.headerSliderArea {
+    margin-left: 20px;
+    text-align: center;
+}
+
+.headerSliderArea .ui-slider {
+    width: 150px;
 }
 
 .headerIcon {
@@ -54,19 +76,6 @@ html {
 .headerField {
     width: 150px;
 }
-
-.headerButtonsGrid {
-    margin-left: 10px;
-    text-align: center;
-}
-
-.headerButton {
-    font-size: 15px;
-    position: absolute;
-    right: 5px;
-    margin-top: 22px;
-}
-
 
 .footerShare {
     position: absolute;
@@ -215,7 +224,7 @@ html {
     border: 2px solid black;
 }
 
-.ui-widget-content {
+.ui-widget-content .content {
     padding-left: 10px;
     padding-right: 10px;
     

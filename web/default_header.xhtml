@@ -9,20 +9,54 @@ Copyright © 2016 Ryan Asper. All rights reserved.
       xmlns:p="http://primefaces.org/ui">
     
     <h:form>
+        
+        <!-- Place Login/Logout elements into header first -->
         <h:panelGroup rendered="#{customerManager.loggedIn == true}">
-            <div class="headerButton">
+            <div class="headerLoginLogoutArea">
                 <p:commandButton value="Logout"
                                  action="#{customerManager.logoutCustomer()}" />
             </div>
         </h:panelGroup>
+        <h:panelGrid columns="1" rendered="#{customerManager.loggedIn == false}"
+                     class="headerLoginLogoutArea">
+                <h:panelGrid columns="7">
+                    <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                                    value="#{resource['images/icons/username_icon.png']}" />
+
+                    <p:inputText id="usernameBox" class="headerField"
+                                 value="#{customerManager.username}" />
+
+                    <p:watermark for="usernameBox" value="Username" />
+
+
+                    <p:graphicImage class="headerIcon" alt="Password Field Icon"
+                                    value="#{resource['images/icons/password_icon.png']}" />
+
+                    <p:password id="passwordBox" class="headerField"
+                                value="#{customerManager.password}"/>
+
+                    <p:watermark for="passwordBox" value="Password" />
+                    
+                    <p:splitButton id="LoginSplitButton" value="Login"
+                                   action="#{customerManager.loginCustomer()}" update="loginError">
+                        <p:menuitem value="Register" update="LoginSplitButton" />
+                        <p:separator />
+                        <p:menuitem value="Forgot Password" update="LoginSplitButton"  />
+                    </p:splitButton>
+                </h:panelGrid>
+
+                <p:messages id="loginError" showDetail="true" />
+            </h:panelGrid>
         
-        <h:panelGrid columns="11" >
+        
+        <!-- Place the rest of the header elements -->
+        <h:panelGrid columns="9" >
             <h:commandLink action="index">
                 <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
                                 value="#{resource['images/Logo.png']}" />
             </h:commandLink>
 
-            <p:splitButton value="All" class="headerDropDown">
+            <p:splitButton value="All" class="headerCategories">
                 <p:menuitem value="Appliances" />
                 <p:menuitem value="Books" />
                 <p:menuitem value="Electronics" />
@@ -44,52 +78,12 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                 </h:panelGrid>
             </h:panelGroup>-->
             
-            <h:panelGrid columns="1">
+            <h:panelGrid columns="1" class="headerSliderArea" rendered="#{customerManager.loggedIn == true}">
                 <h:outputText id="slideout" value="#{sliderView.number1} miles away" />
                 <h:inputHidden id="txt2" value="#{sliderView.number1}" />
-                <p:slider for="txt2" display="slideout" style="width: 100px" step="5" minValue="10" maxValue="75" displayTemplate="{value} miles away" />
+                <p:slider for="txt2" display="slideout" step="5" minValue="10" maxValue="75" displayTemplate="{value} miles away" />
             </h:panelGrid>
 
-            <h:panelGroup rendered="#{customerManager.loggedIn == false}">
-                <h:panelGrid columns="1">
-                    <h:panelGrid columns="6">
-                        <p:graphicImage class="headerIcon" alt="Username Field Icon"
-                                        value="#{resource['images/icons/username_icon.png']}" />
-
-                        <p:inputText id="usernameBox" class="headerField"
-                                     value="#{customerManager.username}" />
-
-                        <p:watermark for="usernameBox" value="Username" />
-
-
-                        <p:graphicImage class="headerIcon" alt="Password Field Icon"
-                                        value="#{resource['images/icons/password_icon.png']}" />
-
-                        <p:password id="passwordBox" class="headerField"
-                                    value="#{customerManager.password}"/>
-
-                        <p:watermark for="passwordBox" value="Password" />
-                    </h:panelGrid>
-
-                    <p:messages id="loginError" showDetail="true" />
-                </h:panelGrid>
-            </h:panelGroup>
-                       
-            
-            <h:panelGroup rendered="#{customerManager.loggedIn == false}">
-                <h:panelGrid columns="1" class="headerButtonsGrid">
-                    <h:panelGrid columns="2">
-                        <p:commandButton class="headerButton" value="Login"
-                                         action="#{customerManager.loginCustomer()}"
-                                         update="loginError"/>
-
-                        <p:commandButton class="headerButton" value="Register" action="Register"/>
-                    </h:panelGrid>
-
-                    <p:link value="Forgot Password" outcome="RecoverEmail"/>
-                </h:panelGrid>
-            </h:panelGroup>
-            
         </h:panelGrid>
     </h:form>
 </html>
