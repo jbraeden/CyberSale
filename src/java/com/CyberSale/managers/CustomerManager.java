@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
