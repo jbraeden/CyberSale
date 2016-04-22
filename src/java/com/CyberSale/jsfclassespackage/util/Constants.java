@@ -14,4 +14,11 @@ public class Constants {
     "What is the last name of your most favorite teacher?",
     "What is your father's middle name?",
     "What is your most favorite pet's name?"}; 
+    
+    public static final String[] ITEM_CATEGORY = {"Appliances", "Automotives",
+        "Books", "Clothing", "Electronics", "Home Goods", "Sports and Outdoors", "Tools",
+        "Toys", "Other"};
+    
+    public static final String[] PRODUCT_CODE_TYPE = {"UPC", "ASIN", "ISBN"};
+    
 }
