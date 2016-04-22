@@ -54,10 +54,10 @@
 
 
                         <p:outputLabel for="security_ques" value="Security Question" />
-                        <h:selectOneMenu id="security_ques" value="" required="true">
+                        <h:selectOneMenu id="security_ques" value="#{customerManager.securityQuestionKey}" required="true">
                             <f:selectItems value="#{customerManager.securityQuestions}"/>
                         </h:selectOneMenu>
-                        <p:message for="security_ques" display="icon" />                    
+                        <p:message for="security_ques" display="icon" />
 
                         <p:outputLabel for="security_ans" value="Answer" />
                         <h:inputText id="security_ans" value="#{customerManager.securityQuestionAnswer}" 
@@ -86,7 +86,7 @@
                     <h:outputLabel id="error" value="#{customerManager.statusMessage}"  />
                     <br/>
                     <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                     action="#{customerManager.prepareCreate}" value="Submit" style="margin:auto;"/>   
+                                     action="#{customerManager.createAccount()}" value="Submit" style="margin:auto;"/>   
                     <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
                 </div>
                 </h:form>
