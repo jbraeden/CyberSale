@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -35,6 +36,8 @@ public class CustomerManager implements Serializable {
     private Map<String, Object> securityQuestions;
     private String securityQuestionAnswer;
     private String email;
+    private String phoneNumber;
+    private String statusMessage;
 
     /* Java Bean that is initialized at runtime */
     @EJB
@@ -183,6 +186,22 @@ public class CustomerManager implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
     
     private CustomerFacade getFacade() {
         return customerFacade;
@@ -191,6 +210,10 @@ public class CustomerManager implements Serializable {
     /*
         CRUD operations
     */
+    
+    public void prepareCreate() {
+
+    }
     
     public Customer create(Customer i) {
         try {
