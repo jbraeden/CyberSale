@@ -24,33 +24,33 @@
 
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:outputLabel for="firstName" value="First Name" />
-                            <h:inputText id="firstName" value="" 
+                            <h:inputText id="firstName" value="#{customerManager.firstName}" 
                                          required="true" label="First Name">
                                 <f:validateLength minimum="2" />
                             </h:inputText>
                             <p:message for="firstName" display="icon" />
 
                             <p:outputLabel for="lastName" value="Last Name" />
-                            <h:inputText id="lastName" value="" 
+                            <h:inputText id="lastName" value="#{customerManager.lastName}" 
                                          required="true" label="Last Name">
                             </h:inputText>
                             <p:message for="lastName" display="icon" />   
                             
                             <p:outputLabel for="zipCode" value="Zip Code" />
-                            <h:inputText id="zipCode" value="" 
+                            <h:inputText id="zipCode" value="#{customerManager.zipcode}" 
                                          required="true" label="Zip Code">
                                 <f:validateLength minimum="5" maximum="5"/>
                             </h:inputText>
                             <p:message for="zipCode" display="icon" /> 
                             
                             <p:outputLabel for="email" value="Email" />
-                            <h:inputText id="email" value="" 
+                            <h:inputText id="email" value="#{customerManager.email}" 
                                          required="true" label="Email">
                             </h:inputText>
                             <p:message for="email" display="icon" /> 
                             
                             <p:outputLabel for="phoneNumber" value="Phone Number" />
-                            <h:inputText id="phoneNumber" value="" 
+                            <h:inputText id="phoneNumber" value="#{customerManager.phoneNumber}" 
                                          required="true" label="Phone Number">
                                 <f:validateLength minimum="10" maximum="10"/>
                             </h:inputText>
@@ -64,7 +64,7 @@
                             <p:message for="security_ques" display="icon" />                    
 
                             <p:outputLabel for="security_ans" value="Answer" />
-                            <h:inputText id="security_ans" value="" 
+                            <h:inputText id="security_ans" value="#{customerManager.securityQuestionAnswer}" 
                                          required="true" label="security_ans">
                                 <f:validateLength minimum="4" />
                             </h:inputText>
@@ -72,13 +72,13 @@
                             
                             
                             <p:outputLabel for="username" value="Username" />
-                            <h:inputText id="username" value="" 
+                            <h:inputText id="username" value="#{customerManager.username}" 
                                          required="true" label="Username">
                             </h:inputText>
                             <p:message for="username" display="icon" />  
                             
                             <p:outputLabel for="password" value="Password" /> 
-                            <p:password id="password" value="" feedback="true" required="true"/>
+                            <p:password id="password" value="#{customerManager.password}" feedback="true" required="true"/>
                             <p:message for="password" display="icon" /> 
 
                             <p:growl id="messages" showDetail="true" redisplay="false"/>
@@ -87,10 +87,10 @@
                     </p:panel>
                         
                     <div align="center">
-                        <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
+                        <h:outputLabel id="error" value="#{customerManager.statusMessage}"  />
                         <br/>
                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                         action="#{ItemManager.create()}" value="Submit" style="margin:auto;"/>   
+                                         action="#{customerManager.prepareCreate}" value="Submit" style="margin:auto;"/>   
                         <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
                     </div>
                     </h:form>
