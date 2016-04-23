@@ -6,7 +6,8 @@ Copyright © 2016 Ryan Asper. All rights reserved.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     
     <h:head>
         <!-- Pull in CSS Files -->
@@ -50,8 +51,35 @@ Copyright © 2016 Ryan Asper. All rights reserved.
             </div>
             
             <!-- Footer Section -->
-            <div class="footer">
+<!--            <div class="footer">
                 <ui:include src="/footer.xhtml" />
+            </div>-->
+            
+            
+            <div class="footerNew">
+                <div class="links" >
+                    
+                    <span><a href="#" style="text-decoration:none" target="_blank">Contact</a></span>
+                    <span><a href="#" style="text-decoration:none" target="_blank">Help</a></span>
+                    <span><a href="#" style="text-decoration:none" target="_blank">Jobs</a></span>
+                    <span><a href="#" style="text-decoration:none" target="_blank">Terms</a></span>
+                    <span><a href="#" style="text-decoration:none" target="_blank">Privacy</a></span>
+                    <span><a href="#" style="text-decoration:none" target="_blank">Blog</a>
+                        
+                    <div align="center" >
+                    <h:panelGrid style="padding-top: 15px" columns="1" >
+                    <h:panelGroup>
+                        <a class="social-roll" href="https://www.facebook.com"><img src="./resources/images/socialMediaIcons/facebook.png" /></a>
+                        <a class="social-roll" href="https://twitter.com/"><img src="./resources/images/socialMediaIcons/twitter.png" /></a>
+                        <a class="social-roll" href="https://www.linkedin.com"><img src="./resources/images/socialMediaIcons/linkedIn.png" /></a>
+                        <a class="social-roll" href="https://plus.google.com/"><img src="./resources/images/socialMediaIcons/googlePlus.png" /></a>
+                    </h:panelGroup>
+                    </h:panelGrid>
+                    </div>
+                        
+                    </span>
+                    <div class="copyright">© 2016 CyberSale, inc. All Rights Reserved.</div>
+                </div>
             </div>
         </div> 
     </h:body>

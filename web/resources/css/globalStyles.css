@@ -9,7 +9,7 @@ html {
     height: auto;
     width: 100%;
     color: #ccffcc;
-    background-color: #00ccff;
+    background-color: #ddf4fc;  /*#00ccff;*/
     z-index: 1;
 }
 
@@ -19,6 +19,64 @@ html {
     height: auto;
     width: 100%;
     background-color: #00ccff;
+}
+
+.footerNew {
+    padding: 60px 10px 40px;
+    background: #ddf4fc url(//hipyard-cdn.a.ssl.fastly.net/assets/neighborhood_cropped-b6391c26ff7f48a1cd7408171bb4081facf97a7cf6811336f26518d80e298eaf.png) center top repeat-x;
+    background-size: 1635.5px 450px;
+    text-align: center;
+}
+
+.links {
+    margin-top: 220px;
+    margin-bottom: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: normal;
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    text-align: center!important;
+}
+
+.links span a {
+    font-weight: 600;
+    color: white;
+    margin: 0 20px;
+}
+
+.copyright {
+    padding-top: 20px;
+    font-size: 14px;
+    font-weight: normal;
+    color: white;
+}
+
+/**
+ * Social Media Buttons Spin Animated
+ */
+
+/* Tapping the social media icon on a mobile device animates its 360-degree rotation */
+.social-roll {
+    height: 36px;
+    width: 36px;
+    margin: 10px;
+    float: left;
+    border-radius: 50%;
+    -webkit-transition: all ease 0.3s;  /* For WebKit */
+    -moz-transition: all ease 0.3s;     /* For Mozilla */
+    -o-transition: all ease 0.3s;       /* For Opera */
+    -ms-transition: all ease 0.3s;      /* For IE10+ */
+    transition: all ease 0.3s;          /* Generic */
+}
+
+/* Hovering over the social media icon animates its 360-degree rotation */
+.social-roll:hover {
+    -webkit-transform:rotate(360deg);  /* For WebKit */
+    -moz-transform:rotate(360deg);     /* For Mozilla */
+    -o-transform:rotate(360deg);       /* For Opera */
+    -ms-transform:rotate(360deg);      /* For IE10+ */
+    transform:rotate(360deg);          /* Generic */
 }
 
 .body {
