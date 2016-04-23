@@ -200,7 +200,6 @@ public class ItemManager implements Serializable {
     }
     
     public String prepareCreate() {
-        
         return "AddItemUploadImage";
     }
     
