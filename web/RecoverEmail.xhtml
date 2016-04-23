@@ -10,32 +10,32 @@
     <ui:composition template="./template.xhtml">
         <ui:define name="title">CyberSale - Recover Email</ui:define>
         
-        <!-- Body -->
-        <ui:define name="content">
-            <div class="body">
-                <h:form class="recover-form">
-                    <h2>Please Enter Your Email</h2>
-
-                    <div style="margin-bottom:20px">
-                        <p>
-                            Enter the email address associated with your Cyber
-                            Sale account, then click Continue. We'll redirect you
-                            to a page where you can answer your security question 
-                            to create a new password.
-                        </p>
-                    </div>
-                    <div style="margin-bottom: 10px">
-                        <h:inputText label="Email Addresss " id="answer" value="#{passwordResetManager.answer}"/>
-                    </div>
-                    <br/>
-                    <p:link styleClass="myButton" value="Continue" outcome="SecurityQuestion.xhtml"/>
-
-                    <br/>
-                    <h:outputLabel value ="#{passwordResetManager.message}" />                  
-                </h:form>
-                <p:link id="cancel" outcome="index" value="Cancel" />
-            </div>
-        </ui:define>
-    </ui:composition>
-    
+            <!-- Body -->
+            <ui:define name="content">
+                <div class="body">
+                    <h:form class="recover-form">
+                        <h2>Please Enter Your Email</h2>
+                        
+                        <div style="margin-bottom:20px">
+                            <p>
+                                Enter the email address associated with your Cyber
+                                Sale account, then click Continue. We'll redirect you
+                                to a page where you can answer your security question 
+                                to create a new password.
+                            </p>
+                        </div>
+                        <div style="margin-bottom: 10px">
+                            <h:inputText label="Email Addresss " id="answer" value="#{customerManager.email_answer}"/>
+                        </div>
+                        <br/>
+                        <h:commandButton id="submit" action="#{customerManager.emailSubmit()}" value="Submit" />
+                        
+                        <br/>
+                        <h:outputLabel value ="#{customerManager.statusMessage}" />                  
+                    </h:form>
+                    <p:link id="cancel" outcome="index" value="Cancel" />
+                </div>
+            </ui:define>
+        
+        </ui:composition>
 </html>

@@ -46,6 +46,12 @@ public class CustomerManager implements Serializable {
     /* True when the Customer has logged in */
     private boolean loggedIn;
     
+    /* These variables are used when the customer wants to reset his or her password */
+    private String email_answer;
+    private String question_answer;
+    private String newPassword;
+    private String confirmPassword;
+    
     /**
      * Creates a new instance of CustomerManager.
      * 
@@ -210,6 +216,38 @@ public class CustomerManager implements Serializable {
     private CustomerFacade getFacade() {
         return customerFacade;
     }
+
+    public String getEmail_answer() {
+        return email_answer;
+    }
+
+    public void setEmail_answer(String email_answer) {
+        this.email_answer = email_answer;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getQuestion_answer() {
+        return question_answer;
+    }
+
+    public void setQuestion_answer(String question_answer) {
+        this.question_answer = question_answer;
+    }
     
     /*
         CRUD operations
@@ -294,6 +332,63 @@ public class CustomerManager implements Serializable {
     private void addErrorMessage(String summary, String error) {
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, error));
+    }
+    
+    public String emailSubmit() {
+        Customer customer = customerFacade.findCustomerByEmail(email_answer);
+        if (customer == null) {
+            statusMessage = "Entered email does not exist!";
+            return "RecoverEmail?faces-redirect=true";
+        }
+        else {
+            statusMessage = "";
+            return "SecurityQuestion?faces-redirect=true";
+        }
+    }
+    
+    public String securityQuestionSubmit() {
+        Customer customer = customerFacade.findCustomerByUsername(username);
+        if (customer.getSecurityAnswer().equals(question_answer)) {
+            statusMessage = "";
+            return "PasswordReset?faces-redirect=true";
+        }
+        else {
+            statusMessage = "Answer incorrect";
+            return "SecurityQuestion?faces-redirect=true";
+        }
+    }
+    
+    public String getSecurityQuestion() {
+        int question = customerFacade.findCustomerByUsername(username).getSecurityQuestion();
+        return Constants.QUESTIONS[question];
+    }
+    
+    public String resetPassword() {
+        validatePasswords(newPassword, confirmPassword);
+        if (statusMessage.equals("")) {
+            statusMessage = "";
+            Customer customer = customerFacade.findCustomerByEmail(email_answer);
+            try {
+                customer.setPassword(password);
+                customerFacade.edit(customer);
+                email_answer = question_answer = newPassword = confirmPassword = "";                
+            } catch (EJBException e) {
+                statusMessage = "Something went wrong editing your profile, please try again!";
+                return "PasswordReset?faces-redirect=true";            
+            }
+            return "index?faces-redirect=true";            
+        }
+        else {
+            return "PasswordReset?faces-redirect=true";            
+        }
+    }
+    
+    public void validatePasswords(String p1, String p2) {
+        if(p1.isEmpty() || p2.isEmpty() || !p1.equals(p2)) {
+            statusMessage = "Passwords must match!";           
+        } else {
+            statusMessage = "";
+        } 
     }
     
     /**
