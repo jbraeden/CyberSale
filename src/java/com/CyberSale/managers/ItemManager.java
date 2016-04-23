@@ -7,8 +7,10 @@ package com.CyberSale.managers;
 import com.CyberSale.entitypackage.Item;
 import com.CyberSale.entitypackage.Photo;
 import com.CyberSale.jsfclassespackage.util.Constants;
+import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -26,6 +29,9 @@ import javax.inject.Named;
 @Named(value = "itemManager")
 @SessionScoped
 public class ItemManager implements Serializable {
+    
+    /* Item Fields */
+    private int id;
     private String name;
     private Map<String, Object> productCodes;
     private int productCode;
@@ -42,12 +48,51 @@ public class ItemManager implements Serializable {
     @EJB
     private ItemFacade itemFacade;
     
+    @EJB
+    private CustomerItemFacade customerItemFacade;
+    
+    /* ArrayLists to hold Recent/Popular Items */
+    private List<Item> recentItems;
+    private List<Item> popularItems;
+    private List<Item> cheapItems;
+    
     @PostConstruct
-    public void init() {
-       
+    public void init() {       
         this.name = "Mac Mini";
         this.cost = 200.00;
         this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
+    }
+
+    /*
+        Public Methods
+    */    
+    
+    public void OnLoad() {
+        // Run Queries to Find Items
+        recentItems = customerItemFacade.findRecentItems();
+        popularItems = customerItemFacade.findPopularItems();
+        cheapItems = customerItemFacade.findCheapItems();
+        
+        // Put Item Arrays into SessionMap        
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("recent_items", recentItems);
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("popular_items", popularItems);
+        FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().put("cheap_items", cheapItems);
+    }
+    
+    
+    
+    /*
+        Setters & Getters
+    */
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -148,9 +193,7 @@ public class ItemManager implements Serializable {
 
     public void setPhotos(Photo[] photos) {
         this.photos = photos;
-    }
-    
-    
+    }       
     
     private ItemFacade getFacade() {
         return itemFacade;

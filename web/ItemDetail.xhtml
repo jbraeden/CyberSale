@@ -33,7 +33,7 @@
                             <h:outputLabel id="price" value="$#{itemManager.cost}" />
                     </h:panelGrid>
                 </div>
-
+                
                 <br/>
                 <br/>
 
@@ -62,7 +62,8 @@
                 <div style="margin: 0 auto;" align="center">
                     <h:panelGrid columns="3" cellpadding="5">
                             <p:commandButton style="width: 100% !important; margin: auto !important;" value="Compare Price" action="index"/>
-                            <p:commandButton style="width: 100% !important; margin: auto !important;" value="Contact Seller" action="index"/>
+                            <p:commandButton style="width: 100% !important; margin: auto !important;" value="Contact Seller" 
+                                             action="#{customerManager.contactSeller()}"/>
                             <p:commandButton style="width: 100% !important; margin: auto !important;" value="Share Item" action="index"/>
                     </h:panelGrid>
                 </div>

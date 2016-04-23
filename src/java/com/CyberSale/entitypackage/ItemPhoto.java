@@ -42,7 +42,7 @@ public class ItemPhoto implements Serializable {
     @JoinColumn(name = "photo_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Photo photoId;
-
+    
     public ItemPhoto() {
     }
 

@@ -5,9 +5,11 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Customer;
+import com.CyberSale.entitypackage.Item;
 import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerFacade;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -52,6 +54,9 @@ public class CustomerManager implements Serializable {
     private String newPassword;
     private String confirmPassword;
     
+    /* Set to the page the user is attempting to login to (none otherwise) */
+    private String loginToPage;
+    
     /**
      * Creates a new instance of CustomerManager.
      * 
@@ -62,7 +67,7 @@ public class CustomerManager implements Serializable {
         
         // Initialize Customer fields
         username = password = firstName = lastName = "";
-        securityQuestionAnswer = email = "";
+        securityQuestionAnswer = email = loginToPage = "";
         zipcode = securityQuestionKey = 0;
     }
 
@@ -93,7 +98,7 @@ public class CustomerManager implements Serializable {
         // Reset Fields
         loggedIn = false;
         username = password = firstName = lastName = "";
-        securityQuestionAnswer = email = phoneNumber = "";
+        securityQuestionAnswer = email = phoneNumber = loginToPage = "";
         zipcode = securityQuestionKey = 0;
         securityQuestions = new HashMap<>();
 
@@ -385,10 +390,20 @@ public class CustomerManager implements Serializable {
     
     public void validatePasswords(String p1, String p2) {
         if(p1.isEmpty() || p2.isEmpty() || !p1.equals(p2)) {
-            statusMessage = "Passwords must match!";           
+            statusMessage = "Passwords must match!";
         } else {
             statusMessage = "";
         } 
+    }
+    
+    public String contactSeller() {
+        
+        if (loggedIn)
+            return "ContactSeller?faces-redirect=true";
+        else {
+            loginToPage = "ContactSeller";
+            return "Login?faces-redirect=true";
+        }
     }
     
     /**

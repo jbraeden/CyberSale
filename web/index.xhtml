@@ -11,6 +11,12 @@
         
         <ui:define name="title">CyberSale - Home</ui:define>
         
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewAction action="#{itemManager.OnLoad}" />
+            </f:metadata>
+        </ui:define>
+        
         <!-- Body -->
         <ui:define name="content">
             <div class="body">
@@ -21,18 +27,20 @@
                 <h:form id="form">
                     <br/>
                     <br/>
-
-                    <p:carousel value="#{carouselView.recent}" headerText="Recently Posted" var="recent" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                    
+                    <p:carousel value="#{carouselView.recent}" headerText="Recently Posted" var="recent" 
+                                itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
+                                circular="true" numVisible="3" pageLinks="9" >
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-                            <f:facet name="header">
-                                <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
-                            </f:facet>
+<!--                            <f:facet name="header">
+                                <p:graphicImage name="C:\\Users\\Asper\\ItemPhotos\\appletv.jpg"/>
+                            </f:facet>-->
 
-                            <h:outputText value="#{recent.name}" />
+                            <h:outputText value="#{recent.itemName}" />
 
-                            <h:outputText value="#{recent.price}" />
+                            <h:outputText value="$#{recent.cost}" />
 
-                            <!--<h:outputText value="#{recent.description}"/>-->
+                            <!--<h:outputText value="# {recent.description}"/>-->
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
@@ -48,16 +56,18 @@
                     <br/>
                     <br/>
 
-                    <p:carousel value="#{carouselView.popular}" headerText="Most Popular" var="popular" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                    <p:carousel value="#{carouselView.popular}" headerText="Most Popular" var="popular"
+                                itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;"
+                                circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-                            <f:facet name="header">
-                                <p:graphicImage name="/images/items/#{popular.image}.jpg"/> 
-                            </f:facet>
-
-                            <h:outputText value="#{popular.name}" />
-
-                            <h:outputText value="#{popular.price}" />
-
+<!--                            <f:facet name="header">
+                                <p:graphicImage name="/images/items/# {popular.itemPhotoCollection[0].photoId}.jpg"/> 
+                            </f:facet>-->
+                            
+                            <h:outputText value="#{popular.itemName}" />
+                            
+                            <h:outputText value="$#{popular.cost}" />
+                            
                             <!--<h:outputText value="#{popular.description}"/>-->
 
                             <f:facet name="footer">
@@ -75,15 +85,17 @@
                     <br/>
                     <br/>
 
-                    <p:carousel value="#{carouselView.deals}" headerText="Best Deals" var="deal" itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                    <p:carousel value="#{carouselView.deals}" headerText="Best Deals" var="deal" 
+                                itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
+                                circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-                            <f:facet name="header">
-                                <p:graphicImage name="/images/items/#{deal.image}.jpg"/> 
-                            </f:facet>
+<!--                            <f:facet name="header">
+                                <p:graphicImage name="/images/items/# {deal.itemPhotoCollection[0].photoId}.jpg"/> 
+                            </f:facet>-->
 
-                            <h:outputText value="#{deal.name}" />
+                            <h:outputText value="#{deal.itemName}" />
 
-                            <h:outputText value="#{deal.price}" />
+                            <h:outputText value="#{deal.cost}" />
 
                             <!--<h:outputText value="#{deal.description}"/>-->
 
