@@ -58,15 +58,18 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                                 value="#{resource['images/Logo.png']}" />
             </h:commandLink>
 
-            <p:selectOneMenu class="headerCategories" id="category" value="#{dropdownView.category}" style="width:150px">
-                <f:selectItems value="#{dropdownView.categories}" />
-            </p:selectOneMenu>
+            <h:panelGrid columns="3" style="display: inline-block; margin: auto; padding: auto;" cellpadding="0" cellspacing="0">
+                <p:selectOneMenu class="headerCategories" id="category" value="#{dropdownView.category}" style="width:150px; display: inline-block;">
+                    <f:selectItems value="#{dropdownView.categories}" />
+                </p:selectOneMenu>
+                <p:inputText id="searchBox" class="headerSearchBox" style="display: inline-block; height: 20px; margin-bottom: 5px;" />
+                <h:commandLink style="font-size: 12px; display: inline-block;" action="Search">
+                    <p:graphicImage id="searchButton" value="#{resource['images/icons/search_icon.png']}" height="30" width="30" />
+                </h:commandLink>
+            </h:panelGrid>
             
-            
-            <p:inputText id="searchBox" class="headerSearchBox" />
-            <p:watermark for="searchBox" value="Search ..." />
-            <p:link style="font-size: 12px;" value="Search" outcome="Search"/>
-            
+            <p:watermark for="searchBox" value="Search..." />
+
 <!--            <h:panelGroup>
                 <h:panelGrid columns="1" class="headerButtonsGrid">
                     <h:panelGrid columns="1">

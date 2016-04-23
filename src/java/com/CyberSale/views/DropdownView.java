@@ -6,7 +6,6 @@
 package com.CyberSale.views;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -32,6 +31,10 @@ public class DropdownView implements Serializable {
  
     public String getCategory() {
         return category;
+    }
+    
+    public void setCategory(String category) {
+        this.category = category;
     }
  
     public void setCategories(String category) {
