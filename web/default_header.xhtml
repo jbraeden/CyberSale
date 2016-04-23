@@ -6,7 +6,8 @@ Copyright © 2016 Ryan Asper. All rights reserved.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <h:form>
         
@@ -57,12 +58,9 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                                 value="#{resource['images/Logo.png']}" />
             </h:commandLink>
 
-            <p:splitButton value="All" class="headerCategories">
-                <p:menuitem value="Appliances" />
-                <p:menuitem value="Books" />
-                <p:menuitem value="Electronics" />
-                <p:menuitem value="Toys" />
-            </p:splitButton>
+            <p:selectOneMenu class="headerCategories" id="category" value="#{dropdownView.category}" style="width:150px">
+                <f:selectItems value="#{dropdownView.categories}" />
+            </p:selectOneMenu>
             
             
             <p:inputText id="searchBox" class="headerSearchBox" />
