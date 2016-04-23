@@ -19,39 +19,40 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         </h:panelGroup>
         <h:panelGrid columns="1" rendered="#{customerManager.loggedIn == false}"
                      class="headerLoginLogoutArea">
-                <h:panelGrid columns="7">
-                    <p:graphicImage class="headerIcon" alt="Username Field Icon"
-                                    value="#{resource['images/icons/username_icon.png']}" />
+            <h:panelGrid columns="7">
+                <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                                value="#{resource['images/icons/username_icon.png']}" />
 
-                    <p:inputText id="usernameBox" class="headerField"
-                                 value="#{customerManager.username}" />
+                <p:inputText id="usernameBox" class="headerField"
+                             value="#{customerManager.username}" />
 
-                    <p:watermark for="usernameBox" value="Username" />
+                <p:watermark for="usernameBox" value="Username" />
 
 
-                    <p:graphicImage class="headerIcon" alt="Password Field Icon"
-                                    value="#{resource['images/icons/password_icon.png']}" />
+                <p:graphicImage class="headerIcon" alt="Password Field Icon"
+                                value="#{resource['images/icons/password_icon.png']}" />
 
-                    <p:password id="passwordBox" class="headerField"
-                                value="#{customerManager.password}"/>
+                <p:password id="passwordBox" class="headerField"
+                            value="#{customerManager.password}"/>
 
-                    <p:watermark for="passwordBox" value="Password" />
-                    
-                    <p:splitButton id="LoginSplitButton" value="Login"
-                                   action="#{customerManager.loginCustomer()}" update="loginError">
-                        <p:menuitem value="Register" update="LoginSplitButton" action="Register"/>
-                        <p:separator />
-                        <p:menuitem value="Forgot Password" update="LoginSplitButton" action="RecoverEmail"/>
-                    </p:splitButton>
-                </h:panelGrid>
+                <p:watermark for="passwordBox" value="Password" />
 
-                <p:messages id="loginError" showDetail="true" severity="info" />
+                <p:splitButton id="LoginSplitButton" value="Login"
+                               action="#{customerManager.loginCustomer()}" update="loginError">
+                    <p:menuitem value="Register" action="Register?faces-redirect=true"/>
+                    <p:separator />
+                    <p:menuitem value="Forgot Password" action="RecoverEmail?faces-redirect=true"/>
+                    <p:menuitem value="Contact Seller" action="ContactSeller?faces-redirect=true" />
+                </p:splitButton>
             </h:panelGrid>
+
+            <p:messages id="loginError" showDetail="true" severity="info" />
+        </h:panelGrid>
         
         
         <!-- Place the rest of the header elements -->
         <h:panelGrid columns="9" >
-            <h:commandLink action="index">
+            <h:commandLink action="index?faces-redirect=true">
                 <p:graphicImage class="headerLogo" alt="Cyber Sale Logo"
                                 value="#{resource['images/Logo.png']}" />
             </h:commandLink>

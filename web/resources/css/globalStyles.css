@@ -307,8 +307,51 @@ html {
     margin: auto;
 }
 
-.formFields {
+.userForm {
     margin: 0 auto;
-    width: 500px;
+    text-align: center;
+}
+
+.formFields {
+    display: inline-block;  /* Causes Panel to shrink/grow to fit contents */
+    margin: 0 auto;
     border: 1px solid black;
+}
+
+.contactForm {
+    margin: 0 auto;
+    border: 1px solid black;
+    width: 50%;
+}
+
+.contactForm input {
+    width: 100%;
+}
+
+.formLabelColumn {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.formFieldColumn {
+    text-align: left;
+}
+
+.formFieldColumn input {
+    width: 100%;
+}
+
+.formWarningColumn {
+    text-align: left;
+}
+
+.messageContentField {
+    width: 100%;
+    height: 200px;
+}
+
+.formSubmitArea {
+    width: 100%;
+    text-align: right;
+    margin-top: 30px;
 }
