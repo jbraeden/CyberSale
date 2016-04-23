@@ -7,36 +7,29 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions">
     
-    <h:head>
-        <title>Security Question</title>
-    </h:head>
+    <ui:composition template="./template.xhtml">
+        <ui:define name="title">CyberSale - Security Question</ui:define>
+        
+        <!-- Body -->
+        <ui:define name="content">
+            <div class="body">
+                <h:form class="recover-form">
+                    <h2>Please Answer Your Security Question</h2>
+                    <div style="margin-bottom:20px">
+                        <h:outputLabel for="question" value="#{customerManager.securityQuestion}" />
+                    </div>
+                    <div style="margin-bottom: 10px">
+                        <h:inputText id="answer" value="#{customerManager.question_answer}"/>
+                    </div>
+                    <br/>
+                    <h:commandButton styleClass="myButton" id="submit" action="#{customerManager.securityQuestionSubmit()}" value="Submit" />
+
+                    <br/>
+                    <h:outputLabel value ="#{customerManager.statusMessage}" />                  
+                </h:form>
+                <p:link outcome="index" value="Cancel" />
+            </div>
+        </ui:define>
+    </ui:composition>
     
-    <h:body>
-        <ui:composition template="./template.xhtml">
-        
-            <!-- Body -->
-            <ui:define name="content">
-                <div class="body">
-                    <h:form class="recover-form">
-                        <h2>Please Answer Your Security Question</h2>
-                        <div style="margin-bottom:20px">
-                            <h:outputLabel for="question" value="#{customerManager.securityQuestion}" />
-                        </div>
-                        <div style="margin-bottom: 10px">
-                            <h:inputText id="answer" value="#{customerManager.question_answer}"/>
-                        </div>
-                        <br/>
-                        <h:commandButton styleClass="myButton" id="submit" action="#{customerManager.securityQuestionSubmit()}" value="Submit" />
-                        
-                       <!-- <p:link styleClass="myButton" id="submit"  outcome="PasswordReset" value="Submit" /> -->
-                        
-                        <br/>
-                        <h:outputLabel value ="#{customerManager.statusMessage}" />                  
-                    </h:form>
-                    <p:link outcome="index" value="Cancel" />
-                </div>
-            </ui:define>
-        
-        </ui:composition>
-    </h:body>
 </html>
