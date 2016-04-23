@@ -20,18 +20,18 @@
                     <h:form class="recover-form">
                         <h2>Please Answer Your Security Question</h2>
                         <div style="margin-bottom:20px">
-                            <p>What city were you born in?</p>
-                            <h:outputLabel for="question" value="#{passwordResetManager.securityQuestion}" />
+                            <h:outputLabel for="question" value="#{customerManager.securityQuestion}" />
                         </div>
                         <div style="margin-bottom: 10px">
-                            <h:inputText id="answer" value="#{passwordResetManager.answer}"/>
+                            <h:inputText id="answer" value="#{customerManager.question_answer}"/>
                         </div>
                         <br/>
-                        <!--h:commandButton styleClass="myButton" id="submit" action="#{passwordResetManager.securityquestionSubmit()}" value="Submit" /-->
-                        <p:link styleClass="myButton" id="submit" outcome="PasswordReset" value="Submit" />
+                        <h:commandButton styleClass="myButton" id="submit" action="#{customerManager.securityQuestionSubmit()}" value="Submit" />
+                        
+                       <!-- <p:link styleClass="myButton" id="submit"  outcome="PasswordReset" value="Submit" /> -->
                         
                         <br/>
-                        <h:outputLabel value ="#{passwordResetManager.message}" />                  
+                        <h:outputLabel value ="#{customerManager.statusMessage}" />                  
                     </h:form>
                     <p:link outcome="index" value="Cancel" />
                 </div>

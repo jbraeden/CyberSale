@@ -29,13 +29,13 @@
                             </p>
                         </div>
                         <div style="margin-bottom: 10px">
-                            <h:inputText label="Email Addresss " id="answer" value="#{passwordResetManager.answer}"/>
+                            <h:inputText label="Email Addresss " id="answer" value="#{customerManager.email_answer}"/>
                         </div>
                         <br/>
-                        <p:link styleClass="myButton" value="Continue" outcome="SecurityQuestion.xhtml"/>
+                        <h:commandButton id="submit" action="#{customerManager.emailSubmit()}" value="Submit" />
                         
                         <br/>
-                        <h:outputLabel value ="#{passwordResetManager.message}" />                  
+                        <h:outputLabel value ="#{customerManager.statusMessage}" />                  
                     </h:form>
                     <p:link id="cancel" outcome="index" value="Cancel" />
                 </div>
