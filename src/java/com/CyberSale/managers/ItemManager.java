@@ -199,6 +199,11 @@ public class ItemManager implements Serializable {
         return itemFacade;
     }
     
+    public String prepareCreate() {
+        
+        return "AddItemUploadImage";
+    }
+    
     /*
         CRUD operations for Item
     */
