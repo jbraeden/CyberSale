@@ -34,12 +34,25 @@
                                 <h:inputText id="itemDescription" value="#{itemManager.description}" 
                                              required="false" label="Listing Description/Item Details">
                                 </h:inputText>
-                                <p:message for="itemDescription" display="icon" />                    
+                                <p:message for="itemDescription" display="icon" />  
+                                
+                                <p:outputLabel for="productCategory" value="Product Identifier" />
+                                <h:selectOneMenu id="productCategory" value="#{itemManager.category}" required="true">
+                                    <f:selectItems value="#{itemManager.categories}"/>
+                                </h:selectOneMenu>
+                                <p:message for="productCategory" display="icon" /> 
+                                
                                 <p:outputLabel for="productIdentifier" value="Product Identifier" />
-                                <h:inputText id="productIdentifier" 
-                                             required="false" label="Product Identifier">
+                                <h:selectOneMenu id="productIdentifier" value="#{itemManager.productCode}" required="true">
+                                    <f:selectItems value="#{itemManager.productCodes}"/>
+                                </h:selectOneMenu>
+                                <p:message for="productIdentifier" display="icon" />
+                                
+                                <p:outputLabel for="productCodeValue" value="Product Identifier Value" />
+                                <h:inputText id="productCodeValue" value="#{itemManager.productCode}" 
+                                             required="false" label="Product Identifier Value">
                                 </h:inputText>
-                                <p:message for="productIdentifier" display="icon" />                   
+                                <p:message for="productCodeValue" display="icon" />
 
                                 <p:outputLabel for="listingPrice" value="Listing Price" />
                                 <h:inputText id="listingPrice" value="#{itemManager.cost}" 
@@ -58,7 +71,7 @@
                         
                         <br/>
                         <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                         action="#{itemManager.prepareCreate()}" value="Submit" style="margin:auto;"/>   
+                                         action="#{itemManager.createItem()}" value="Submit" style="margin:auto;"/>   
                         <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
                     </div>
                     </h:form>
