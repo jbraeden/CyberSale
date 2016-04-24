@@ -62,7 +62,7 @@ public class Item implements Serializable {
     @Column(name = "product_code_type")
     private String productCodeType;
     @Size(max = 256)
-    @Column(name = "producr_code_value")
+    @Column(name = "product_code_value")
     private String producrCodeValue;
     @Size(max = 19)
     @Column(name = "category")
@@ -70,7 +70,7 @@ public class Item implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "cost")
-    private float cost;
+    private double cost;
     @Basic(optional = false)
     @NotNull
     @Lob
@@ -141,11 +141,11 @@ public class Item implements Serializable {
         this.productCodeType = productCodeType;
     }
 
-    public String getProducrCodeValue() {
+    public String getProductCodeValue() {
         return producrCodeValue;
     }
 
-    public void setProducrCodeValue(String producrCodeValue) {
+    public void setProductCodeValue(String producrCodeValue) {
         this.producrCodeValue = producrCodeValue;
     }
 
@@ -157,11 +157,11 @@ public class Item implements Serializable {
         this.category = category;
     }
 
-    public float getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(float cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

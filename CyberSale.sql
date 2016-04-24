@@ -26,12 +26,11 @@ CREATE TABLE Item
 	id INT NOT NULL AUTO_INCREMENT,
     item_name VARCHAR(256) NOT NULL,
 	/* ISBN, UPC */
-	product_code_type ENUM('UPC', 'ASIN', 'ISBN'),
+	product_code_type VARCHAR(5),
 	/* Numerical representation */
-	producr_code_value VARCHAR(256),
-    category ENUM('Appliances', 'Automotives', 'Books', 'Clothing', 'Electronics',
-                  'Home Goods', 'Sports And Outdoors', 'Tools', 'Toys', 'Other'),
-	cost FLOAT NOT NULL,
+	product_code_value VARCHAR(256),
+    category VARCHAR(64) NOT NULL,
+	cost DOUBLE NOT NULL,
 	description TEXT NOT NULL, 	
 	posted_date DATETIME NOT NULL,
     sold BOOLEAN NOT NULL,
@@ -75,7 +74,7 @@ CREATE TABLE CustomerItem
     FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
     FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
 );
-
+/*
 INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('appletv.jpg');
 INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('bag.jpg');
 INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('car.jpg');
@@ -105,3 +104,4 @@ INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('6', '6');
 INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('7', '7');
 INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('8', '8');
 INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('9', '9');
+*/

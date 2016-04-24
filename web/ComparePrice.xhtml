@@ -17,7 +17,7 @@
             <!-- Body -->
             <ui:define name="content">
                 <div class="body">   
-                    <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
+<!--                    <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
                         <p:carousel value="#{carouselView.recent}" headerText="#{itemManager.name}" var="recent" style="width:400px; height: 385px;" itemStyle="height: 307px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="1" pageLinks="9">
                             <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                                 <f:facet name="header">
@@ -25,14 +25,14 @@
                                 </f:facet>
                             </p:panelGrid>
                         </p:carousel>
-                    </div>
+                    </div>-->
                     
                     <h:form class="form">
-                        <p:outputLabel rendered="#{carouselView.selectedItem.getComparisons().size() == 0}">
+                        <p:outputLabel rendered="#{itemManager.getComparisons().size() == 0}">
                             No comparisons available
                         </p:outputLabel>
-                        <p:dataTable id="datalist" value="#{carouselView.selectedItem.getComparisons()}" var="item"
-                                     rendered="#{carouselView.selectedItem.getComparisons().size() > 0}"
+                        <p:dataTable id="datalist" value="#{itemManager.getComparisons()}" var="item"
+                                     rendered="#{itemManager.getComparisons().size() > 0}"
                                  selectionMode="single"                              
                                  rowKey="#{item.price}"
                                  rows="10"
