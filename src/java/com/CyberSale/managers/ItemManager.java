@@ -10,6 +10,7 @@ import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemPhotoFacade;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +24,10 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 /**
  *
  * @author Braeden
@@ -157,6 +162,38 @@ public class ItemManager implements Serializable {
         }
         return categories;
     }
+    
+    public List<Comparison> getComparisons() {
+            List<Comparison> list = new ArrayList<>();
+            String itemId = "B2M-00012";
+		String url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
+		
+		url += itemId;
+		Document doc; 
+		try {
+			doc = Jsoup.connect(url).get();
+		} catch (IOException e) {
+			// Invalid URL 
+			e.printStackTrace();
+			return list;
+		}
+		
+		Elements elements = doc.getElementsByClass("s-result-item");
+		
+		// Iterate over all results 
+		for (Element elm : elements) {
+			String title = elm.getElementsByClass("s-access-title").html();
+			Elements link = elm.getElementsByClass("s-access-detail-page");
+			Elements prices = elm.getElementsByClass("a-color-price");
+			
+			String priceComp = prices.size() > 0 ? prices.first().html() : "No price found";
+			String ref = link.size() > 0 ? link.first().attr("href") : "No link found";
+			
+			// Add new Comparison to list 
+			list.add(new Comparison(ref, priceComp, title));
+		}
+                return list;
+        }
 
     public void setCategories(Map<String, Object> categories) {
         this.categories = categories;
@@ -330,5 +367,27 @@ public class ItemManager implements Serializable {
         return items;
     }
     
-            
+    public class Comparison {
+        private final String link;
+        private final String price; 
+        private final String title; 
+        
+        public String getLink() {
+            return link;
+        }
+        
+        public String getPrice() {
+            return price; 
+        }
+    
+        public String getTitle() {
+            return title; 
+        }
+        
+        public Comparison(String link, String price, String title) {
+            this.link = link;
+            this.price = price;
+            this.title = title; 
+        }
+    }        
 }
