@@ -62,8 +62,8 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                 <p:selectOneMenu class="headerCategories" id="category" value="#{searchManager.category}" style="width:150px;">
                     <f:selectItems value="#{searchManager.categories}" />
                 </p:selectOneMenu>
-                <p:inputText id="searchBox" class="headerSearchBox" style="display: inline-block; height: 20px; margin-bottom: 5px; margin-left: 5px;" />
-                <h:commandLink style="font-size: 12px; display: inline-block;" action="Search">
+                <p:inputText id="searchBox" class="headerSearchBox" value="#{searchManager.query}" style="display: inline-block; height: 20px; margin-bottom: 5px; margin-left: 5px;" />
+                <h:commandLink style="font-size: 12px; display: inline-block;" action="#{searchManager.search()}">
                     <p:graphicImage id="searchButton" value="#{resource['images/icons/search_icon.png']}" height="30" width="30" />
                 </h:commandLink>
             </h:panelGrid>
