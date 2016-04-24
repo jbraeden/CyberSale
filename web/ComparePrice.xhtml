@@ -28,11 +28,11 @@
                     </div>-->
                     
                     <h:form class="form">
-                        <p:outputLabel rendered="#{itemManager.getComparisons().size() == 0}">
+                        <p:outputLabel rendered="#{itemManager.comparisons.size() == 0}">
                             No comparisons available
                         </p:outputLabel>
-                        <p:dataTable id="datalist" value="#{itemManager.getComparisons()}" var="item"
-                                     rendered="#{itemManager.getComparisons().size() > 0}"
+                        <p:dataTable id="datalist" value="#{itemManager.comparisons}" var="item"
+                                     rendered="#{itemManager.comparisons.size() > 0}"
                                  selectionMode="single"                              
                                  rowKey="#{item.price}"
                                  rows="10"
