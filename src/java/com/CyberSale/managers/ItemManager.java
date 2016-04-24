@@ -75,6 +75,8 @@ public class ItemManager implements Serializable {
     private List<Item> popularItems;
     private List<Item> cheapItems;
     
+    private List<Comparison> comparisons; 
+    
     @PostConstruct
     public void init() {       
         this.name = "";
@@ -94,6 +96,8 @@ public class ItemManager implements Serializable {
             name = selectedItem.getItemName();
             description = selectedItem.getDescription();
             cost = selectedItem.getCost();
+            productCode = selectedItem.getProductCodeValue();
+            comparisons = fetchComparisons();
             
             if (itemPhotoFacade.findPhotosForItem(itemId) == null) {
                 photos = new Photo[1];
@@ -174,6 +178,10 @@ public class ItemManager implements Serializable {
     }
     
     public List<Comparison> getComparisons() {
+        return comparisons;
+    }
+    
+    public List<Comparison> fetchComparisons() {
         List<Comparison> list = new ArrayList<>();
         String itemId;
         if (productCode == null || productCode.isEmpty()) {
