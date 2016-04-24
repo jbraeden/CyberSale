@@ -196,7 +196,7 @@ public class ItemManager implements Serializable {
         url += itemId;
         Document doc; 
         try {
-                doc = Jsoup.connect(url).get();
+                doc = Jsoup.connect(url).timeout(6000).get();
         } catch (IOException e) {
                 // Invalid URL 
                 e.printStackTrace();
