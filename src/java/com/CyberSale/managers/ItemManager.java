@@ -243,10 +243,12 @@ public class ItemManager implements Serializable {
                 item.setItemPhotoCollection(null);
                 
                 Customer customer = customerFacade.findCustomerById((Integer)FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().get("user_id"));
+                getSessionMap().get("customer_id"));
                 item.setZipcode(customer.getZipcode());
                 
                 getFacade().create(item);
+                
+                mapItem(item);
             } catch (EJBException e) {
                 System.out.println(e);
                 statusMessage = "Something went wrong while creating your item!";
@@ -361,5 +363,13 @@ public class ItemManager implements Serializable {
         return items;
     }
     
+    public void mapItem(Item i) {
+        FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("item_id", i.getId());
+    }
+    
+    public String done() {
+        return "ItemDetail?faces-redirect=true";
+    }
             
 }

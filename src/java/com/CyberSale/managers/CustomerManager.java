@@ -419,6 +419,6 @@ public class CustomerManager implements Serializable {
       FacesContext.getCurrentInstance().getExternalContext().
               getSessionMap().put("username", username);
       FacesContext.getCurrentInstance().getExternalContext().
-              getSessionMap().put("user_id", customer.getId());
+              getSessionMap().put("customer_id", customer.getId());
     }
 }

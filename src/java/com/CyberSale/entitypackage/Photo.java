@@ -60,6 +60,10 @@ public class Photo implements Serializable {
         this.id = id;
         this.fileName = fileName;
     }
+    
+    public Photo(String fileName) {
+        this.fileName = fileName;
+    }
 
     public Integer getId() {
         return id;

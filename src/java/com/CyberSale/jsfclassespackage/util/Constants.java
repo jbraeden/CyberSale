@@ -21,4 +21,6 @@ public class Constants {
     
     public static final String[] PRODUCT_CODE_TYPE = {"UPC", "ASIN", "ISBN", "NONE"};
     
+    public static final String ROOT_DIRECTORY = "/Users/patrickabod/ItemPhotos";
+    
 }
