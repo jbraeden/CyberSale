@@ -98,6 +98,8 @@ public class ItemManager implements Serializable {
             cost = selectedItem.getCost();
             productCode = selectedItem.getProductCodeValue();
             comparisons = fetchComparisons();
+            selectedItem.setHits(selectedItem.getHits()+1);
+            itemFacade.edit(selectedItem);
             
             if (itemPhotoFacade.findPhotosForItem(itemId) == null) {
                 photos = new Photo[1];
