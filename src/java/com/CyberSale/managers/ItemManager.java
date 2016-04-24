@@ -77,9 +77,9 @@ public class ItemManager implements Serializable {
     
     @PostConstruct
     public void init() {       
-        this.name = "Mac Mini";
-        this.cost = 200.00;
-        this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
+        this.name = "";
+        this.cost = 0;
+        this.description = "";
     }
 
     /*
@@ -308,10 +308,12 @@ public class ItemManager implements Serializable {
                 item.setItemPhotoCollection(null);
                 
                 Customer customer = customerFacade.findCustomerById((Integer)FacesContext.getCurrentInstance().getExternalContext().
-                getSessionMap().get("user_id"));
+                getSessionMap().get("customer_id"));
                 item.setZipcode(customer.getZipcode());
                 
                 getFacade().create(item);
+                
+                mapItem(item);
             } catch (EJBException e) {
                 System.out.println(e);
                 statusMessage = "Something went wrong while creating your item!";
@@ -449,4 +451,13 @@ public class ItemManager implements Serializable {
             this.title = title; 
         }
     }        
+    public void mapItem(Item i) {
+        FacesContext.getCurrentInstance().getExternalContext().
+              getSessionMap().put("item_id", i.getId());
+    }
+    
+    public String done() {
+        return "ItemDetail?faces-redirect=true";
+    }
+            
 }
