@@ -44,7 +44,9 @@
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                                 value="View Item" icon="ui-icon-search" action="ItemDetail?faces-redirect=true">
+                                                 value="View Item" icon="ui-icon-search" 
+                                                 action="ItemDetail?faces-redirect=true"
+                                                 actionListener="#{itemManager.itemSelected(recent.id)}">
                                 </p:commandButton>
                             </f:facet>
 
@@ -72,7 +74,9 @@
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                                 value="View Item" icon="ui-icon-search" action="ItemDetail?faces-redirect=true">
+                                                 value="View Item" icon="ui-icon-search" 
+                                                 action="ItemDetail?faces-redirect=true"
+                                                 actionListener="#{itemManager.itemSelected(popular.id)}">
                                 </p:commandButton>
                             </f:facet>
 
@@ -101,7 +105,9 @@
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                                 value="View Item" icon="ui-icon-search" action="ItemDetail?faces-redirect=true">
+                                                 value="View Item" icon="ui-icon-search" 
+                                                 action="ItemDetail?faces-redirect=true"
+                                                 actionListener="#{itemManager.itemSelected(deal.id)}">
                                 </p:commandButton>
                             </f:facet>
 

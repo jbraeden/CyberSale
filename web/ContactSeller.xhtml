@@ -13,6 +13,12 @@ Copyright © 2016 Ryan Asper. All rights reserved.
     <ui:composition template="./template.xhtml">
         <ui:define name="title">CyberSale - Contact Seller</ui:define>
         
+        <ui:define name="metadata">
+            <f:metadata>
+                <f:viewAction action="#{messageManager.OnLoad(itemManager.id)}" />
+            </f:metadata>
+        </ui:define>
+        
         <!-- Body -->
         <ui:define name="content">
             <div class="body">
@@ -22,18 +28,18 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                     
                     <!-- To-Do: Implement some way to look up seller's information -->
                     <!--<h3># {itemManager.sellerName}</h3>-->
-                    <h3>Ryan Asper - Apple Mac Mini</h3>
+                    <h3>Seller: #{messageManager.sellerName}</h3>
                     
                     <!-- Message Fields -->
                     <p:panel class="contactForm">
                         <p:messages />
 
-                        <p:inputText id="subjectField" value="" required="true" />
-                        <p:watermark for="subjectField" value="Message Subject" />
+                        <p:inputText id="subjectField" value="#{messageManager.subject}" 
+                                     readonly="true" style="background: #e6e6e6;"/>
 
                         <p:inputTextarea id="messageContentField" class="messageContentField"
-                                         value="" required="true" style="margin-top: 20px;"/>
-                        <p:watermark for="messageContentField" value="Message Content ..." />
+                                         value="#{messageManager.message}" required="true" style="margin-top: 20px;"/>
+                        <p:watermark for="messageContentField" value="Message Content..." />
 
                         <div class="formSubmitArea">
                             <p:commandButton id="submitMessage" value="Send Message" />

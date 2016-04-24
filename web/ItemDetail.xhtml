@@ -14,10 +14,13 @@
         <ui:define name="content">
             <div class="body" >
                 <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
-                    <p:carousel value="#{carouselView.recent}" headerText="#{itemManager.name}" var="recent" style="width:400px; height: 385px;" itemStyle="height: 307px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="1" pageLinks="9">
+                    <p:carousel value="#{itemManager.photos}" headerText="#{itemManager.name}" 
+                                var="photo" style="width:400px; height: 385px;" 
+                                itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
+                                circular="true" numVisible="1" pageLinks="9">
                         <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
+                                <p:graphicImage value="ItemPhotos/#{itemManager.id}/#{photo.fileName}"/> 
                             </f:facet>
                         </p:panelGrid>
                     </p:carousel>
@@ -38,18 +41,24 @@
                 <br/>
 
                 <div style="height: 100%;">
-                    <p:carousel value="#{carouselView.recent}" headerText="Related Items" var="recent" style="height: 485px;" itemStyle="height: 407px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="3" pageLinks="9">
+                    <p:carousel value="#{carouselView.recent}" headerText="Related Items" 
+                                var="related" style="height: 485px;" 
+                                itemStyle="height: 407px; padding:35px 35px 10px 35px; text-align:center; width:400px;" 
+                                circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
+                                <p:graphicImage value="ItemPhotos/#{related.id}/#{photoManager.getItemPhotoFilename(related.id)}"/> 
                             </f:facet>
 
-                            <h:outputText value="#{recent.name}" />
+                            <h:outputText value="#{related.itemName}" />
 
-                            <h:outputText value="#{recent.price}" />
+                            <h:outputText value="#{related.cost}" />
 
                             <f:facet name="footer">
-                                <p:commandButton style="width: 100% !important; margin: auto !important;" value="View Item" action="ItemDetail" icon="ui-icon-search">
+                                <p:commandButton style="width: 100% !important; margin: auto !important;" 
+                                                 value="View Item" icon="ui-icon-search" 
+                                                 action="ItemDetail?faces-redirect=true"
+                                                 actionListener="#{itemManager.itemSelected(related.id)}">
                                 </p:commandButton>
                             </f:facet>
 

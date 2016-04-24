@@ -58,27 +58,17 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                                 value="#{resource['images/Logo.png']}" />
             </h:commandLink>
 
-            <h:panelGrid columns="3" style="display: inline-block; margin: auto; padding: auto;" cellpadding="0" cellspacing="0">
-                <p:selectOneMenu class="headerCategories" id="category" value="#{dropdownView.category}" style="width:150px; display: inline-block;">
+            <h:panelGrid columns="3" cellpadding="0" cellspacing="0">
+                <p:selectOneMenu class="headerCategories" id="category" value="#{dropdownView.category}" style="width:150px;">
                     <f:selectItems value="#{dropdownView.categories}" />
                 </p:selectOneMenu>
-                <p:inputText id="searchBox" class="headerSearchBox" style="display: inline-block; height: 20px; margin-bottom: 5px;" />
+                <p:inputText id="searchBox" class="headerSearchBox" style="display: inline-block; height: 20px; margin-bottom: 5px; margin-left: 5px;" />
                 <h:commandLink style="font-size: 12px; display: inline-block;" action="Search">
                     <p:graphicImage id="searchButton" value="#{resource['images/icons/search_icon.png']}" height="30" width="30" />
                 </h:commandLink>
             </h:panelGrid>
             
             <p:watermark for="searchBox" value="Search..." />
-
-<!--            <h:panelGroup>
-                <h:panelGrid columns="1" class="headerButtonsGrid">
-                    <h:panelGrid columns="1">
-                            <p:inputText id="searchBox" class="headerSearchBox" />
-                            <p:watermark for="searchBox" value="Search ..." />
-                    </h:panelGrid>
-                    <p:link style="" value="Search" outcome="Search"/>
-                </h:panelGrid>
-            </h:panelGroup>-->
             
             <h:panelGrid columns="1" class="headerSliderArea" rendered="#{customerManager.loggedIn == true}">
                 <h:outputText id="slideout" value="#{sliderView.number1} miles away" />

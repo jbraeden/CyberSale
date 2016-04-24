@@ -397,7 +397,7 @@ public class CustomerManager implements Serializable {
     }
     
     public String contactSeller() {
-        
+              
         if (loggedIn)
             return "ContactSeller?faces-redirect=true";
         else {

@@ -9,9 +9,11 @@ import com.CyberSale.entitypackage.Photo;
 import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
+import com.CyberSale.sessionbeanpackage.ItemPhotoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,21 +53,42 @@ public class ItemManager implements Serializable {
     @EJB
     private CustomerItemFacade customerItemFacade;
     
+    @EJB
+    private ItemPhotoFacade itemPhotoFacade;
+    
     /* ArrayLists to hold Recent/Popular Items */
     private List<Item> recentItems;
     private List<Item> popularItems;
     private List<Item> cheapItems;
     
     @PostConstruct
-    public void init() {       
-        this.name = "Mac Mini";
-        this.cost = 200.00;
-        this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
+    public void init() {
+        name = description = "";
+        postedDate = new Date();
     }
 
     /*
         Public Methods
-    */    
+    */
+    
+    public void itemSelected(int itemId) {
+        Item selectedItem = itemFacade.findItemById(itemId);
+        
+        if (selectedItem != null) {
+            id = itemId;
+            name = selectedItem.getItemName();
+            description = selectedItem.getDescription();
+            cost = selectedItem.getCost();
+            
+            if (itemPhotoFacade.findPhotosForItem(itemId).isEmpty()) {
+                photos = new Photo[0];
+                photos[0] = new Photo();
+                photos[0].setFileName("default_photo.png");
+            }
+            else
+                photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);            
+        }
+    }
     
     public void OnLoad() {
         // Run Queries to Find Items

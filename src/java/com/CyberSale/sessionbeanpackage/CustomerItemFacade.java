@@ -4,6 +4,7 @@
  */
 package com.CyberSale.sessionbeanpackage;
 
+import com.CyberSale.entitypackage.Customer;
 import com.CyberSale.entitypackage.CustomerItem;
 import com.CyberSale.entitypackage.Item;
 import java.util.List;
@@ -34,6 +35,21 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
     /*
         Methods added to generated code
     */
+    
+    public Customer findItemSeller(int itemId) {
+        
+        Customer seller = null;
+        
+        CustomerItem customerItem =  (CustomerItem) em.createQuery("SELECT ci FROM CustomerItem ci WHERE ci.itemId.id = :itemId")
+                .setParameter("itemId", itemId)
+                .getSingleResult();
+        
+        if (customerItem != null) {
+            seller = em.find(Customer.class, customerItem.getCustomerId().getId());
+        }
+        
+        return seller;
+    }
     
     public List<Item> findRecentItems() {
         List<Item> items = em.createQuery("SELECT i FROM Item i ORDER BY i.postedDate DESC").getResultList(); 
