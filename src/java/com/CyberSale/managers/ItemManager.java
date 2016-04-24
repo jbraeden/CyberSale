@@ -68,9 +68,9 @@ public class ItemManager implements Serializable {
     
     @PostConstruct
     public void init() {       
-        this.name = "Mac Mini";
-        this.cost = 200.00;
-        this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
+        this.name = "";
+        this.cost = 0;
+        this.description = "";
     }
 
     /*

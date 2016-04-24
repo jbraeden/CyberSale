@@ -100,7 +100,4 @@ public class CustomerFacade extends AbstractFacade<Customer> {
         }
         return null;
     }
-    
-    
-    
 }
