@@ -4,24 +4,26 @@
  */
 package com.CyberSale.managers;
 
+import com.CyberSale.entitypackage.Customer;
 import com.CyberSale.entitypackage.Item;
 import com.CyberSale.entitypackage.Photo;
 import com.CyberSale.jsfclassespackage.util.Constants;
+import com.CyberSale.sessionbeanpackage.CustomerFacade;
 import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
-import com.CyberSale.sessionbeanpackage.ItemPhotoFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.validation.ConstraintViolationException;
 
 /**
  *
@@ -36,9 +38,10 @@ public class ItemManager implements Serializable {
     private int id;
     private String name;
     private Map<String, Object> productCodes;
-    private int productCode;
+    private String productCodeKey;
+    private String productCode;
     private Map<String, Object> categories;
-    private int category;
+    private String category;
     private double cost;
     private String description;
     private Date postedDate;
@@ -47,14 +50,16 @@ public class ItemManager implements Serializable {
     
     private Photo[] photos;
     
+    private String statusMessage = "";
+    
     @EJB
     private ItemFacade itemFacade;
     
     @EJB
-    private CustomerItemFacade customerItemFacade;
+    private CustomerFacade customerFacade;
     
     @EJB
-    private ItemPhotoFacade itemPhotoFacade;
+    private CustomerItemFacade customerItemFacade;
     
     /* ArrayLists to hold Recent/Popular Items */
     private List<Item> recentItems;
@@ -62,33 +67,15 @@ public class ItemManager implements Serializable {
     private List<Item> cheapItems;
     
     @PostConstruct
-    public void init() {
-        name = description = "";
-        postedDate = new Date();
+    public void init() {       
+        this.name = "Mac Mini";
+        this.cost = 200.00;
+        this.description = "4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core";
     }
 
     /*
         Public Methods
-    */
-    
-    public void itemSelected(int itemId) {
-        Item selectedItem = itemFacade.findItemById(itemId);
-        
-        if (selectedItem != null) {
-            id = itemId;
-            name = selectedItem.getItemName();
-            description = selectedItem.getDescription();
-            cost = selectedItem.getCost();
-            
-            if (itemPhotoFacade.findPhotosForItem(itemId).isEmpty()) {
-                photos = new Photo[0];
-                photos[0] = new Photo();
-                photos[0].setFileName("default_photo.png");
-            }
-            else
-                photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);            
-        }
-    }
+    */    
     
     public void OnLoad() {
         // Run Queries to Find Items
@@ -140,12 +127,12 @@ public class ItemManager implements Serializable {
         this.productCodes = productCodes;
     }
 
-    public int getProductCode() {
-        return productCode;
+    public String getProductCodeKey() {
+        return productCodeKey;
     }
 
-    public void setProductCode(int productCode) {
-        this.productCode = productCode;
+    public void setProductCodeKey(String productCodeKey) {
+        this.productCodeKey = productCodeKey;
     }
 
     public Map<String, Object> getCategories() {
@@ -162,11 +149,11 @@ public class ItemManager implements Serializable {
         this.categories = categories;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 
@@ -217,13 +204,57 @@ public class ItemManager implements Serializable {
     public void setPhotos(Photo[] photos) {
         this.photos = photos;
     }       
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
+    }
     
     private ItemFacade getFacade() {
         return itemFacade;
     }
     
-    public String prepareCreate() {
-        return "AddItemUploadImage";
+    public String createItem() {
+        // create item
+
+        if (statusMessage.isEmpty()) {
+            try {
+                Item item = new Item();
+                item.setItemName(name);
+                item.setCategory(category);                
+                item.setCost(cost);
+                item.setDescription(description);
+                item.setHits(hits);
+                item.setPostedDate(new Date());
+                item.setProductCodeValue(productCode);
+                item.setProductCodeType(productCodeKey);
+                item.setSold(false);
+                item.setItemPhotoCollection(null);
+                
+                Customer customer = customerFacade.findCustomerById((Integer)FacesContext.getCurrentInstance().getExternalContext().
+                getSessionMap().get("user_id"));
+                item.setZipcode(customer.getZipcode());
+                
+                getFacade().create(item);
+            } catch (EJBException e) {
+                System.out.println(e);
+                statusMessage = "Something went wrong while creating your item!";
+                return "";
+            }
+            return "/AddItemUploadImage.xhtml?faces-redirect=true";
+        }
+        return "";
     }
     
     /*
