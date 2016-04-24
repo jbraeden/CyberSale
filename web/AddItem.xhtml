@@ -5,80 +5,66 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Cyber Sale</title>
+    </h:head>
     
-    <ui:composition template="./template.xhtml">
-        <ui:define name="title">CyberSale - Post Item</ui:define>
-        
-        <!-- Body -->
-        <ui:define name="content">
-            <div class="body">
-                <h:form class="form-signin" enctype="multipart/form-data" styleClass="margin:0 auto;">
-                    <h2 align="center" class="form-signin-heading" style="margin:0 auto;">Add New Item</h2>
-                    <br/>
-                    <p:panel id="panel" 
-                             style="margin: 0 auto; width: 500px; border: 1px solid black">
-                        <p:messages id="msgs" />
-
-                        <h:panelGrid columns="3" cellpadding="5">
-                            <p:outputLabel for="itemName" value="Item Name" />
-                            <h:inputText id="itemName" value="#{ItemManager.name}" 
-                                         required="true" label="Item Name">
-                                <f:validateLength minimum="2" />
-                            </h:inputText>
-                            <p:message for="itemName" display="icon" />
-
-                            <p:outputLabel for="itemDescription" value="Listing Description/Item Details" />
-                            <h:inputText id="itemDescription" value="#{ItemManager.description}" 
-                                         required="false" label="Listing Description/Item Details">
-                            </h:inputText>
-                            <p:message for="itemDescription" display="icon" />                    
-
-                            <p:outputLabel for="pIType" value="Product Identifier Type" />
-                            <h:selectOneMenu id="pIType" value="#{ItemManager.productCodeTypes}" required="false">
-                                <f:selectItems value="#{ItemManager.productCodeTypes}"/>
-                            </h:selectOneMenu>
-                            <p:message for="pIType" display="icon" />
-
-                            <p:outputLabel for="productIdentifier" value="Product Identifier" />
-                            <h:inputText id="productIdentifier" value="#{ItemManager.productCodeValue}" 
-                                         required="false" label="Product Identifier">
-                            </h:inputText>
-                            <p:message for="productIdentifier" display="icon" />                   
-
-                            <p:outputLabel for="listingPrice" value="Listing Price" />
-                            <h:inputText id="listingPrice" value="#{ItemManager.cost}" 
-                                         required="true" label="city">
-                                <f:validateLength minimum="4" />
-                            </h:inputText>
-                            <p:message for="listingPrice" display="icon" />                    
-
-                            <p:growl id="messages" showDetail="true" redisplay="false"/>
-
-
-                        </h:panelGrid>
-
-                        <p:outputLabel value="Please Choose a File for Your Photo"/>
+    <h:body>
+        <ui:composition template="./template.xhtml">
+            
+            <!-- Body -->
+            <ui:define name="content">
+                <div class="body">
+                    <h:form class="form-signin" enctype="multipart/form-data" styleClass="margin:0 auto;">
+                        <h2 align="center" class="form-signin-heading" style="margin:0 auto;">Add New Item</h2>
                         <br/>
+                        <p:panel id="panel" 
+                                 style="margin: 0 auto; width: 500px; border: 1px solid black">
+                            <p:messages id="msgs" />
+
+                            <h:panelGrid columns="3" cellpadding="5">
+                                <p:outputLabel for="itemName" value="Item Name" />
+                                <h:inputText id="itemName" value="#{itemManager.name}" 
+                                             required="true" label="Item Name">
+                                    <f:validateLength minimum="2" />
+                                </h:inputText>
+                                <p:message for="itemName" display="icon" />
+
+                                <p:outputLabel for="itemDescription" value="Listing Description/Item Details" />
+                                <h:inputText id="itemDescription" value="#{itemManager.description}" 
+                                             required="false" label="Listing Description/Item Details">
+                                </h:inputText>
+                                <p:message for="itemDescription" display="icon" />                    
+                                <p:outputLabel for="productIdentifier" value="Product Identifier" />
+                                <h:inputText id="productIdentifier" 
+                                             required="false" label="Product Identifier">
+                                </h:inputText>
+                                <p:message for="productIdentifier" display="icon" />                   
+
+                                <p:outputLabel for="listingPrice" value="Listing Price" />
+                                <h:inputText id="listingPrice" value="#{itemManager.cost}" 
+                                             required="true" label="city">
+                                    <f:validateLength minimum="4" />
+                                </h:inputText>
+                                <p:message for="listingPrice" display="icon" />                    
+
+                                <p:growl id="messages" showDetail="true" redisplay="false"/>
+
+
+                            </h:panelGrid>
+                        </p:panel>
+                        
+                    <div align="center">
+                        
                         <br/>
-                        <fieldset>
-                            <p:fileUpload fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced" dragDropSupport="false"
-                                multiple="true" update="messages" sizeLimit="100000" fileLimit="6" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-
-                        </fieldset>
-                        <h:outputText value="#{fileManager.message}" />
-                    </p:panel>
-
-                <div align="center">
-                    <h:outputLabel id="error" value="#{accountManager.statusMessage}"  />
-                    <br/>
-                    <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                     action="#{ItemManager.create()}" value="Submit" style="margin:auto;"/>   
-                    <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
+                                         action="#{itemManager.prepareCreate()}" value="Submit" style="margin:auto;"/>   
+                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                    </div>
+                    </h:form>
                 </div>
-                </h:form>
-            </div>
-        </ui:define>
-        
-    </ui:composition>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>
 
