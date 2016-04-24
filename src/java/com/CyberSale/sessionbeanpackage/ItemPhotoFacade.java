@@ -35,26 +35,26 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
     public List<Photo> findPhotosForItem(Integer itemId) {
         List<ItemPhoto> itemPhotos = null;
         try {
-            itemPhotos = em.createNamedQuery("findItemPhotoByItem", ItemPhoto.class)
+            itemPhotos = em.createNamedQuery("ItemPhoto.findItemPhotoByItem", ItemPhoto.class)
                     .setParameter("itemId", itemId)
                     .getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        ArrayList<Photo> comments = new ArrayList<>();
+        ArrayList<Photo> photos = new ArrayList<>();
         if (itemPhotos != null && !itemPhotos.isEmpty()) {
             for (ItemPhoto ip : itemPhotos) {
                 if ((ip.getItemId().getId()).equals(itemId)) {
                     try {
-                        comments.add(em.find(Photo.class, ip.getPhotoId().getId()));
+                        photos.add(em.find(Photo.class, ip.getPhotoId().getId()));
                     }
                     catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
             }
-            return comments;
+            return photos;
         }
         return null;
     }

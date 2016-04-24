@@ -5,8 +5,10 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Photo;
+import com.CyberSale.sessionbeanpackage.ItemPhotoFacade;
 import com.CyberSale.sessionbeanpackage.PhotoFacade;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
@@ -20,10 +22,13 @@ import javax.enterprise.context.SessionScoped;
 @SessionScoped
 public class PhotoManager implements Serializable {
     
-    private String filePath;
+    private String fileName;
     
     @EJB
     private PhotoFacade photoFacade;
+    
+    @EJB
+    private ItemPhotoFacade itemPhotoFacade;
 
     /**
      * Creates a new instance of PhotoManager
@@ -31,12 +36,25 @@ public class PhotoManager implements Serializable {
     public PhotoManager() {
     }
 
-    public String getFilePath() {
-        return filePath;
+    
+    /*
+        Get Photo Filename given a Photo ID
+    */    
+    public String getItemPhotoFilename(int itemID) {
+        List<Photo> photos = itemPhotoFacade.findPhotosForItem(itemID);
+        
+        if (photos != null)
+            return photos.get(0).getFileName();
+        else
+            return "default_photo.png";
+    }
+        
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
     
     public boolean upload(String filePath) {

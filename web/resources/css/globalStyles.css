@@ -224,9 +224,9 @@ html {
     border: 2px solid black;
 }
 
-.ui-widget-content .content {
-    padding-left: 10px;
-    padding-right: 10px;
+.content .ui-widget-content {
+/*    padding-left: 10px;
+    padding-right: 10px;*/
     
     background: #44c767;
 }

@@ -32,9 +32,9 @@
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9" >
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-<!--                            <f:facet name="header">
-                                <p:graphicImage name="C:\\Users\\Asper\\ItemPhotos\\appletv.jpg"/>
-                            </f:facet>-->
+                            <f:facet name="header">
+                                <p:graphicImage value="ItemPhotos/#{recent.id}/#{photoManager.getItemPhotoFilename(recent.id)}"/> 
+                            </f:facet>
 
                             <h:outputText value="#{recent.itemName}" />
 
@@ -60,15 +60,15 @@
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;"
                                 circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-<!--                            <f:facet name="header">
-                                <p:graphicImage name="/images/items/# {popular.itemPhotoCollection[0].photoId}.jpg"/> 
-                            </f:facet>-->
-                            
+                            <f:facet name="header">
+                                <p:graphicImage value="ItemPhotos/#{popular.id}/#{photoManager.getItemPhotoFilename(popular.id)}"/> 
+                            </f:facet>
+                             
                             <h:outputText value="#{popular.itemName}" />
                             
                             <h:outputText value="$#{popular.cost}" />
                             
-                            <!--<h:outputText value="#{popular.description}"/>-->
+                            <!--<h:outputText value="# {popular.description}"/>-->
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
@@ -89,15 +89,15 @@
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-<!--                            <f:facet name="header">
-                                <p:graphicImage name="/images/items/# {deal.itemPhotoCollection[0].photoId}.jpg"/> 
-                            </f:facet>-->
+                            <f:facet name="header">
+                                <p:graphicImage value="ItemPhotos/#{deal.id}/#{photoManager.getItemPhotoFilename(deal.id)}"/> 
+                            </f:facet>
 
                             <h:outputText value="#{deal.itemName}" />
 
                             <h:outputText value="#{deal.cost}" />
 
-                            <!--<h:outputText value="#{deal.description}"/>-->
+                            <!--<h:outputText value="# {deal.description}"/>-->
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
@@ -116,8 +116,6 @@
 
                     <p:link styleClass="myButton" value="Post Item" outcome="AddItem"/>
                 </h:form>
-
-                <!-- <a href="#" class="myButton">Post New Item</a> -->
 
                 <br/>
                 <br/>

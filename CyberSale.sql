@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS Customer;
 CREATE TABLE Photo
 (
     id INT NOT NULL AUTO_INCREMENT,
-    file_path VARCHAR (256) NOT NULL,
+    file_name VARCHAR (256) NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -76,15 +76,15 @@ CREATE TABLE CustomerItem
     FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
 );
 
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\appletv.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\bag.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\car.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\couch.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\desk.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\snowboard.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\table.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\tv.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_path`) VALUES ('C:\\Users\\Asper\\ItemPhotos\\xbox.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('appletv.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('bag.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('car.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('couch.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('desk.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('snowboard.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('table.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('tv.jpg');
+INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('xbox.jpg');
 
 INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Mac Mini', '200', '4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core', '2016-04-23', '0', '3', '24060');
 INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Nike Bag', '75', 'Brand New w/ Tag', '2016-04-22', '0', '2', '24060');

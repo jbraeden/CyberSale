@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Photo.findAll", query = "SELECT p FROM Photo p"),
     @NamedQuery(name = "Photo.findById", query = "SELECT p FROM Photo p WHERE p.id = :id"),
-    @NamedQuery(name = "Photo.findByFilePath", query = "SELECT p FROM Photo p WHERE p.filePath = :filePath")})
+    @NamedQuery(name = "Photo.findByFileName", query = "SELECT p FROM Photo p WHERE p.fileName = :fileName")})
 public class Photo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,8 +44,8 @@ public class Photo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 256)
-    @Column(name = "file_path")
-    private String filePath;
+    @Column(name = "file_name")
+    private String fileName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "photoId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
@@ -56,9 +56,9 @@ public class Photo implements Serializable {
         this.id = id;
     }
 
-    public Photo(Integer id, String filePath) {
+    public Photo(Integer id, String fileName) {
         this.id = id;
-        this.filePath = filePath;
+        this.fileName = fileName;
     }
 
     public Integer getId() {
@@ -69,12 +69,12 @@ public class Photo implements Serializable {
         this.id = id;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @XmlTransient
