@@ -87,7 +87,7 @@ public class MessageManager implements Serializable {
             emailMessage.setSubject(subject);
             
             // Set Message
-            emailMessage.setText(message);
+            emailMessage.setText(message + Constants.CYBERSALE_EMAIL_FOOTER);
             
             // Send the message
             Transport.send(emailMessage);
