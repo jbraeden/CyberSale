@@ -318,7 +318,7 @@ public class ItemManager implements Serializable {
                 item.setCategory(category);                
                 item.setCost(cost);
                 item.setDescription(description);
-                item.setHits(hits);
+                item.setHits(0);
                 item.setPostedDate(new Date());
                 item.setProductCodeValue(productCode);
                 item.setProductCodeType(productCodeKey);

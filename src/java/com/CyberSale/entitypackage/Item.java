@@ -35,18 +35,18 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
-    @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id"),
-    @NamedQuery(name = "Item.findByItemName", query = "SELECT i FROM Item i WHERE i.itemName = :itemName"),
-    @NamedQuery(name = "Item.findByProductCodeType", query = "SELECT i FROM Item i WHERE i.productCodeType = :productCodeType"),
-    @NamedQuery(name = "Item.findByProducrCodeValue", query = "SELECT i FROM Item i WHERE i.producrCodeValue = :producrCodeValue"),
-    @NamedQuery(name = "Item.findByCategory", query = "SELECT i FROM Item i WHERE i.category = :category"),
-    @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost"),
-    @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate"),
+    @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id AND i.sold = false"),
+    @NamedQuery(name = "Item.findByItemName", query = "SELECT i FROM Item i WHERE i.itemName = :itemName AND i.sold = false"),
+    @NamedQuery(name = "Item.findByProductCodeType", query = "SELECT i FROM Item i WHERE i.productCodeType = :productCodeType AND i.sold = false"),
+    @NamedQuery(name = "Item.findByProducrCodeValue", query = "SELECT i FROM Item i WHERE i.producrCodeValue = :producrCodeValue AND i.sold = false"),
+    @NamedQuery(name = "Item.findByCategory", query = "SELECT i FROM Item i WHERE i.category = :category AND i.sold = false"),
+    @NamedQuery(name = "Item.findByCost", query = "SELECT i FROM Item i WHERE i.cost = :cost AND i.sold = false"),
+    @NamedQuery(name = "Item.findByPostedDate", query = "SELECT i FROM Item i WHERE i.postedDate = :postedDate AND i.sold = false"),
     @NamedQuery(name = "Item.findBySold", query = "SELECT i FROM Item i WHERE i.sold = :sold"),
-    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits"),
-    @NamedQuery(name = "Item.findByZipcode", query = "SELECT i FROM Item i WHERE i.zipcode = :zipcode"),
-    @NamedQuery(name = "Item.findItemsByName", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern"),
-    @NamedQuery(name = "Item.findItemsByNameAndCategory", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern AND i.category = :category"),
+    @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits AND i.sold = false"),
+    @NamedQuery(name = "Item.findByZipcode", query = "SELECT i FROM Item i WHERE i.zipcode = :zipcode AND i.sold = false"),
+    @NamedQuery(name = "Item.findItemsByName", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern AND i.sold = false"),
+    @NamedQuery(name = "Item.findItemsByNameAndCategory", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern AND i.category = :category AND i.sold = false"),
 })
 public class Item implements Serializable {
 
