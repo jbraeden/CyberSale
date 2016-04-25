@@ -153,6 +153,9 @@ public class PhotoManager {
 
         String filePath = Constants.ROOT_DIRECTORY + "/" + (Integer) FacesContext.getCurrentInstance()
                     .getExternalContext().getSessionMap().get("item_id");
+        
+        new File(filePath).mkdir();
+        
         // Write the series of bytes on file.
         File targetFile = new File(filePath, childName);
 
