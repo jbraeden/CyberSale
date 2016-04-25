@@ -38,7 +38,9 @@
 
                             <h:outputText value="#{recent.itemName}" />
 
-                            <h:outputText value="$#{recent.cost}" />
+                            <h:outputText value="#{recent.cost}">
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
 
                             <!--<h:outputText value="# {recent.description}"/>-->
 
@@ -68,7 +70,9 @@
                              
                             <h:outputText value="#{popular.itemName}" />
                             
-                            <h:outputText value="$#{popular.cost}" />
+                            <h:outputText value="$#{popular.cost}">
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
                             
                             <!--<h:outputText value="# {popular.description}"/>-->
 
@@ -99,7 +103,9 @@
 
                             <h:outputText value="#{deal.itemName}" />
 
-                            <h:outputText value="#{deal.cost}" />
+                            <h:outputText value="#{deal.cost}">
+                                <f:convertNumber type="currency" />
+                            </h:outputText>    
 
                             <!--<h:outputText value="# {deal.description}"/>-->
 

@@ -93,9 +93,12 @@
                     <div align="center">
                         <h:outputLabel id="error" value="#{customerManager.statusMessage}"  />
                         <br/>
-                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                                         action="#{customerManager.createAccount()}" value="Submit" style="margin:auto;"/>   
-                        <h:button class="btn btn-lg btn-danger" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                        
+                        <h:panelGrid columns="2">
+                            <h:commandButton class="myButton" id="submit" 
+                                             action="#{customerManager.createAccount()}" value="Submit" style="margin:auto;"/>   
+                            <h:button class="myButton" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                        </h:panelGrid>
                     </div>
                 </h:form>
             </div>

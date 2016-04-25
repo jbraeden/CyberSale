@@ -35,7 +35,9 @@
                                     <h:outputText value="#{item.title}" style="font-weight: bold"/>
 
                                     <h:outputText value="Price:" />
-                                    <h:outputText value="#{item.price}" style="font-weight: bold"/>
+                                    <h:outputText value="#{item.price}" style="font-weight: bold">
+                                        <f:convertNumber type="currency" />
+                                    </h:outputText>
                                 </h:panelGrid>
                             </p:outputPanel>
 

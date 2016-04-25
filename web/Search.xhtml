@@ -27,7 +27,9 @@
                                     <h:outputText value="#{item.itemName}" style="font-weight: bold"/>
 
                                     <h:outputText value="Price:" />
-                                    <h:outputText value="#{item.cost}" style="font-weight: bold"/>
+                                    <h:outputText value="#{item.cost}" style="font-weight: bold">
+                                        <f:convertNumber type="currency" />
+                                    </h:outputText>
 
                                     <h:outputText value="Description:" />
                                     <h:outputText value="#{item.description}" style="font-weight: bold"/>

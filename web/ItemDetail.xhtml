@@ -33,7 +33,9 @@
                             <p:outputLabel for="description" value="Item Description:" />
                             <h:outputLabel id="description" value="#{itemManager.description}" />
                             <p:outputLabel for="price" value="Item Price" />
-                            <h:outputLabel id="price" value="$#{itemManager.cost}" />
+                            <h:outputLabel id="price" value="$#{itemManager.cost}">
+                                <f:convertNumber type="currency" />
+                            </h:outputLabel>
                     </h:panelGrid>
                 </div>
                 
@@ -52,7 +54,9 @@
 
                             <h:outputText value="#{related.itemName}" />
 
-                            <h:outputText value="#{related.cost}" />
+                            <h:outputText value="#{related.cost}">
+                                <f:convertNumber type="currency" />
+                            </h:outputText>
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
