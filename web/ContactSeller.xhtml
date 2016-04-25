@@ -23,26 +23,28 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         <ui:define name="content">
             <div class="body">
                 <h:form class="userForm" enctype="multipart/form-data">
-                    <h2>Contact Seller</h2>
-                    <br />
+                    <h1>Contact Seller</h1>
                     
-                    <!-- To-Do: Implement some way to look up seller's information -->
-                    <!--<h3># {itemManager.sellerName}</h3>-->
                     <h3>Seller: #{messageManager.sellerName}</h3>
                     
                     <!-- Message Fields -->
                     <p:panel class="contactForm">
-                        <p:messages />
-
+                        <p:messages id="emailError" />
+                        
+                        <p:outputLabel value="Message:" />
+                        <br />
+                        <br />
+                        
                         <p:inputText id="subjectField" value="#{messageManager.subject}" 
                                      readonly="true" style="background: #e6e6e6;"/>
 
                         <p:inputTextarea id="messageContentField" class="messageContentField"
                                          value="#{messageManager.message}" required="true" style="margin-top: 20px;"/>
                         <p:watermark for="messageContentField" value="Message Content..." />
-
+                        
                         <div class="formSubmitArea">
-                            <p:commandButton id="submitMessage" value="Send Message" />
+                            <p:commandButton id="submitMessage" value="Send Message"  update="emailError"
+                                             action="#{messageManager.sendMessage()}"/>
                         </div>
                     </p:panel>
                 </h:form>

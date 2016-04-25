@@ -30,6 +30,9 @@ public class Constants {
     
     public static final String[] PRODUCT_CODE_TYPE = {"UPC", "ASIN", "ISBN"};
     
-    public static final String ROOT_DIRECTORY = "C:/Users/Braeden/ItemPhotos";
+    public static final String ROOT_DIRECTORY = "C:/Users/Asper/ItemPhotos";    
     
+    public static final String CYBERSALE_EMAIL = "noreply.cybersale@gmail.com";
+    
+    public static final String CYBERSALE_EMAIL_PW = "csd@VT(S16)";
 }

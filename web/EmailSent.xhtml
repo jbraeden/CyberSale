@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Ryan Asper on 2016.04.25 
+Copyright © 2016 Ryan Asper. All rights reserved.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <ui:composition template="./template.xhtml">
+        <ui:define name="title">CyberSale - Message Sent</ui:define>
+        
+        <ui:define name="content">
+            <div class="body" style="text-align: center;">
+                
+                <h2>Message Sent Successfully</h2>
+                
+                <p:panel class="contactForm" style="background: #e6e6e6; text-align: left;">
+                    <p:outputLabel value="#{messageManager.subject}" />
+
+                    <br />
+                    <br />
+
+                    <p:outputLabel value="#{messageManager.message}" />
+                </p:panel>
+            </div>
+        </ui:define>
+    </ui:composition>
+    
+</html>

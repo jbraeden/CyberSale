@@ -86,7 +86,14 @@ public class CustomerManager implements Serializable {
             if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
                 loggedIn = true;
                 initializeSessionMap(customer);
-                return "index?faces-redirect=true";
+                
+                if (!loginToPage.isEmpty()) {
+                    String nextPage = loginToPage;
+                    loginToPage = "";
+                    return nextPage + "?faces-redirect=true";
+                }
+                else
+                    return "index?faces-redirect=true";
             }
 
             addErrorMessage("Login Error", "Invalid username or password!");
@@ -396,14 +403,22 @@ public class CustomerManager implements Serializable {
         } 
     }
     
-    public String contactSeller() {
-              
+    public String attemptContactSeller() {              
         if (loggedIn)
             return "ContactSeller?faces-redirect=true";
         else {
             loginToPage = "ContactSeller";
             return "Login?faces-redirect=true";
         }
+    }
+    
+    public String attemptPostItem() {              
+        if (loggedIn)
+            return "AddItem?faces-redirect=true";
+        else {
+            loginToPage = "AddItem";
+            return "Login?faces-redirect=true";
+        }    
     }
     
     /**

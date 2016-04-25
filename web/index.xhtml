@@ -24,7 +24,7 @@
                     <p:graphicImage name="/images/#{img}"/>
                 </p:galleria>
 
-                <h:form id="form">
+                <h:form id="form" style="text-align: center;">
                     <br/>
                     <br/>
                     
@@ -33,7 +33,7 @@
                                 circular="true" numVisible="3" pageLinks="9" >
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="ItemPhotos/#{recent.id}/#{photoManager.getItemPhotoFilename(recent.id)}"/> 
+                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(recent.id)}"/> 
                             </f:facet>
 
                             <h:outputText value="#{recent.itemName}" />
@@ -65,7 +65,7 @@
                                 circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="ItemPhotos/#{popular.id}/#{photoManager.getItemPhotoFilename(popular.id)}"/> 
+                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(popular.id)}"/> 
                             </f:facet>
                              
                             <h:outputText value="#{popular.itemName}" />
@@ -98,7 +98,7 @@
                                 circular="true" numVisible="3" pageLinks="9">
                         <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="ItemPhotos/#{deal.id}/#{photoManager.getItemPhotoFilename(deal.id)}"/> 
+                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(deal.id)}"/> 
                             </f:facet>
 
                             <h:outputText value="#{deal.itemName}" />
@@ -126,7 +126,7 @@
                     <br/>
                     <br/>
 
-                    <p:link rendered="#{customerManager.loggedIn == true}" styleClass="myButton" value="Post Item" outcome="AddItem"/>
+                    <p:commandButton class="myButton" value="Post Item" action="#{customerManager.attemptPostItem}" />
                 </h:form>
 
                 <br/>

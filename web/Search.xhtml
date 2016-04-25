@@ -30,7 +30,7 @@
                     <p:dataScroller value="#{searchManager.results}" var="item">                            
 
                         <h:panelGrid columns="3" style="width:800px;" columnClasses="searchLogo,searchDetail,searchButtonItem">
-                            <p:graphicImage style="width: 150px; height:100px; margin: auto;" name="#{photoManager.getPhotoFileNameForItem(item.id)}" /> 
+                            <p:graphicImage style="width: 150px; height:100px; margin: auto;" value="#{photoManager.getItemPhotoFilename(item.id)}" /> 
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">

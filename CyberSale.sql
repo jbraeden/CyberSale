@@ -74,34 +74,3 @@ CREATE TABLE CustomerItem
     FOREIGN KEY (item_id) REFERENCES Item(id) ON DELETE CASCADE,
     FOREIGN KEY (customer_id) REFERENCES Customer(id) ON DELETE CASCADE
 );
-/*
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('appletv.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('bag.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('car.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('couch.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('desk.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('snowboard.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('table.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('tv.jpg');
-INSERT INTO `CyberSaleDB`.`Photo` (`file_name`) VALUES ('xbox.jpg');
-
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Mac Mini', '200', '4 GB RAM ‑ 500 GB HDD ‑ 1.4 GHz Core', '2016-04-23', '0', '3', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Nike Bag', '75', 'Brand New w/ Tag', '2016-04-22', '0', '2', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Chevy Cruze 2015', '18000', '10k miles', '2016-04-21', '0', '1', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Brown Couch', '100', 'small wear and tear', '2016-04-20', '0', '9', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Computer Desk', '90', 'fits in most standard college dorms', '2016-04-19', '0', '8', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Burton Snowboard package', '120', 'Bindings, Board, and bag all included', '2016-04-18', '0', '7', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Dinner Table', '50', 'Table and four chairs', '2016-04-17', '0', '6', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('50\" LCD TV', '499', 'Samsung. 3 HDMI ports. Wi-Fi', '2016-04-16', '0', '5', '24060');
-INSERT INTO `CyberSaleDB`.`Item` (`item_name`, `cost`, `description`, `posted_date`, `sold`, `hits`, `zipcode`) VALUES ('Xbox One w/ Controller', '350', 'Just the console and one controller', '2016-04-15', '0', '4', '24060');
-
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('1', '1');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('2', '2');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('3', '3');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('4', '4');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('5', '5');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('6', '6');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('7', '7');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('8', '8');
-INSERT INTO `CyberSaleDB`.`ItemPhoto` (`item_id`, `photo_id`) VALUES ('9', '9');
-*/

@@ -5,12 +5,20 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Customer;
+import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -23,7 +31,8 @@ public class MessageManager implements Serializable {
     /* Message Fields */
     private Customer seller;
     private String subject;
-    private String message;
+    private String message;    
+    private String recipient_address;
     
     @EJB
     private ItemFacade itemFacade;
@@ -37,19 +46,64 @@ public class MessageManager implements Serializable {
      * Initialize necessary variables.
      */
     public MessageManager() {
-        subject = message = "";
+        subject = message = recipient_address = "";
     }
 
     public void OnLoad(int itemId) {
         seller = customerItemFacade.findItemSeller(itemId);
         
-        subject = "Inquiry: " + itemFacade.findItemById(itemId).getItemName();
+        recipient_address = seller.getEmail();
+        
+        subject = "Item Inquiry: " + itemFacade.findItemById(itemId).getItemName();
     }
     
     public String sendMessage() {
-        // TODO
+        boolean success = false;
         
-        return "";
+        Properties properties = new Properties();
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+                
+        try {            
+            Session session = Session.getInstance(properties, 
+                    new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(Constants.CYBERSALE_EMAIL, 
+                                    Constants.CYBERSALE_EMAIL_PW);
+                        }
+                    });
+        
+            // Create Message object
+            MimeMessage emailMessage = new MimeMessage(session);
+            
+            // Set From & To Fields
+            emailMessage.setFrom(new InternetAddress(Constants.CYBERSALE_EMAIL));
+            emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_address));
+            
+            // Set Subject
+            emailMessage.setSubject(subject);
+            
+            // Set Message
+            emailMessage.setText(message);
+            
+            // Send the message
+            Transport.send(emailMessage);
+            success = true;
+        }
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        if (success)
+            return "EmailSent?faces-redirect=true";
+        else {
+            FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email Error", "Error while sending Email."));
+            return "";
+        }
     }
 
     /*

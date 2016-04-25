@@ -15,7 +15,33 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         
         <!-- Body -->
         <ui:define name="content">
-            
+            <h:form class="userForm" enctype="multipart/form-data">
+                <h1>Login</h1>
+                <br />
+                
+                <p:messages id="loginFormError" severity="info" />
+                
+                <p:panel class="formFields">
+                    <h:panelGrid columns="2" cellpadding="5" 
+                                 columnClasses="formLabelColumn, formFieldColumn">
+                        
+                        <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                                        value="#{resource['images/icons/username_icon.png']}" />
+                        
+                        <p:inputText id="usernameField" value="#{customerManager.username}" />
+                        
+                        <p:graphicImage class="headerIcon" alt="Username Field Icon"
+                                        value="#{resource['images/icons/password_icon.png']}" />
+                        
+                        <p:password id="passwordField" value="#{customerManager.password}" />
+                    </h:panelGrid>
+                    
+                    <div class="formSubmitArea">
+                        <p:commandButton id="submitMessage" value="Login"  update="loginFormError"
+                                         action="#{customerManager.loginCustomer()}"/>
+                    </div>
+                </p:panel>
+            </h:form>
         </ui:define>
     </ui:composition>
     

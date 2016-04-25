@@ -182,18 +182,8 @@ public class PhotoManager {
         List<Photo> photos = itemPhotoFacade.findPhotosForItem(itemID);
 
         if (photos != null)
-            return photos.get(0).getFileName();
+            return "/ItemPhotos/" + itemID + "/" + photos.get(0).getFileName();
         else
-            return "default_photo.png";
-    }
-    
-    public String getPhotoFileNameForItem(int itemId) {
-        System.out.println(itemId);
-        Photo photo = itemPhotoFacade.findPhotosForItem(itemId).get(0);
-
-        if (photo != null)
-            return "/ItemPhotos/" + itemId + "/" + photo.getFileName();
-        else
-            return "/ItemPhotos/" + itemId + "/" + "default_photo.png";
+            return "/resources/images/default_photo.png";
     }
 }
