@@ -13,50 +13,48 @@
     
     <h:body>
         <ui:composition template="./template.xhtml">
+        <ui:define name="title">Cyber Sale Search Items</ui:define>
         
-            <!-- Body -->
-            <ui:define name="content">
-                <div class="body">   
-<!--                    <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
-                        <p:carousel value="#{carouselView.recent}" headerText="#{itemManager.name}" var="recent" style="width:400px; height: 385px;" itemStyle="height: 307px; padding:35px 35px 10px 35px; text-align:center; width:400px;" circular="true" numVisible="1" pageLinks="9">
-                            <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-                                <f:facet name="header">
-                                    <p:graphicImage name="/images/items/#{recent.image}.jpg"/> 
-                                </f:facet>
-                            </p:panelGrid>
-                        </p:carousel>
-                    </div>-->
-                    
-                    <h:form class="form">
-                        <p:outputLabel rendered="#{itemManager.comparisons.size() == 0}">
+        <!-- Body -->
+        <ui:define name="content">
+            <div class="body" align="center" style="margin: auto; width: 850px;">
+                <h:form>
+                    <p:outputLabel rendered="#{itemManager.comparisons.size() == 0}">
                             No comparisons available
-                        </p:outputLabel>
-                        <p:dataTable id="datalist" value="#{itemManager.comparisons}" var="item"
-                                     rendered="#{itemManager.comparisons.size() > 0}"
-                                 selectionMode="single"                              
-                                 rowKey="#{item.price}"
-                                 rows="10"
-                                 >
+                    </p:outputLabel>
+                    <p:dataScroller rendered="#{itemManager.comparisons.size() > 0}" value="#{itemManager.comparisons}" var="item" chunkSize="7">
+                        <f:facet name="header">
+                            Scroll Down to Load More Items
+                        </f:facet>
+                        <h:panelGrid columns="3" style="width:800px;" columnClasses="searchLogo,searchDetail,searchButtonItem">
+                            <p:graphicImage style="width: 150px; height:100px; margin: auto;" url="http://ecx.images-amazon.com/images/I/41XZzTF5CsL._AC_US320_QL65_.jpg"/> 
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Title"/>
-                            </f:facet>
-                            <h:outputLink value="#{item.link}" >#{item.title}</h:outputLink>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Price"/>
-                            </f:facet>
-                            <h:outputText value="#{item.price}"/>
-                        </p:column>
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Name:" />
+                                    <h:outputText value="#{item.title}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Price:" />
+                                    <h:outputText value="#{item.price}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Description:" />
+                                    <h:outputText value="Description" style="font-weight: bold"/>
+                                </h:panelGrid>
+                            </p:outputPanel>
+
+                            <p:commandButton style="width: 100% !important; margin: auto !important; color: black" value="View" icon="ui-icon-search" onclick="window.open('#{item.link}')"></p:commandButton>
+                        </h:panelGrid>
+                        <hr/>
                         
-                    </p:dataTable>
-                    </h:form>
-                    <p:link id="cancel" outcome="index" value="Cancel" />
-                </div>
-            </ui:define>
-        
-        </ui:composition>
+                    </p:dataScroller>
+                    
+                </h:form> 
+                <BR></BR>
+                <p:link rendered="#{itemManager.comparisons.size() == 0}" styleClass="myButton" outcome="/ItemDetail.xhtml?faces-redirect=true"  value="Go Back" />
+     
+                <p:link rendered="#{itemManager.comparisons.size() > 0}" styleClass="myButton" outcome="/ItemDetail.xhtml?faces-redirect=true" value="Cancel" />
+            </div>
+        </ui:define>
+    </ui:composition>
     </h:body>
 </html>

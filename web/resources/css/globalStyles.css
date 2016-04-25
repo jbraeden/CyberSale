@@ -286,7 +286,9 @@ html {
 /*    padding-left: 10px;
     padding-right: 10px;*/
     
-    background: #44c767;
+    /*background: #44c767;*/
+    
+    background-color: white;
 }
 
 .ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-text-icon-left{
