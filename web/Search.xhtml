@@ -9,14 +9,25 @@
     <ui:composition template="./template.xhtml">
         <ui:define name="title">Cyber Sale Search Items</ui:define>
         
+
         <!-- Body -->
         <ui:define name="content">
+            <h:outputScript library="javascript" name="geocoder.js"></h:outputScript>
+            <script async='defer'
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB03lPHHxojALXGQbViWxLLj39pxVjeRO8">
+            </script>
+            
+
+            
             <div class="body" align="center" style="margin: auto; width: 850px;">
+                <h:panelGrid columns="1" class="headerSliderArea">
+                    <h:outputText id="slideout" class="sliderLabel" style="display: none;" value="#{sliderView.number1} miles away" />
+                    <h:inputHidden id="txt2" value="#{sliderView.number1}" />
+                    <p:slider for="txt2" style="display: none; margin: auto; margin-bottom: 10px; width: 500px;" display="slideout" 
+                              step="5" minValue="10" maxValue="300" displayTemplate="{value} miles away" />
+                </h:panelGrid>
                 <h:form> 
-                    <p:dataScroller value="#{searchManager.results}" var="item" chunkSize="7">
-                        <f:facet name="header">
-                            Scroll Down to Load More Items
-                        </f:facet>
+                    <p:dataScroller value="#{searchManager.results}" var="item">                            
 
                         <h:panelGrid columns="3" style="width:800px;" columnClasses="searchLogo,searchDetail,searchButtonItem">
                             <p:graphicImage style="width: 150px; height:100px; margin: auto;" name="#{photoManager.getPhotoFileNameForItem(item.id)}" /> 
@@ -31,10 +42,16 @@
 
                                     <h:outputText value="Description:" />
                                     <h:outputText value="#{item.description}" style="font-weight: bold"/>
+                                    
+                                    <h:outputText value="Zipcode: " />
+                                    <h:outputText class="result-zipcode" value="#{item.zipcode}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
 
-                            <p:commandButton style="width: 100% !important; margin: auto !important; color: black" value="View" icon="ui-icon-search" action="ItemDetail">
+                            <p:commandButton style="width: 100% !important; margin: auto !important;" 
+                                value="View Item" icon="ui-icon-search" 
+                                action="ItemDetail?faces-redirect=true"
+                                actionListener="#{itemManager.itemSelected(recent.id)}">
                             </p:commandButton>
                         </h:panelGrid>
                         <hr/>
