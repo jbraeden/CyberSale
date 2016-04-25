@@ -179,6 +179,7 @@ public class PhotoManager {
          Get Photo Filename given a Photo ID
     */    
     public String getItemPhotoFilename(int itemID) {
+        
         List<Photo> photos = itemPhotoFacade.findPhotosForItem(itemID);
 
         if (photos != null)
