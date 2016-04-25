@@ -185,41 +185,49 @@ public class ItemManager implements Serializable {
     
     public List<Comparison> fetchComparisons() {
         List<Comparison> list = new ArrayList<>();
+        String nameUrl = name.replace(' ', '+');
         String itemId;
-        if (productCode == null || productCode.isEmpty()) {
-            itemId = name.replace(' ', '+');
-        } else {            
-            itemId = productCode;
+        itemId = (productCode == null || productCode.isEmpty()) ?
+                nameUrl : productCode;
+ 
+        Elements elements = scrapePrices(itemId);
+        if (elements.size() == 0 && itemId.equals(productCode)) {
+            elements = scrapePrices(nameUrl);
         }
-        String url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
-
-        url += itemId;
-        Document doc; 
-        try {
-                doc = Jsoup.connect(url).timeout(6000).get();
-        } catch (IOException e) {
-                // Invalid URL 
-                e.printStackTrace();
-                return list;
-        }
-
-        Elements elements = doc.getElementsByClass("s-result-item");
-
+        
         // Iterate over all results 
         for (Element elm : elements) {
                 String title = elm.getElementsByClass("s-access-title").html();
                 Elements link = elm.getElementsByClass("s-access-detail-page");
                 Elements prices = elm.getElementsByClass("a-color-price");
+                Elements imageLinks = elm.getElementsByClass("s-access-image"); 
 
                 String priceComp = prices.size() > 0 ? prices.first().html() : "No price found";
                 String ref = link.size() > 0 ? link.first().attr("href") : "No link found";
+                String imageLink = imageLinks.size() > 0 ? 
+                        imageLinks.first().attr("src") : 
+                        "http://www.turnerduckworth.com/media/filer_public/b4/ac/b4ac5dfe-b335-403c-83b2-ec69e01f94e6/td-amazon-hero.svg";
 
                 // Add new Comparison to list 
-                list.add(new Comparison(ref, priceComp, title));
+                list.add(new Comparison(ref, priceComp, title, imageLink));
         }
         return list;
     }
 
+    private Elements scrapePrices(String itemId) {
+        String url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
+        url += itemId;
+        
+        try {
+            Document results = Jsoup.connect(url).timeout(6000).get();
+            return results.getElementsByClass("s-result-item");
+        } catch (IOException e) {
+            // Invalid URL 
+            e.printStackTrace();
+        }
+        return new Elements();
+    }
+    
     public void setCategories(Map<String, Object> categories) {
         this.categories = categories;
     }
@@ -442,6 +450,11 @@ public class ItemManager implements Serializable {
         private final String link;
         private final String price; 
         private final String title; 
+        private final String imageLink;
+        
+        public String getImageLink() {
+            return imageLink;
+        }
         
         public String getLink() {
             return link;
@@ -455,10 +468,11 @@ public class ItemManager implements Serializable {
             return title; 
         }
         
-        public Comparison(String link, String price, String title) {
+        public Comparison(String link, String price, String title, String imageLink) {
             this.link = link;
             this.price = price;
             this.title = title; 
+            this.imageLink = imageLink;
         }
     }        
     public void mapItem(Item i) {
