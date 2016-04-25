@@ -5,6 +5,7 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Customer;
+import com.CyberSale.entitypackage.CustomerItem;
 import com.CyberSale.entitypackage.Item;
 import com.CyberSale.entitypackage.Photo;
 import com.CyberSale.jsfclassespackage.util.Constants;
@@ -330,6 +331,12 @@ public class ItemManager implements Serializable {
                 item.setZipcode(customer.getZipcode());
                 
                 getFacade().create(item);
+                
+                CustomerItem customerItem = new CustomerItem();
+                customerItem.setCustomerId(customer);
+                customerItem.setItemId(item);
+                customerItemFacade.create(customerItem);
+
                 
                 mapItem(item);
             } catch (EJBException e) {
