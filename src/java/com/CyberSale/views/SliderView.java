@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 public class SliderView {
     
-    private int number1 = 10;   
+    private int number1 = 300;   
  
     public int getNumber1() {
         return number1;

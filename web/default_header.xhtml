@@ -68,14 +68,7 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                 </h:commandLink>
             </h:panelGrid>
             
-            <p:watermark for="searchBox" value="Search..." />
-            
-            <h:panelGrid columns="1" class="headerSliderArea" rendered="#{customerManager.loggedIn == true}">
-                <h:outputText id="slideout" value="#{sliderView.number1} miles away" />
-                <h:inputHidden id="txt2" value="#{sliderView.number1}" />
-                <p:slider for="txt2" display="slideout" step="5" minValue="10" maxValue="75" displayTemplate="{value} miles away" />
-            </h:panelGrid>
-
+            <p:watermark for="searchBox" value="Search..." />            
         </h:panelGrid>
     </h:form>  
     
