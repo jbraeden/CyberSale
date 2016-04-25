@@ -43,7 +43,7 @@
                 <br/>
 
                 <div style="height: 100%;">
-                    <p:carousel value="#{carouselView.recent}" headerText="Related Items" 
+                    <p:carousel rendered="#{carouselView.emptyRelated == false}" value="#{carouselView.relatedItems(itemManager.id)}" headerText="Related Items" 
                                 var="related" style="height: 485px;" 
                                 itemStyle="height: 407px; padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9">

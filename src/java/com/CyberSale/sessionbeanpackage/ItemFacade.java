@@ -5,6 +5,8 @@
 package com.CyberSale.sessionbeanpackage;
 
 import com.CyberSale.entitypackage.Item;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -98,6 +100,33 @@ public class ItemFacade extends AbstractFacade<Item> {
                     .setParameter("category", String.valueOf(category))
                     .getResultList();
                             }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Item> findRelatedItems(Item item, int category) {
+        try {
+            if (em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
+                    .setParameter("pattern", item.getItemName())
+                    .setParameter("category", String.valueOf(category))
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                List<Item> results = em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
+                    .setParameter("pattern", item.getItemName())
+                    .setParameter("category", String.valueOf(category))
+                    .getResultList();
+                ArrayList<Item> toReturn = new ArrayList<>();
+                for (Item i : results) {
+                    if (!i.getId().equals(item.getId())) {
+                        toReturn.add(i);
+                    }
+                }
+                return toReturn;
+            }
         } catch (Exception e) {
              e.printStackTrace();
         }
