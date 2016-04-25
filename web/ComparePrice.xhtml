@@ -22,7 +22,7 @@
                     <p:outputLabel rendered="#{itemManager.comparisons.size() == 0}">
                             No comparisons available
                     </p:outputLabel>
-                    <p:dataScroller rendered="#{itemManager.comparisons.size() > 0}" value="#{itemManager.comparisons}" var="item" chunkSize="7">
+                    <p:dataScroller id="resultsTable" rendered="#{itemManager.comparisons.size() > 0}" value="#{itemManager.comparisons}" var="item" chunkSize="7">
                         <f:facet name="header">
                             Scroll Down to Load More Items
                         </f:facet>
@@ -36,9 +36,6 @@
 
                                     <h:outputText value="Price:" />
                                     <h:outputText value="#{item.price}" style="font-weight: bold"/>
-
-                                    <h:outputText value="Description:" />
-                                    <h:outputText value="Description" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
 

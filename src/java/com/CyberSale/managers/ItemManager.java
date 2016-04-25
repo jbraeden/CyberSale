@@ -481,7 +481,7 @@ public class ItemManager implements Serializable {
     }
     
     public String done() {
-        return "ItemDetail?faces-redirect=true";
+        return "index?faces-redirect=true";
     }
             
 }
