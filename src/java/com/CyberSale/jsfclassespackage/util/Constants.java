@@ -4,6 +4,9 @@
  */
 package com.CyberSale.jsfclassespackage.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author patrickabod
@@ -19,9 +22,11 @@ public class Constants {
         "Books", "Clothing", "Electronics", "Home Goods", "Sports and Outdoors", "Tools",
         "Toys", "Other"};
     
-    public static final String[] SEARCH_CATEGORY = {"All", "Appliances", "Automotives",
+    public static final  String[] SEARCH = {"All", "Appliances", "Automotives",
         "Books", "Clothing", "Electronics", "Home Goods", "Sports and Outdoors", "Tools",
         "Toys", "Other"};
+    
+    public static final ArrayList<String> SEARCH_CATEGORY = new ArrayList<>(Arrays.asList(SEARCH));
     
     public static final String[] PRODUCT_CODE_TYPE = {"UPC", "ASIN", "ISBN"};
     

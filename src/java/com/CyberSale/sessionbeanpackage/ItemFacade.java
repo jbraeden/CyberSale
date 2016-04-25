@@ -69,14 +69,34 @@ public class ItemFacade extends AbstractFacade<Item> {
     
     public List<Item> findItemsByName(String namePattern) {
         try {
-            if (em.createNamedQuery("findItemsByName", Item.class)
+            if (em.createNamedQuery("Item.findItemsByName", Item.class)
                     .setParameter("pattern", namePattern)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findItemsByName", Item.class)
+                 return em.createNamedQuery("Item.findItemsByName", Item.class)
                     .setParameter("pattern", namePattern).getResultList();
+                            }
+        } catch (Exception e) {
+             e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Item> findItemsByNameAndCategory(String namePattern, int category) {
+        try {
+            if (em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
+                    .setParameter("pattern", namePattern)
+                    .setParameter("category", String.valueOf(category))
+                    .getResultList().isEmpty()) {
+                return null;
+            }
+            else {
+                 return em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
+                    .setParameter("pattern", namePattern)
+                    .setParameter("category", String.valueOf(category))
+                    .getResultList();
                             }
         } catch (Exception e) {
              e.printStackTrace();
@@ -86,14 +106,14 @@ public class ItemFacade extends AbstractFacade<Item> {
     
     public List<Item> findItemsByCost(double costMin, double costMax) {
         try {
-            if (em.createNamedQuery("findItemsByCost", Item.class)
+            if (em.createNamedQuery("Item.findItemsByCost", Item.class)
                     .setParameter("costMin", costMin)
                     .setParameter("costMax", costMax)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findItemsByCost", Item.class)
+                 return em.createNamedQuery("Item.findItemsByCost", Item.class)
                     .setParameter("costMin", costMin)
                     .setParameter("costMax", costMax)
                     .getResultList();
@@ -106,14 +126,14 @@ public class ItemFacade extends AbstractFacade<Item> {
     
     public List<Item> findItemsByHits(int hits) {
         try {
-            if (em.createNamedQuery("findItemsByHits",Item.class)
+            if (em.createNamedQuery("Item.findItemsByHits",Item.class)
                     .setParameter("hits", hits)
                     .setMaxResults(9)
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
-                 return em.createNamedQuery("findItemsByHits",Item.class)
+                 return em.createNamedQuery("Item.findItemsByHits",Item.class)
                     .setParameter("hits", hits)
                     .setMaxResults(9)
                     .getResultList();
