@@ -12,7 +12,15 @@
         
         <!-- Body -->
         <ui:define name="content">
-            <div class="body" >
+            <div class="body">
+                <h:panelGroup rendered="#{itemManager.sold}">
+                    <div align="center">
+                        <p:outputLabel style="color: red; margin: auto;" value="Item has been sold!" />
+                        <br/>
+                        <br/>
+                    </div>
+                </h:panelGroup>
+                
                 <div style="width: 470px; height: 400px; margin: 0 auto;" align="center">
                     <p:carousel value="#{itemManager.photos}" headerText="#{itemManager.name}" 
                                 var="photo" style="width:400px; height: 385px;" 
