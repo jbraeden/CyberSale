@@ -24,8 +24,19 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                     <br />
                     <br />
 
-                    <p:outputLabel value="#{messageManager.message}" />
+                    <h:outputText value="#{messageManager.message}" style="white-space: pre-wrap;" />
                 </p:panel>
+                
+                <div style="margin: 0 auto; margin-top: 20px;" align="center">
+                    <h:panelGrid columns="2">
+                        <p:commandButton class="myButton" value="Back to Item Detail Page"
+                                         icon="ui-icon-circle-arrow-w"
+                                         action="ItemDetail?faces-redirect=true" />
+                        <p:commandButton class="myButton" value="Go To Homescreen" 
+                                         icon="ui-icon-home"
+                                         action="index?faces-redirect=true" />                    
+                    </h:panelGrid>
+                </div>
             </div>
         </ui:define>
     </ui:composition>
