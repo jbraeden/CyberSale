@@ -19,7 +19,7 @@
                         <h2 align="center" class="form-signin-heading" style="margin:0 auto;">Add New Item</h2>
                         <br/>
                         <p:panel id="panel" 
-                                 style="margin: 0 auto; width: 500px; border: 1px solid black">
+                                 style="margin: 0 auto; width: 650px; border: 1px solid black">
                             
                             <p:outputLabel value="Please Choose a File for Your Photo"/>
                             <br/>
@@ -31,8 +31,11 @@
                             </fieldset>
                         </p:panel>
                         
-                        <h:commandButton class="btn btn-lg btn-success btn-block" id="submit" 
-                            action="#{itemManager.done}" value="Done" style="margin:auto;"/> 
+                        <br/>
+                        <br/>
+                        
+                        <h:commandButton class="myButton" id="submit" 
+                            action="#{itemManager.done}" value="Done" style="margin:auto;"/>  
                         
                     </h:form>
                 </div>
