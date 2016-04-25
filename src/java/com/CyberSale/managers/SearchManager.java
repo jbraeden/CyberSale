@@ -35,11 +35,11 @@ public class SearchManager implements Serializable {
     private String query;
     private List<Item> results;
     private Item currentItem;
-    private Photo currentPhoto;
+    private String filePath;
      
     @PostConstruct
     public void init() {
-        categories  = Constants.SEARCH_CATEGORY;
+        categories  = Constants.SEARCH;
     }
  
     public String getCategory() {
@@ -82,24 +82,33 @@ public class SearchManager implements Serializable {
         this.currentItem = currentItem;
     }
 
-    public Photo getCurrentPhoto() {
-        currentPhoto = itemPhotoFacade.findPhotosForItem(currentItem.getId()).get(0);
-        return currentPhoto;
+    public String getFilePath() {
+        Photo photo = itemPhotoFacade.findPhotosForItem(currentItem.getId()).get(0);
+        setFilePath("/ItemPhotos/" + currentItem.getId() + "/" + photo.getFileName());
+        return filePath;
     }
 
-    public void setCurrentPhoto(Photo currentPhoto) {
-        this.currentPhoto = currentPhoto;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
     
     public String search() {
         if (query.trim().isEmpty()) {
             return "";
         }
-        try {
-            results = itemFacade.findItemsByName(query);
-            System.out.println(results);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (category.equals("All")) {
+            try {
+                results = itemFacade.findItemsByName(query);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                System.out.println(Constants.SEARCH_CATEGORY.indexOf(category));
+                results = itemFacade.findItemsByNameAndCategory(query, Constants.SEARCH_CATEGORY.indexOf(category) - 1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return "Search.xhtml?faces-redirect=true";
     }

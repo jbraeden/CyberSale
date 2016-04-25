@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Item.findByHits", query = "SELECT i FROM Item i WHERE i.hits = :hits"),
     @NamedQuery(name = "Item.findByZipcode", query = "SELECT i FROM Item i WHERE i.zipcode = :zipcode"),
     @NamedQuery(name = "Item.findItemsByName", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern"),
-
+    @NamedQuery(name = "Item.findItemsByNameAndCategory", query = "SELECT i FROM Item i WHERE i.itemName LIKE :pattern AND i.category = :category"),
 })
 public class Item implements Serializable {
 
