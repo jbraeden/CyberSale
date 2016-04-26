@@ -53,7 +53,7 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
     }
     
     public List<Item> findRecentItems() {
-        List<Item> items = em.createQuery("SELECT i FROM Item i ORDER BY i.postedDate DESC").getResultList(); 
+        List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.postedDate DESC").getResultList(); 
 
         if (items.isEmpty())
             return null;
@@ -62,7 +62,7 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
     }
     
     public List<Item> findPopularItems() {
-        List<Item> items = em.createQuery("SELECT i FROM Item i ORDER BY i.hits DESC").getResultList(); 
+        List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.hits DESC").getResultList(); 
 
         if (items.isEmpty())
             return null;
@@ -71,7 +71,7 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
     }
     
     public List<Item> findCheapItems() {
-        List<Item> items = em.createQuery("SELECT i FROM Item i ORDER BY i.cost ASC").getResultList(); 
+        List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.cost ASC").getResultList(); 
 
         if (items.isEmpty())
             return null;

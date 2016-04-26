@@ -13,55 +13,56 @@
     
     <h:body>
         <ui:composition template="./template.xhtml">
-        <ui:define name="title">Cyber Sale</ui:define>
-        
-        <!-- Body -->
-        <ui:define name="content">
-            <div class="body" align="center" style="margin: auto; width: 850px;">
-                <h:form>
-                    <p:outputLabel rendered="#{customerManager.items.size() == 0}">
-                            You have not posted any items!
-                    </p:outputLabel>
-                    
-                    <p:dataScroller id="myitems" value="#{customerManager.items}" var="item">                            
+            <ui:define name="title">Cyber Sale</ui:define>
 
-                        <h:panelGrid columns="4" style="width:800px;" columnClasses="itemLogo,itemDetail,itemView,itemButtonItem">
-                            <p:graphicImage style="width: 150px; height:100px; margin: auto;" value="#{photoManager.getItemPhotoFilename(item.id)}" /> 
+            <!-- Body -->
+            <ui:define name="content">
+                <div class="body" align="center" style="margin: auto; width: 850px;">
+                    <h:form>
+                        <p:outputLabel rendered="#{customerManager.items.size() == 0}">
+                                You have not posted any items!
+                        </p:outputLabel>
 
-                            <p:outputPanel>
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Name:" />
-                                    <h:outputText value="#{item.itemName}" style="font-weight: bold"/>
+                        <p:dataScroller id="myitems" value="#{customerManager.items}" var="item">                            
 
-                                    <h:outputText value="Price:" />
-                                    <h:outputText value="#{item.cost}" style="font-weight: bold">
-                                        <f:convertNumber type="currency" />
-                                    </h:outputText>
+                            <h:panelGrid columns="4" style="width:800px;" columnClasses="itemLogo,itemDetail,itemView,itemButtonItem">
+                                <p:graphicImage style="max-width: 150px; max-height:100px; margin: auto;" value="#{photoManager.getItemPhotoFilename(item.id)}" /> 
 
-                                    <h:outputText value="Description:" />
-                                    <h:outputText value="#{item.description}" style="font-weight: bold"/>
-                                </h:panelGrid>
-                            </p:outputPanel>
-                            
-                            <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                value="View Item" icon="ui-icon-search" 
-                                action="ItemDetail?faces-redirect=true"
-                                actionListener="#{itemManager.itemSelected(item.id)}">
-                            </p:commandButton>
+                                <p:outputPanel>
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Name:" />
+                                        <h:outputText value="#{item.itemName}" style="font-weight: bold"/>
 
-                            <p:outputLabel rendered="#{item.sold}" value="Sold!" style="margin: 0 auto !important;" />
-                            
-                            <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                value="Mark as Sold"
-                                rendered="#{item.sold == false}"
-                                action="#{itemManager.markAsSold(item.id)}">
-                            </p:commandButton>
-                        </h:panelGrid>
-                        <hr/>
-                    </p:dataScroller>
-                </h:form>
-            </div>
-        </ui:define>
+                                        <h:outputText value="Price:" />
+                                        <h:outputText value="#{item.cost}" style="font-weight: bold">
+                                            <f:convertNumber type="currency" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Description:" />
+                                        <h:outputText value="#{item.description}" style="font-weight: bold"/>
+                                    </h:panelGrid>
+                                </p:outputPanel>
+
+                                <p:commandButton rendered="#{item.sold == false}"
+                                    style="width: 100% !important; margin: auto !important;" 
+                                    value="View Item" icon="ui-icon-search" 
+                                    action="ItemDetail?faces-redirect=true"
+                                    actionListener="#{itemManager.itemSelected(item.id)}">
+                                </p:commandButton>
+
+                                <p:outputLabel rendered="#{item.sold}" value="Sold!" style="margin: 0 auto !important;" />
+
+                                <p:commandButton style="width: 100% !important; margin: auto !important;" 
+                                    value="Mark as Sold"
+                                    rendered="#{item.sold == false}"
+                                    action="#{itemManager.markAsSold(item.id)}">
+                                </p:commandButton>
+                            </h:panelGrid>
+                            <hr/>
+                        </p:dataScroller>
+                    </h:form>
+                </div>
+            </ui:define>
     </ui:composition>
     </h:body>
 </html>
