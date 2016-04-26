@@ -18,7 +18,10 @@
             <!-- Body -->
             <ui:define name="content">
                 <div class="body" align="center" style="margin: auto; width: 850px;">
+                <h2 align="center" class="form-signin-heading" style="margin:0 auto;">My Items</h2>
+
                     <h:form>
+                        
                         <p:outputLabel rendered="#{customerManager.items.size() == 0}">
                                 You have not posted any items!
                         </p:outputLabel>
@@ -52,8 +55,8 @@
 
                                 <p:outputLabel rendered="#{item.sold}" value="Sold!" style="margin: 0 auto !important;" />
 
-                                <p:commandButton style="width: 100% !important; margin: auto !important;" 
-                                    value="Mark as Sold"
+                                <p:commandButton icon="ui-icon-tag" style="width: 100% !important; margin: auto !important;" 
+                                    value="Mark Sold"
                                     rendered="#{item.sold == false}"
                                     action="#{itemManager.markAsSold(item.id)}">
                                 </p:commandButton>

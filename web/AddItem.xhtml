@@ -36,7 +36,7 @@
                                 </h:inputText>
                                 <p:message for="itemDescription" display="icon" />  
                                 
-                                <p:outputLabel for="productCategory" value="Product Identifier" />
+                                <p:outputLabel for="productCategory" value="Product Category" />
                                 <h:selectOneMenu id="productCategory" value="#{itemManager.category}" required="true">
                                     <f:selectItems value="#{itemManager.categories}"/>
                                 </h:selectOneMenu>
@@ -55,9 +55,11 @@
                                 <p:message for="productCodeValue" display="icon" />
 
                                 <p:outputLabel for="listingPrice" value="Listing Price" />
-                                <h:inputText id="listingPrice" value="#{itemManager.cost}" 
-                                             required="true" label="city">
-                                    <f:convertNumber currencySymbol="$" pattern="#0.00"/>
+                                <h:inputText   id="listingPrice" value="#{itemManager.cost}" 
+                                             required="true" >
+                                    <f:convertNumber type="number" currencySymbol="$" pattern="#,###,##0.00"/>
+                                    <f:validateDoubleRange minimum="0" />
+                                    
                                 </h:inputText>
                                 <p:message for="listingPrice" display="icon" />                    
 
@@ -65,6 +67,7 @@
 
 
                             </h:panelGrid>
+                            <p:watermark for="listingPrice" value="Ex: #####.##"/>
                         </p:panel>
                         
                     <div align="center">

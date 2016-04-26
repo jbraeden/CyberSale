@@ -105,10 +105,12 @@ public class ItemManager implements Serializable {
             if (itemPhotoFacade.findPhotosForItem(itemId) == null) {
                 photos = new Photo[1];
                 photos[0] = new Photo();
-                photos[0].setFileName("default_item_photo.png");
+                photos[0].setFileName("default_photo.png");
             }
             else
-                photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);            
+                photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);
+            
+        
         }
     }
     
@@ -498,5 +500,11 @@ public class ItemManager implements Serializable {
         itemFacade.edit(item);
         return "UserItems?faces-redirect=true";
     }
-            
+      
+    public void clear() {
+        this.name = "";
+        this.cost = 0;
+        this.description = "";
+        this.productCode = "";
+    }
 }

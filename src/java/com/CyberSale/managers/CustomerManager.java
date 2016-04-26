@@ -450,6 +450,7 @@ public class CustomerManager implements Serializable {
     
     public String attemptPostItem() {              
         if (loggedIn)
+            
             return "AddItem?faces-redirect=true";
         else {
             loginToPage = "AddItem";
@@ -472,4 +473,5 @@ public class CustomerManager implements Serializable {
       FacesContext.getCurrentInstance().getExternalContext().
               getSessionMap().put("customer_id", customer.getId());
     }
+    
 }
