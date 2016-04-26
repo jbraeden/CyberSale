@@ -5,9 +5,11 @@
 package com.CyberSale.managers;
 
 import com.CyberSale.entitypackage.Customer;
+import com.CyberSale.entitypackage.Item;
 import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import com.CyberSale.sessionbeanpackage.ItemFacade;
+import com.CyberSale.sessionbeanpackage.ItemPhotoFacade;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -15,8 +17,6 @@ import javax.inject.Named;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
-import javax.activation.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -33,12 +33,18 @@ public class MessageManager implements Serializable {
     private String subject;
     private String message;    
     private String recipient_address;
+    private String share_recipient;
+    private Item share_item;
+    private boolean attach_image;
     
     @EJB
     private ItemFacade itemFacade;
     
     @EJB
     private CustomerItemFacade customerItemFacade;
+    
+    @EJB
+    private ItemPhotoFacade customerItemPhotoFacade;
     
     /**
      * Create new instance of the MessageManager bean
@@ -47,14 +53,25 @@ public class MessageManager implements Serializable {
      */
     public MessageManager() {
         subject = message = recipient_address = "";
+        
+        share_recipient = "";
+        attach_image = false;
     }
-
+    
     public void OnLoad(int itemId) {
         seller = customerItemFacade.findItemSeller(itemId);
         
         recipient_address = seller.getEmail();
         
         subject = "Item Inquiry: " + itemFacade.findItemById(itemId).getItemName();
+    }
+
+    public void OnShareLoad(int itemId) {
+        share_item = itemFacade.findItemById(itemId);
+        subject = "Look at this item on CyberSale: " + share_item.getItemName();
+        
+        share_recipient = message = "";
+        attach_image = false;
     }
     
     public String sendMessage() {
@@ -106,10 +123,95 @@ public class MessageManager implements Serializable {
             return "";
         }
     }
+    
+    public String sendShareMessage() {
+        boolean success = false;
+        
+        Properties properties = new Properties();
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        
+        try {            
+            Session session = Session.getInstance(properties, 
+                    new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(Constants.CYBERSALE_EMAIL, 
+                                    Constants.CYBERSALE_EMAIL_PW);
+                        }
+                    });
+        
+            // Create Message object
+            MimeMessage emailMessage = new MimeMessage(session);
+            
+            // Set From & To Fields
+            emailMessage.setFrom(new InternetAddress(Constants.CYBERSALE_EMAIL));
+            emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(share_recipient));
+            
+            // Set Subject
+            emailMessage.setSubject(subject);
+            
+            // Create MimeMultiPart and MimeBodyPart objects
+            Multipart multipart = new MimeMultipart();
+            BodyPart htmlPart = new MimeBodyPart();
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            
+            // Set Message
+            message += Constants.CYBERSALE_EMAIL_FOOTER;
+            htmlPart.setText(message);
+            multipart.addBodyPart(htmlPart);
+            
+            // Set Attachment (if any)
+            if (attach_image && share_item.getItemPhotoCollection().size() > 0) {
+                String filePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/ItemPhotos/" + share_item.getId() + "/" +
+                        customerItemPhotoFacade.findPhotosForItem(share_item.getId()).get(0).getFileName());
+                attachmentPart.attachFile(filePath);
+                multipart.addBodyPart(attachmentPart);
+            }
+            
+            // Send the message
+            emailMessage.setContent(multipart);
+            Transport.send(emailMessage);
+            success = true;
+        }
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        if (success)
+            return "EmailSent?faces-redirect=true";
+        else {
+            FacesContext.getCurrentInstance().addMessage(null, 
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email Error", "Error while sending Email."));
+            return "";
+        }
+    }
 
     /*
     Getters & Setters
      */
+
+    public boolean hasImage() {
+        return (share_item.getItemPhotoCollection().size() > 0);
+    }
+    
+    public boolean isAttach_image() {
+        return attach_image;
+    }
+
+    public void setAttach_image(boolean attach_image) {
+        this.attach_image = attach_image;
+    }
+    
+    public String getShare_recipient() {
+        return share_recipient;
+    }
+
+    public void setShare_recipient(String share_recipient) {
+        this.share_recipient = share_recipient;
+    }
     
     public String getSellerName() {    
         return seller.getFirstName() + " " + seller.getLastName();

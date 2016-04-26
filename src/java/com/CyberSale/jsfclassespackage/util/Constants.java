@@ -36,5 +36,5 @@ public class Constants {
     
     public static final String CYBERSALE_EMAIL_PW = "csd@VT(S16)";
     
-    public static final String CYBERSALE_EMAIL_FOOTER = "\n\n--\nThis message was auto generated from CyberSale";
+    public static final String CYBERSALE_EMAIL_FOOTER = "\n\n--\nThis message was sent from a CyberSale user";
 }
