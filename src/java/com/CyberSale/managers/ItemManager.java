@@ -105,7 +105,7 @@ public class ItemManager implements Serializable {
             if (itemPhotoFacade.findPhotosForItem(itemId) == null) {
                 photos = new Photo[1];
                 photos[0] = new Photo();
-                photos[0].setFileName("default_photo.png");
+                photos[0].setFileName("default_item_photo.png");
             }
             else
                 photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);            

@@ -31,19 +31,17 @@
                     <p:carousel value="#{carouselView.recent}" headerText="Recently Posted" var="recent" 
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9" >
-                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="1" style="margin: 0 auto; width: 100%; height: 100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(recent.id)}"/> 
+                                <p:graphicImage class="carouselImage" value="#{photoManager.getItemPhotoFilename(recent.id)}"/> 
                             </f:facet>
-
+                            
                             <h:outputText value="#{recent.itemName}" />
-
+                            
                             <h:outputText value="#{recent.cost}">
                                 <f:convertNumber type="currency" />
                             </h:outputText>
-
-                            <!--<h:outputText value="# {recent.description}"/>-->
-
+                            
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
                                                  value="View Item" icon="ui-icon-search" 
@@ -51,21 +49,21 @@
                                                  actionListener="#{itemManager.itemSelected(recent.id)}">
                                 </p:commandButton>
                             </f:facet>
-
+                            
                         </p:panelGrid>
                     </p:carousel>
-
+                    
                     <br/>
                     <br/>
                     <br/>
                     <br/>
-
+                    
                     <p:carousel value="#{carouselView.popular}" headerText="Most Popular" var="popular"
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;"
                                 circular="true" numVisible="3" pageLinks="9">
-                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="1" style="margin: 0 auto; width: 100%; height: 100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(popular.id)}"/> 
+                                <p:graphicImage class="carouselImage" value="#{photoManager.getItemPhotoFilename(popular.id)}"/> 
                             </f:facet>
                              
                             <h:outputText value="#{popular.itemName}" />
@@ -74,8 +72,6 @@
                                 <f:convertNumber type="currency" />
                             </h:outputText>
                             
-                            <!--<h:outputText value="# {popular.description}"/>-->
-
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
                                                  value="View Item" icon="ui-icon-search" 
@@ -96,18 +92,16 @@
                     <p:carousel value="#{carouselView.deals}" headerText="Best Deals" var="deal" 
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9">
-                        <p:panelGrid columns="1" style="height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="1" style="margin: 0 auto; width: 100%; height:100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(deal.id)}"/> 
+                                <p:graphicImage class="carouselImage" value="#{photoManager.getItemPhotoFilename(deal.id)}"/> 
                             </f:facet>
 
                             <h:outputText value="#{deal.itemName}" />
 
                             <h:outputText value="#{deal.cost}">
                                 <f:convertNumber type="currency" />
-                            </h:outputText>    
-
-                            <!--<h:outputText value="# {deal.description}"/>-->
+                            </h:outputText>
 
                             <f:facet name="footer">
                                 <p:commandButton style="width: 100% !important; margin: auto !important;" 
