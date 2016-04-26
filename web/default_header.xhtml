@@ -14,6 +14,8 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         <!-- Place Login/Logout elements into header first -->
         <h:panelGroup rendered="#{customerManager.loggedIn == true}">
             <div class="headerLoginLogoutArea">
+                <p:commandButton value="My Items"
+                                 action="#{customerManager.viewMyItems()}" />
                 <p:commandButton value="Logout"
                                  action="#{customerManager.logoutCustomer()}" />
             </div>

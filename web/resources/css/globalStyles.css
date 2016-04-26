@@ -395,6 +395,29 @@ html {
     margin: auto;
 }
 
+.itemLogo {
+    width: 15%;
+    height: auto;
+    margin: auto;
+}
+.itemDetail{
+    width: 45%;
+    height: auto;
+    margin: auto;
+}
+.itemView{
+    width: 20%;
+    height: auto;
+    margin: auto;
+    text-align: center;
+}
+.itemButtonItem{
+    width: 20%;
+    height: auto;
+    margin: auto;
+    text-align: center;
+}
+
 .userForm {
     margin: 0 auto;
     text-align: center;

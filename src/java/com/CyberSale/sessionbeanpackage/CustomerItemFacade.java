@@ -7,6 +7,7 @@ package com.CyberSale.sessionbeanpackage;
 import com.CyberSale.entitypackage.Customer;
 import com.CyberSale.entitypackage.CustomerItem;
 import com.CyberSale.entitypackage.Item;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -76,5 +77,22 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
             return null;
         else
             return items;
+    }
+
+    public List<Item> findUserItems(int customerId) {
+        List<CustomerItem> customerItemList = em.createQuery("SELECT ci FROM CustomerItem ci WHERE ci.customerId.id = :customerId")
+                .setParameter("customerId", customerId)
+                .getResultList();
+        
+        List<Item> ui = new ArrayList<Item>();
+        
+        for(CustomerItem ci : customerItemList) {
+            ui.add(ci.getItemId());
+        }
+        
+        if (ui.isEmpty())
+            return null;
+        else
+            return ui;
     }
 }

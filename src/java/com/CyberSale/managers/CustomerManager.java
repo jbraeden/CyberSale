@@ -8,10 +8,13 @@ import com.CyberSale.entitypackage.Customer;
 import com.CyberSale.entitypackage.Item;
 import com.CyberSale.jsfclassespackage.util.Constants;
 import com.CyberSale.sessionbeanpackage.CustomerFacade;
+import com.CyberSale.sessionbeanpackage.CustomerItemFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -45,6 +48,9 @@ public class CustomerManager implements Serializable {
     @EJB
     private CustomerFacade customerFacade;
     
+    @EJB
+    private CustomerItemFacade customerItemFacade;
+    
     /* True when the Customer has logged in */
     private boolean loggedIn;
     
@@ -56,6 +62,8 @@ public class CustomerManager implements Serializable {
     
     /* Set to the page the user is attempting to login to (none otherwise) */
     private String loginToPage;
+    
+    private List<Item> items;
     
     /**
      * Creates a new instance of CustomerManager.
@@ -114,6 +122,14 @@ public class CustomerManager implements Serializable {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
         return "index?faces-redirect=true";
+    }
+    
+    public String viewMyItems() {
+        Customer c = customerFacade.findCustomerByUsername(username);
+        items = new ArrayList<Item>();
+        items = customerItemFacade.findUserItems(c.getId());
+        Collections.reverse(items);
+        return "UserItems?faces-redirect=true";
     }
 
     
@@ -259,6 +275,15 @@ public class CustomerManager implements Serializable {
 
     public void setQuestion_answer(String question_answer) {
         this.question_answer = question_answer;
+    }
+
+    public List<Item> getItems() {
+        viewMyItems();
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
     
     /*

@@ -490,5 +490,12 @@ public class ItemManager implements Serializable {
     public String done() {
         return "index?faces-redirect=true";
     }
+    
+    public String markAsSold(int itemId) {
+        Item item = itemFacade.findItemById(itemId);
+        item.setSold(true);
+        itemFacade.edit(item);
+        return "UserItems?faces-redirect=true";
+    }
             
 }
