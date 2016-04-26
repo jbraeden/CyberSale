@@ -185,6 +185,6 @@ public class PhotoManager {
         if (photos != null)
             return "/ItemPhotos/" + itemID + "/" + photos.get(0).getFileName();
         else
-            return "/resources/images/default_photo.png";
+            return "/resources/images/default_item_photo.png";
     }
 }

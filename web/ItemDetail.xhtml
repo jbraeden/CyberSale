@@ -26,9 +26,9 @@
                                 var="photo" style="width:400px; height: 385px;" 
                                 itemStyle="padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="1" pageLinks="9">
-                        <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="1" style="margin: 0 auto; width: 100%; height: 100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="ItemPhotos/#{itemManager.id}/#{photo.fileName}"/> 
+                                <p:graphicImage class="carouselImage" value="#{photoManager.getItemPhotoFilename(itemManager.id)}"/> 
                             </f:facet>
                         </p:panelGrid>
                     </p:carousel>
@@ -55,11 +55,11 @@
                                 var="related" style="height: 485px;" 
                                 itemStyle="height: 407px; padding:35px 35px 10px 35px; text-align:center; width:400px;" 
                                 circular="true" numVisible="3" pageLinks="9">
-                        <p:panelGrid columns="1" style="height:auto;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
+                        <p:panelGrid columns="1" style="margin: 0 auto; width: 100%; height: 100%;" columnClasses="label,value" styleClass="ui-panelgrid-blank">
                             <f:facet name="header">
-                                <p:graphicImage value="#{photoManager.getItemPhotoFilename(related.id)}"/> 
+                                <p:graphicImage class="carouselImage" value="#{photoManager.getItemPhotoFilename(related.id)}"/> 
                             </f:facet>
-
+                            
                             <h:outputText value="#{related.itemName}" />
 
                             <h:outputText value="#{related.cost}">
