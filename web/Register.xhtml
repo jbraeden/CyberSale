@@ -82,9 +82,11 @@
                             <p:message for="username" display="icon" />  
 
                             <p:outputLabel for="password" value="Password" /> 
-                            <p:password id="password" value="#{customerManager.password}" feedback="true" required="true"/>
-                            <p:message for="password" display="icon" /> 
-
+                            <p:password id="password" value="#{customerManager.password}" feedback="true" required="true">
+                                <f:validator validatorId="passwordValidator" />
+                            </p:password>
+                            <p:message id="pwError" for="password" display="icon" /> 
+                            
                             <p:growl id="messages" showDetail="true" redisplay="false"/>
 
                         </h:panelGrid>
@@ -94,10 +96,21 @@
                         <h:outputLabel id="error" value="#{customerManager.statusMessage}"  />
                         <br/>
                         
-                        <h:panelGrid columns="2">
-                            <h:commandButton class="myButton" id="submit" 
-                                             action="#{customerManager.createAccount()}" value="Submit" style="margin:auto;"/>   
-                            <h:button class="myButton" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>
+                        <h:panelGrid columns="2" cellpadding="5px">
+                            <p:commandButton id="cancel" class="myButton" value="Cancel"
+                                             icon="ui-icon-circle-arrow-w"
+                                             immediate="true"
+                                             action="index?faces-redirect=true" />
+                            
+                            <p:commandButton id="submit" class="myButton" 
+                                             update="msgs,password,pwError"
+                                             action="#{customerManager.createAccount()}" 
+                                             value="Submit" />
+                            
+<!--                            <p:commandButton class="myButton" id="submit" 
+                                             action="# {customerManager.createAccount()}" 
+                                             value="Submit" style="margin:auto;"/>   
+                            <h:button class="myButton" id="cancel" outcome="index" value="Cancel" style="margin:auto;"/>-->
                         </h:panelGrid>
                     </div>
                 </h:form>

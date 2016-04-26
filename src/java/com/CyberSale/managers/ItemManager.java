@@ -344,7 +344,8 @@ public class ItemManager implements Serializable {
                 statusMessage = "Something went wrong while creating your item!";
                 return "";
             }
-            return "/AddItemUploadImage.xhtml?faces-redirect=true";
+            
+            return "AddItemUploadImage?faces-redirect=true";
         }
         return "";
     }

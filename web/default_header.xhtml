@@ -14,10 +14,12 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         <!-- Place Login/Logout elements into header first -->
         <h:panelGroup rendered="#{customerManager.loggedIn == true}">
             <div class="headerLoginLogoutArea">
-                <p:commandButton value="My Items"
-                                 action="#{customerManager.viewMyItems()}" />
-                <p:commandButton value="Logout"
-                                 action="#{customerManager.logoutCustomer()}" />
+                <p:splitButton id="LogoutSplitButton" value="Account" 
+                               rendered="#{customerManager.loggedIn == true}">
+                    <p:menuitem value="My Items" action="#{customerManager.viewMyItems()}"/>
+                    <p:separator />
+                    <p:menuitem value="Logout" action="#{customerManager.logoutCustomer()}"/>
+                </p:splitButton>
             </div>
         </h:panelGroup>
         <h:panelGrid columns="1" rendered="#{customerManager.loggedIn == false}"

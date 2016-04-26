@@ -291,7 +291,7 @@ public class CustomerManager implements Serializable {
     */
     
     public String createAccount() {
-    // Check to see if a user already exists with the username given.
+        // Check to see if a user already exists with the username given.
         Customer c = customerFacade.findCustomerByUsername(username);
         
         if (c != null) {
@@ -304,7 +304,7 @@ public class CustomerManager implements Serializable {
             try {
                 Customer customer = new Customer();
                 customer.setFirstName(firstName);
-                customer.setLastName(lastName);                
+                customer.setLastName(lastName);
                 customer.setZipcode(zipcode);
                 customer.setEmail(email);
                 customer.setPhoneNumber(phoneNumber);
@@ -312,13 +312,18 @@ public class CustomerManager implements Serializable {
                 customer.setSecurityAnswer(securityQuestionAnswer);
                 customer.setUsername(username);
                 customer.setPassword(password);
-                customerFacade.create(customer);                
+                customerFacade.create(customer);
+            
+                // Login the customer
+                loggedIn = true;
+                initializeSessionMap(customer);
             } catch (EJBException e) {
                 username = "";
                 statusMessage = "Something went wrong while creating your account!";
                 return "";
             }
-            return "/index.xhtml?faces-redirect=true";
+            
+            return "index.xhtml?faces-redirect=true";
         }
         return "";
     }
@@ -379,6 +384,7 @@ public class CustomerManager implements Serializable {
         }
         else {
             statusMessage = "";
+            username = customer.getUsername();
             return "SecurityQuestion?faces-redirect=true";
         }
     }
@@ -406,14 +412,19 @@ public class CustomerManager implements Serializable {
             statusMessage = "";
             Customer customer = customerFacade.findCustomerByEmail(email_answer);
             try {
-                customer.setPassword(password);
+                customer.setPassword(newPassword);
                 customerFacade.edit(customer);
-                email_answer = question_answer = newPassword = confirmPassword = "";                
+                email_answer = question_answer = newPassword = confirmPassword = "";
+                
+                // Login the customer
+                loggedIn = true;
+                initializeSessionMap(customer);
             } catch (EJBException e) {
                 statusMessage = "Something went wrong editing your profile, please try again!";
                 return "PasswordReset?faces-redirect=true";            
             }
-            return "index?faces-redirect=true";            
+            
+            return "index?faces-redirect=true";
         }
         else {
             return "PasswordReset?faces-redirect=true";            

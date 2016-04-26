@@ -22,12 +22,21 @@
                         <h:inputText id="answer" value="#{customerManager.question_answer}"/>
                     </div>
                     <br/>
-                    <h:commandButton styleClass="myButton" id="submit" action="#{customerManager.securityQuestionSubmit()}" value="Submit" />
+                    
+                    <h:panelGrid columns="2" cellpadding="5px">
+                        <p:commandButton class="myButton" value="Cancel"
+                                         icon="ui-icon-circle-arrow-w"
+                                         immediate="true"
+                                         action="index?faces-redirect=true" />
+                        
+                        <p:commandButton class="myButton" id="submit" 
+                                         action="#{customerManager.securityQuestionSubmit()}" 
+                                         value="Submit" />
+                    </h:panelGrid>
 
                     <br/>
                     <h:outputLabel value ="#{customerManager.statusMessage}" />                  
                 </h:form>
-                <p:link class="myButton" outcome="index" value="Cancel" />
             </div>
         </ui:define>
     </ui:composition>
