@@ -120,7 +120,7 @@
                     <br/>
                     <br/>
 
-                    <p:commandButton class="myButton" value="Post Item" action="#{customerManager.attemptPostItem}" />
+                    <p:commandButton class="myButton" value="Post Item" actionListener="#{itemManager.clear()}" action="#{customerManager.attemptPostItem}" />
                 </h:form>
 
                 <br/>

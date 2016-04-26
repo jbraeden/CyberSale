@@ -18,18 +18,18 @@
                     <h:form class="form-signin" enctype="multipart/form-data" styleClass="margin:0 auto;">
                         <h2 align="center" class="form-signin-heading" style="margin:0 auto;">Add New Item</h2>
                         <br/>
-                        <p:panel id="panel" 
-                                 style="margin: 0 auto; width: 650px; border: 1px solid black">
+                        <div align="center"> 
                             
-                            <p:outputLabel value="Please Choose a File for Your Photo"/>
                             <br/>
                             <br/>
-                            <fieldset>
-                                <p:fileUpload  fileUploadListener="#{photoManager.handleFileUpload}" mode="advanced" dragDropSupport="false"
+                            <fieldset style="width: 650px;">
+                                <p:outputLabel value="Please Choose Photos to Upload"/>
+                                <p:fileUpload   fileUploadListener="#{photoManager.handleFileUpload}" mode="advanced" dragDropSupport="false"
                                     multiple="true" sizeLimit="10000000" fileLimit="6" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
                             </fieldset>
-                        </p:panel>
+                            
+                        </div>
                         
                         <br/>
                         <br/>

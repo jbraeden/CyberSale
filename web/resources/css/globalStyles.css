@@ -428,14 +428,14 @@ html {
     display: inline-block;  /* Causes Panel to shrink/grow to fit contents */
     margin: 0 auto;
     border: 1px solid black;
-    background: #89dc9f;
+    background: #44c767;
 }
 
 .content .contactForm {
     margin: 0 auto;
     border: 1px solid black;
     width: 50%;
-    background: #89dc9f;
+    background: #44c767;
     text-align: left;
     font-size: 125%;
 }
