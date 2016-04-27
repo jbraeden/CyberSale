@@ -136,6 +136,8 @@ public class PhotoManager {
             
             itemPhotoFacade.create(itemPhoto);
             
+            this.file = null;
+            
             resultMsg = new FacesMessage("Success!", "File Successfully Uploaded!");
             return resultMsg;
         } catch (IOException e) {

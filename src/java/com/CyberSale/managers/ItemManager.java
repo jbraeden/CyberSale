@@ -504,4 +504,15 @@ public class ItemManager implements Serializable {
         this.description = "";
         this.productCode = "";
     }
+    
+    public String fetchPhotoPath(Photo photo) {
+        List<Photo> results = itemPhotoFacade.findPhotosForItem(this.id);
+        if (results == null || results.isEmpty()) {
+            return "/resources/images/default_item_photo.png";
+        }
+        else {
+            return "/ItemPhotos/" + this.id + "/" + photo.getFileName();
+        }
+        
+    }
 }
