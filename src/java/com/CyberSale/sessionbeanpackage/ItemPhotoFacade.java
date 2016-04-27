@@ -45,14 +45,7 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
         ArrayList<Photo> photos = new ArrayList<>();
         if (itemPhotos != null && !itemPhotos.isEmpty()) {
             for (ItemPhoto ip : itemPhotos) {
-                if ((ip.getItemId().getId()).equals(itemId)) {
-                    try {
-                        photos.add(em.find(Photo.class, ip.getPhotoId().getId()));
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
+                photos.add(ip.getPhotoId());
             }
             return photos;
         }

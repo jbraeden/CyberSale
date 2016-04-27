@@ -55,7 +55,7 @@ public class ItemManager implements Serializable {
     private boolean sold;
     private int hits;
     
-    private Photo[] photos;
+    private List<Photo> photos;
     
     private String statusMessage = "";
     
@@ -101,16 +101,13 @@ public class ItemManager implements Serializable {
             comparisons = fetchComparisons();
             selectedItem.setHits(selectedItem.getHits()+1);
             itemFacade.edit(selectedItem);
-            
-            if (itemPhotoFacade.findPhotosForItem(itemId) == null) {
-                photos = new Photo[1];
-                photos[0] = new Photo();
-                photos[0].setFileName("default_photo.png");
-            }
-            else
-                photos = itemPhotoFacade.findPhotosForItem(itemId).toArray(new Photo[0]);
-            
-        
+            photos = itemPhotoFacade.findPhotosForItem(itemId);
+            if (photos == null || photos.isEmpty()) {
+                photos = new ArrayList<>();
+                Photo defaultPhoto = new Photo();
+                defaultPhoto.setFileName("default_photo.png");
+                photos.add(defaultPhoto);
+            }            
         }
     }
     
@@ -283,11 +280,11 @@ public class ItemManager implements Serializable {
         this.hits = hits;
     }
 
-    public Photo[] getPhotos() {
+    public List<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(Photo[] photos) {
+    public void setPhotos(List<Photo> photos) {
         this.photos = photos;
     }       
 
