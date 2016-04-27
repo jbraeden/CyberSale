@@ -82,10 +82,15 @@
                             <p:message for="username" display="icon" />  
 
                             <p:outputLabel for="password" value="Password" /> 
-                            <p:password id="password" value="#{customerManager.password}" feedback="true" required="true">
+                            <p:password id="password" value="#{customerManager.password}" feedback="true" required="true" match="confirmPassword">
                                 <f:validator validatorId="passwordValidator" />
                             </p:password>
                             <p:message id="pwError" for="password" display="icon" /> 
+
+                            <p:outputLabel for="confirmPassword" value="Confirm Password" /> 
+                            <p:password id="confirmPassword" value="#{customerManager.password}" feedback="false" required="true" >
+                            </p:password>
+                            <p:message id="confrimpwError" for="confirmPassword" display="icon" /> 
                             
                             <p:growl id="messages" showDetail="true" redisplay="false"/>
 
