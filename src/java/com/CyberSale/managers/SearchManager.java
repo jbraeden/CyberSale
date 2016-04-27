@@ -32,7 +32,7 @@ public class SearchManager implements Serializable {
     
     private String category; 
     private String[] categories;
-    private String query;
+    private String query = "";
     private List<Item> results;
     private Item currentItem;
     private String filePath;
@@ -93,10 +93,8 @@ public class SearchManager implements Serializable {
     }
     
     public String search() {
-        if (query.trim().isEmpty()) {
-            return "";
-        }
         if (category.equals("All")) {
+            System.out.println("Searching all");
             try {
                 results = itemFacade.findItemsByName(query);
             } catch (Exception e) {
@@ -110,6 +108,7 @@ public class SearchManager implements Serializable {
                 e.printStackTrace();
             }
         }
+        query = "";
         return "Search.xhtml?faces-redirect=true";
     }
 }

@@ -72,13 +72,13 @@ public class ItemFacade extends AbstractFacade<Item> {
     public List<Item> findItemsByName(String namePattern) {
         try {
             if (em.createNamedQuery("Item.findItemsByName", Item.class)
-                    .setParameter("pattern", namePattern)
+                    .setParameter("pattern", "%" + namePattern + "%")
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
                  return em.createNamedQuery("Item.findItemsByName", Item.class)
-                    .setParameter("pattern", namePattern).getResultList();
+                    .setParameter("pattern", "%" + namePattern + "%").getResultList();
                             }
         } catch (Exception e) {
              e.printStackTrace();
@@ -89,14 +89,14 @@ public class ItemFacade extends AbstractFacade<Item> {
     public List<Item> findItemsByNameAndCategory(String namePattern, int category) {
         try {
             if (em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
-                    .setParameter("pattern", namePattern)
+                    .setParameter("pattern", "%" + namePattern + "%")
                     .setParameter("category", String.valueOf(category))
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
                  return em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
-                    .setParameter("pattern", namePattern)
+                    .setParameter("pattern", "%" + namePattern + "%")
                     .setParameter("category", String.valueOf(category))
                     .getResultList();
                             }
@@ -109,14 +109,14 @@ public class ItemFacade extends AbstractFacade<Item> {
     public List<Item> findRelatedItems(Item item, int category) {
         try {
             if (em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
-                    .setParameter("pattern", item.getItemName())
+                    .setParameter("pattern", "%" + item.getItemName() + "%")
                     .setParameter("category", String.valueOf(category))
                     .getResultList().isEmpty()) {
                 return null;
             }
             else {
                 List<Item> results = em.createNamedQuery("Item.findItemsByNameAndCategory", Item.class)
-                    .setParameter("pattern", item.getItemName())
+                    .setParameter("pattern", "%" + item.getItemName() + "%")
                     .setParameter("category", String.valueOf(category))
                     .getResultList();
                 ArrayList<Item> toReturn = new ArrayList<>();
