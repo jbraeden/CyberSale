@@ -229,9 +229,10 @@ public class ItemManager implements Serializable {
             return photoPaths;
         }
         else {
-            List<String> photoPaths = new ArrayList<>();
-            for (Photo photoObject : photos) {
-                photoPaths.add(photoObject.getFileName());
+            List<Photo> results = itemPhotoFacade.findPhotosForItem(this.id);
+            ArrayList<String> photoPaths = new ArrayList<>();
+            for (Photo photoObject : results) {
+                photoPaths.add("/ItemPhotos/" + this.id + "/" + photoObject.getFileName());
             }
             return photoPaths;
         }
