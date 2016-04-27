@@ -169,7 +169,7 @@ public class PhotoManager {
     }
     
     public void handleFileUpload(FileUploadEvent event) {
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesMessage message = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         this.file = event.getFile();
         upload();
@@ -181,10 +181,20 @@ public class PhotoManager {
     public String getItemPhotoFilename(int itemID) {
         
         List<Photo> photos = itemPhotoFacade.findPhotosForItem(itemID);
-
-        if (photos != null)
-            return "/ItemPhotos/" + itemID + "/" + photos.get(0).getFileName();
+        
+        if (photos != null) {
+            String path = "/ItemPhotos/" + itemID + "/" + photos.get(0).getFileName();
+            String realPath = FacesContext.getCurrentInstance()
+                    .getExternalContext().getRealPath(path);
+            
+            // Check if item photo file actually exists on drive
+            if (new File(realPath).exists())
+                return path;
+            else
+                return "/resources/images/default_item_photo.png";
+        }
         else
             return "/resources/images/default_item_photo.png";
+        
     }
 }

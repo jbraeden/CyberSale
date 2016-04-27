@@ -164,7 +164,7 @@ public class MessageManager implements Serializable {
             multipart.addBodyPart(htmlPart);
             
             // Set Attachment (if any)
-            if (attach_image && share_item.getItemPhotoCollection().size() > 0) {
+            if (attach_image && customerItemPhotoFacade.findPhotosForItem(share_item.getId()).size() > 0) {
                 String filePath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/ItemPhotos/" + share_item.getId() + "/" +
                         customerItemPhotoFacade.findPhotosForItem(share_item.getId()).get(0).getFileName());
                 attachmentPart.attachFile(filePath);
@@ -194,7 +194,7 @@ public class MessageManager implements Serializable {
      */
 
     public boolean hasImage() {
-        return (share_item.getItemPhotoCollection().size() > 0);
+        return (customerItemPhotoFacade.findPhotosForItem(share_item.getId()).size() > 0);
     }
     
     public boolean isAttach_image() {

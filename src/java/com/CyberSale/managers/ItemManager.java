@@ -102,12 +102,6 @@ public class ItemManager implements Serializable {
             selectedItem.setHits(selectedItem.getHits()+1);
             itemFacade.edit(selectedItem);
             photos = itemPhotoFacade.findPhotosForItem(itemId);
-            if (photos == null || photos.isEmpty()) {
-                photos = new ArrayList<>();
-                Photo defaultPhoto = new Photo();
-                defaultPhoto.setFileName("default_photo.png");
-                photos.add(defaultPhoto);
-            }            
         }
     }
     
@@ -226,6 +220,21 @@ public class ItemManager implements Serializable {
             e.printStackTrace();
         }
         return new Elements();
+    }
+    
+    public List<String> getPhotosPaths() {
+        if (photos == null || photos.isEmpty()) {
+            List<String> photoPaths = new ArrayList<>();
+            photoPaths.add("/resources/images/default_item_photo.png");
+            return photoPaths;
+        }
+        else {
+            List<String> photoPaths = new ArrayList<>();
+            for (Photo photoObject : photos) {
+                photoPaths.add(photoObject.getFileName());
+            }
+            return photoPaths;
+        }
     }
     
     public void setCategories(Map<String, Object> categories) {
