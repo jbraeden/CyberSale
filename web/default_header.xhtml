@@ -14,7 +14,7 @@ Copyright © 2016 Ryan Asper. All rights reserved.
         <!-- Place Login/Logout elements into header first -->
         <h:panelGroup rendered="#{customerManager.loggedIn == true}">
             <div class="headerLoginLogoutArea">
-                <p:splitButton id="LogoutSplitButton" value="Account" 
+                <p:splitButton id="LogoutSplitButton" value="Account" style="margin-top: 4px;"
                                rendered="#{customerManager.loggedIn == true}">
                     <p:menuitem value="My Items" action="#{customerManager.viewMyItems()}"/>
                     <p:separator />
