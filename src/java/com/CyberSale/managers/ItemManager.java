@@ -25,9 +25,7 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
-import javax.validation.ConstraintViolationException;
- 
+import javax.inject.Named; 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -35,7 +33,7 @@ import org.jsoup.select.Elements;
 /**
  *
  * @author Braeden
- * @author Patrick
+ * @author Patrick Abod
  */
 @Named(value = "itemManager")
 @SessionScoped
@@ -55,27 +53,34 @@ public class ItemManager implements Serializable {
     private boolean sold;
     private int hits;
     
+    /* Used to hold an items photos */
     private List<Photo> photos;
     
+    /* Status message to hold any validation errors to display to the user */
     private String statusMessage = "";
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private ItemFacade itemFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerFacade customerFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerItemFacade customerItemFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private ItemPhotoFacade itemPhotoFacade;
     
-    /* ArrayLists to hold Recent/Popular Items */
+    /* Lists to hold Recent/Popular/cheap Items */
     private List<Item> recentItems;
     private List<Item> popularItems;
     private List<Item> cheapItems;
     
+    /* List to hold item comparisons */
     private List<Comparison> comparisons; 
     
     @PostConstruct
@@ -83,28 +88,36 @@ public class ItemManager implements Serializable {
         this.name = "";
         this.cost = 0;
         this.description = "";
-    }
-
-    /*
-        Public Methods
-    */    
+    }    
     
+    /**
+     * This method is called to selected a specific item
+     * @param itemId the id of the item to select
+     */
     public void itemSelected(int itemId) {
+        // find the item in the DB
         Item selectedItem = itemFacade.findItemById(itemId);
         
         if (selectedItem != null) {
+            // set the fields for the seleced item
             id = itemId;
             name = selectedItem.getItemName();
             description = selectedItem.getDescription();
             cost = selectedItem.getCost();
             productCode = selectedItem.getProductCodeValue();
             comparisons = fetchComparisons();
+            // increase the hit count of the selected item
             selectedItem.setHits(selectedItem.getHits()+1);
             itemFacade.edit(selectedItem);
             photos = itemPhotoFacade.findPhotosForItem(itemId);
         }
     }
     
+    /**
+     * This method is called to update the recently posted items,
+     * the popular items, and the cheap items when the home
+     * page is loaded.
+     */
     public void OnLoad() {
         // Run Queries to Find Items
         recentItems = customerItemFacade.findRecentItems();
@@ -142,6 +155,7 @@ public class ItemManager implements Serializable {
     }
 
     public Map<String, Object> getProductCodes() {
+        // map the product codes if they are not already mapped
         if (productCodes == null) {
             productCodes = new LinkedHashMap<>();
             for (int i = 0; i < Constants.PRODUCT_CODE_TYPE.length; i++) {
@@ -164,6 +178,7 @@ public class ItemManager implements Serializable {
     }
 
     public Map<String, Object> getCategories() {
+        // map the item categories if they are not already mapped
         if (categories == null) {
             categories = new LinkedHashMap<>();
             for (int i = 0; i < Constants.ITEM_CATEGORY.length; i++) {
@@ -177,6 +192,12 @@ public class ItemManager implements Serializable {
         return comparisons;
     }
     
+    /**
+     * This method is used to obtain the price comparisons
+     * for the selected object.
+     * Scrapes Amazon
+     * @return The list of comparison objects
+     */
     public List<Comparison> fetchComparisons() {
         List<Comparison> list = new ArrayList<>();
         String nameUrl = name.replace(' ', '+');
@@ -208,6 +229,12 @@ public class ItemManager implements Serializable {
         return list;
     }
 
+    /**
+     * This method scrapes the prices for a given item using
+     * an Amazon api call
+     * @param itemId the item id upon which the query
+     * @return the elements of the scraping process
+     */
     private Elements scrapePrices(String itemId) {
         String url = "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
         url += itemId;
@@ -222,12 +249,19 @@ public class ItemManager implements Serializable {
         return new Elements();
     }
     
+    /**
+     * This method is used to get the paths of all the photos
+     * kept on the server's file system
+     * @return The list of photo paths
+     */
     public List<String> getPhotosPaths() {
+        // return the default image if no photos exist
         if (photos == null || photos.isEmpty()) {
             List<String> photoPaths = new ArrayList<>();
             photoPaths.add("/resources/images/default_item_photo.png");
             return photoPaths;
         }
+        // return the photo file paths
         else {
             List<Photo> results = itemPhotoFacade.findPhotosForItem(this.id);
             ArrayList<String> photoPaths = new ArrayList<>();
@@ -318,11 +352,17 @@ public class ItemManager implements Serializable {
         return itemFacade;
     }
     
+    /**
+     * This method is used to create a new item and add it to
+     * the Cyber Sale DB
+     * @return the image upload web page redirect String
+     */
     public String createItem() {
         // create item
 
         if (statusMessage.isEmpty()) {
             try {
+                // set the item deafult fields and input information
                 Item item = new Item();
                 item.setItemName(name);
                 item.setCategory(category);                
@@ -335,18 +375,21 @@ public class ItemManager implements Serializable {
                 item.setSold(false);
                 item.setItemPhotoCollection(null);
                 
+                // Set the item's zipcode to the customer's
                 Customer customer = customerFacade.findCustomerById((Integer)FacesContext.getCurrentInstance().getExternalContext().
                 getSessionMap().get("customer_id"));
                 item.setZipcode(customer.getZipcode());
                 
+                // persist the item to the DB
                 getFacade().create(item);
                 
+                // map the customer to the item using the relational DB
                 CustomerItem customerItem = new CustomerItem();
                 customerItem.setCustomerId(customer);
                 customerItem.setItemId(item);
                 customerItemFacade.create(customerItem);
 
-                
+                // map the newly created item
                 mapItem(item);
             } catch (EJBException e) {
                 System.out.println(e);
@@ -408,6 +451,11 @@ public class ItemManager implements Serializable {
         Additional Item Table queries
     */
     
+    /**
+     * Used to find a particular item by its id
+     * @param id the id of the item to find
+     * @return the found item
+     */
     public Item getItemById(Integer id) {
         Item item = null;
         try {
@@ -419,6 +467,11 @@ public class ItemManager implements Serializable {
         return item;
     }
     
+    /**
+     * Used to find a particular item by its name
+     * @param name the name of the item to find
+     * @return the found item
+     */
     public Item getItemByName(String name) {
         Item item = null;
         try {
@@ -430,6 +483,11 @@ public class ItemManager implements Serializable {
         return item;
     }
     
+    /**
+     * Used to find a list of item using a name pattern
+     * @param name the name pattern on which to search
+     * @return the list of items found
+     */
     public List<Item> getItemsByName(String name) {
         List<Item> items = null;
         try {
@@ -441,6 +499,12 @@ public class ItemManager implements Serializable {
         return items;
     }
     
+    /**
+     * Used to find items within a particular cost range
+     * @param costMin the minimum cost
+     * @param costMax the maximum cost
+     * @return the list of items within the range
+     */
     public List<Item> getItemsByCost(double costMin, double costMax) {
         List<Item> items = null;
         try {
@@ -452,6 +516,11 @@ public class ItemManager implements Serializable {
         return items;
     }
     
+    /**
+     * Used to find items by the number of hits they have
+     * @param hits the number of hits on which to search
+     * @return the found items
+     */
     public List<Item> getItemsByHits(int hits) {
         List<Item> items = null;
         try {
@@ -463,7 +532,11 @@ public class ItemManager implements Serializable {
         return items;
     }
     
+    /**
+     * inner comparison class used for Amazon searching
+     */
     public class Comparison {
+        /* Comparison fields */
         private final String link;
         private final String price; 
         private final String title; 
@@ -485,22 +558,37 @@ public class ItemManager implements Serializable {
             return title; 
         }
         
+        // Constructor or the comparison object
         public Comparison(String link, String price, String title, String imageLink) {
             this.link = link;
             this.price = price;
             this.title = title; 
             this.imageLink = imageLink;
         }
-    }        
+    }    
+    
+    /**
+     * Used to map an item during a user's session
+     * @param i the item to map
+     */
     public void mapItem(Item i) {
         FacesContext.getCurrentInstance().getExternalContext().
               getSessionMap().put("item_id", i.getId());
     }
     
+    /**
+     * Used to redirect the user when they are done uploading files
+     * @return the home web page redirect string
+     */
     public String done() {
         return "index?faces-redirect=true";
     }
     
+    /**
+     * Used to mark a particular item as being sold
+     * @param itemId the id of the item to mark
+     * @return the customer's my item page redirect string
+     */
     public String markAsSold(int itemId) {
         Item item = itemFacade.findItemById(itemId);
         item.setSold(true);
@@ -508,6 +596,9 @@ public class ItemManager implements Serializable {
         return "UserItems?faces-redirect=true";
     }
       
+    /**
+     * helper method to clear the item fields
+     */
     public void clear() {
         this.name = "";
         this.cost = 0;
@@ -515,6 +606,11 @@ public class ItemManager implements Serializable {
         this.productCode = "";
     }
     
+    /**
+     * get a particular image's photo path
+     * @param photo the photo object
+     * @return the photo path String
+     */
     public String fetchPhotoPath(Photo photo) {
         List<Photo> results = itemPhotoFacade.findPhotosForItem(this.id);
         if (results == null || results.isEmpty()) {
