@@ -26,6 +26,11 @@ import javax.faces.application.FacesMessage;
 /**
  *
  * @author patrickabod
+ * 
+ * This manager bean class handles all functions that involve customer actions,
+ * including account creation, logging in/out from the application,
+ * reseting forgotten passwords, and viewing customer items.
+ * 
  */
 @Named(value = "customerManager")
 @SessionScoped
@@ -47,7 +52,8 @@ public class CustomerManager implements Serializable {
     /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerFacade customerFacade;
-    
+        
+    /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerItemFacade customerItemFacade;
     
@@ -63,6 +69,9 @@ public class CustomerManager implements Serializable {
     /* Set to the page the user is attempting to login to (none otherwise) */
     private String loginToPage;
     
+    /** List of the items to populate the my Items page 
+     * (All items the customer has posted)
+    */
     private List<Item> items;
     
     /**
@@ -80,21 +89,31 @@ public class CustomerManager implements Serializable {
     }
 
     /*
-        Public Methods
+        Log in/out Methods
     */
     
+    /**
+     * This method is used to login the customer when the login button
+     * is clicked in the header.
+     * @return The home page or next page URL redirect string
+     */
     public String loginCustomer() {
         Customer customer = customerFacade.findCustomerByUsername(username);
-        
+        // ensure the customer has an account
         if (customer == null) {
             addErrorMessage("Login Error", "Invalid username or password!");
             return "";
         } 
         else {
+            // check that the customer has entered the correct username and password
             if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                // set the login flag
                 loggedIn = true;
+                // map the customer's sessison
                 initializeSessionMap(customer);
                 
+                // check to see if the customer wants to login into a specific page
+                // such as the post item page
                 if (!loginToPage.isEmpty()) {
                     String nextPage = loginToPage;
                     loginToPage = "";
@@ -109,6 +128,11 @@ public class CustomerManager implements Serializable {
         }
     }
     
+    /**
+     * This method is used to log the customer out of their account
+     * when the logout button is clicked in the header
+     * @return The home page URL redirect string
+     */
     public String logoutCustomer() {
         // Reset Fields
         loggedIn = false;
@@ -124,6 +148,15 @@ public class CustomerManager implements Serializable {
         return "index?faces-redirect=true";
     }
     
+    /* Viewing a customer's history of posted items */
+    
+    /**
+     * This method is used to get the list of items that a customer
+     * has posted using his or her account.
+     * The list is reversed to display in order with the most 
+     * recently posted items at the top.
+     * @return The User Items URL redirect page
+     */
     public String viewMyItems() {
         Customer c = customerFacade.findCustomerByUsername(username);
         items = new ArrayList<Item>();
@@ -191,12 +224,12 @@ public class CustomerManager implements Serializable {
     }
 
     public Map<String, Object> getSecurityQuestions() {
+        // map the security questions if they have not yet been mapped
         if (securityQuestions == null) {
             securityQuestions = new LinkedHashMap<>();
             for (int i = 0; i < Constants.QUESTIONS.length; i++) {
                 securityQuestions.put(Constants.QUESTIONS[i], i);
             }
-            //System.out.println(securityQuestions.toString());
         }
         return securityQuestions;
     }
@@ -286,14 +319,16 @@ public class CustomerManager implements Serializable {
         this.items = items;
     }
     
-    /*
-        CRUD operations
-    */
-    
+    /**
+     * This method is used to create a customer account
+     * when the user clicks the submit button from the register page
+     * @return The home page redirect string
+     */
     public String createAccount() {
         // Check to see if a user already exists with the username given.
         Customer c = customerFacade.findCustomerByUsername(username);
         
+        // the user already has a Cyber Sale account
         if (c != null) {
             username = "";
             statusMessage = "Username already exists! Please select a different one!";
@@ -302,6 +337,7 @@ public class CustomerManager implements Serializable {
 
         if (statusMessage.isEmpty()) {
             try {
+                // create a new customer and set the entered fields
                 Customer customer = new Customer();
                 customer.setFirstName(firstName);
                 customer.setLastName(lastName);
@@ -312,10 +348,12 @@ public class CustomerManager implements Serializable {
                 customer.setSecurityAnswer(securityQuestionAnswer);
                 customer.setUsername(username);
                 customer.setPassword(password);
+                //persist the customer object into the Customer table
                 customerFacade.create(customer);
             
                 // Login the customer
                 loggedIn = true;
+                // map the newly created customer
                 initializeSessionMap(customer);
             } catch (EJBException e) {
                 username = "";
@@ -328,6 +366,11 @@ public class CustomerManager implements Serializable {
         return "";
     }
     
+    /**
+     * Read a customer from the DB
+     * @param i the customer to read
+     * @return the found customer
+     */
     public Customer read(Customer i) {
         try {
             getFacade().find(i.getId());
@@ -338,6 +381,11 @@ public class CustomerManager implements Serializable {
         return null;
     }
     
+    /**
+     * Update a customer's information in the DB
+     * @param i the customer to edit
+     * @return the newly updated customer object
+     */
     public Customer update(Customer i) {
         try {
             getFacade().edit(i);
@@ -348,6 +396,11 @@ public class CustomerManager implements Serializable {
         return null;
     }
     
+    /**
+     * Delete a customer's account from the DB
+     * @param i the customer account to delete
+     * @return the deleted customer
+     */
     public Customer delete(Customer i) {
         try {
             getFacade().remove(i);
@@ -357,67 +410,86 @@ public class CustomerManager implements Serializable {
         }
         return null;
     }
-    
-    /*
-        Additional Customer Table Queries
-    */
-    
-    
-    /*
-        Private Methods
-    */
-    
+
     /**
-     * 
-     * @param error 
+     * Adds an error message for any validation errors during customer operations
+     * @param summary Summary of the error
+     * @param error The actual error message
      */
     private void addErrorMessage(String summary, String error) {
         FacesContext.getCurrentInstance()
                 .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, error));
     }
     
+    /**
+     * This method is used to verify that the customer has
+     * an account with Cyber Sale based on an email query.
+     * This method is used during the password reset process.
+     * @return the redirect web page string
+     */
     public String emailSubmit() {
         Customer customer = customerFacade.findCustomerByEmail(email_answer);
         if (customer == null) {
+            // customer entered invalid email
             statusMessage = "Entered email does not exist!";
             return "RecoverEmail?faces-redirect=true";
         }
         else {
+            // proceed because email is valid
             statusMessage = "";
             username = customer.getUsername();
             return "SecurityQuestion?faces-redirect=true";
         }
     }
     
+    /**
+     * This method is used to verify that the customer has entered the
+     * correct answer for their security question.
+     * @return the redirect web page string
+     */
     public String securityQuestionSubmit() {
         Customer customer = customerFacade.findCustomerByUsername(username);
         if (customer.getSecurityAnswer().equals(question_answer)) {
+            // proceed
             statusMessage = "";
             return "PasswordReset?faces-redirect=true";
         }
         else {
+            // answer is incorrect
             statusMessage = "Answer incorrect";
             return "SecurityQuestion?faces-redirect=true";
         }
     }
     
+    /**
+     * get the security question from our map of security questions
+     * @return 
+     */
     public String getSecurityQuestion() {
         int question = customerFacade.findCustomerByUsername(username).getSecurityQuestion();
         return Constants.QUESTIONS[question];
     }
     
+    /**
+     * This method is used to finally reset the customer's password
+     * @return The home page redirect string
+     */
     public String resetPassword() {
+        // make sure the passwords match
         validatePasswords(newPassword, confirmPassword);
         if (statusMessage.equals("")) {
             statusMessage = "";
             Customer customer = customerFacade.findCustomerByEmail(email_answer);
             try {
+                // reset the password
                 customer.setPassword(newPassword);
                 customerFacade.edit(customer);
+                // reset the information for customer password reset
                 email_answer = question_answer = newPassword = confirmPassword = "";
                 
                 // Login the customer
                 loggedIn = true;
+                // map the customer
                 initializeSessionMap(customer);
             } catch (EJBException e) {
                 statusMessage = "Something went wrong editing your profile, please try again!";
@@ -431,6 +503,12 @@ public class CustomerManager implements Serializable {
         }
     }
     
+    /**
+     * This method is used to ensure the passwords are the same and not empty.
+     * Sets the status message if there are any issues.
+     * @param p1 the first password input
+     * @param p2 the confirmation password
+     */
     public void validatePasswords(String p1, String p2) {
         if(p1.isEmpty() || p2.isEmpty() || !p1.equals(p2)) {
             statusMessage = "Passwords must match!";
@@ -439,6 +517,11 @@ public class CustomerManager implements Serializable {
         } 
     }
     
+    /**
+     * This method is used to bring the customer to the contact seller web page
+     * if the customer is logged in
+     * @return the web page redirect string
+     */
     public String attemptContactSeller() {              
         if (loggedIn)
             return "ContactSeller?faces-redirect=true";
@@ -448,6 +531,11 @@ public class CustomerManager implements Serializable {
         }
     }
     
+    /**
+     * This method is used to bring the customer to the post item web page
+     * if the customer is logged in
+     * @return the web page redirect string
+     */
     public String attemptPostItem() {              
         if (loggedIn)
             
