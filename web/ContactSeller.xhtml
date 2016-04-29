@@ -31,16 +31,23 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                     <p:panel class="contactForm">
                         <p:messages id="emailError" />
                         
-                        <p:outputLabel value="Message:" />
+                        <p:outputLabel value="Message Subject:" />
                         <br />
                         <br />
                         
                         <p:inputText id="subjectField" value="#{messageManager.subject}" 
                                      readonly="true" style="background: #e6e6e6;"/>
-
-                        <p:inputTextarea id="messageContentField" class="messageContentField"
-                                         value="#{messageManager.message}" required="true" style="margin-top: 20px;"/>
-                        <p:watermark for="messageContentField" value="Message Content..." />
+                        <br />
+                        <br />
+                        
+                        <p:outputLabel value="Message Content:" />
+                        <br />
+                        <br />
+                        
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{messageManager.message}" width="600"  height="400"/>
+                        <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                            <h:outputText id="display" value="#{messageManager.message}" escape="false"/>
+                        </p:dialog>
                         
                         <div class="formSubmitArea">
                             <p:commandButton id="submitMessage" value="Send Message" update="emailError"

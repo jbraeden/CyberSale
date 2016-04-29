@@ -45,18 +45,26 @@ Copyright © 2016 Ryan Asper. All rights reserved.
                         
                         <br />
                         
-                        <p:outputLabel value="Message:" />
+                        <p:outputLabel value="Message Subject:" />
                         <br />
                         <br />
                         
                         <p:inputText id="subjectField" value="#{messageManager.subject}" 
                                      required="true" />
                         <p:watermark for="subjectField" value="Message Subject..." />
-
-                        <p:inputTextarea id="messageContentField" class="messageContentField"
-                                         value="#{messageManager.message}" required="true"/>
-                        <p:watermark for="messageContentField" value="Message Content..." />
                         
+                        <br />
+                        <br />
+                        
+                        <p:outputLabel value="Message Content:" />
+                        <br />
+                        <br />
+                        
+                        <p:editor id="editor" widgetVar="editorWidget" value="#{messageManager.message}" width="600"  height="400"/>
+                        <p:dialog header="Content" widgetVar="dlg" showEffect="fade" hideEffect="fade">
+                            <h:outputText id="display" value="#{messageManager.message}" escape="false"/>
+                        </p:dialog>
+                                                
                         <br />
                         <br />
                         

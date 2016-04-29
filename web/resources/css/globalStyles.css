@@ -483,3 +483,7 @@ html {
     max-height: 500px;
     width: auto;
 }
+
+iframe {
+    background-color: white !important;
+}
