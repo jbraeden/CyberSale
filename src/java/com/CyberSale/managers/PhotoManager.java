@@ -32,6 +32,7 @@ import org.primefaces.model.UploadedFile;
 /**
  *
  * @author patrickabod
+ * @author Shawn Amjad
  * This manager class is used to handle the uploading of
  * photos (images) for items.
  */

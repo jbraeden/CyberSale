@@ -24,6 +24,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Ryan Asper
  * @author Patrick Abod
+ * @author Shawn Amjad
  * 
  * This bean class is used to handle all messaging capabilities,
  * including when a user wants to contact the seller of an item

@@ -19,7 +19,7 @@ import javax.inject.Named;
 /**
  *
  * @author patrickabod
- * 
+ * @author Shawn Amjad
  */
 @Named(value = "searchManager")
 @SessionScoped

@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author patrickabod
+ * This class is used to handle all queries in the customer-item
+ * relational DB table
  */
 @Stateless
 public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
@@ -37,6 +39,12 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
         Methods added to generated code
     */
     
+    /**
+     * Find a the seller of an item
+     * @param itemId the id of the item
+     * @return the customer who is selling the item
+     * Should never be null
+     */
     public Customer findItemSeller(int itemId) {
         
         Customer seller = null;
@@ -52,6 +60,10 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
         return seller;
     }
     
+    /**
+     * Find all the recent items posted
+     * @return a list of the recently posted items, null if there are no items
+     */
     public List<Item> findRecentItems() {
         List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.postedDate DESC").getResultList(); 
 
@@ -61,6 +73,10 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
             return items;
     }
     
+    /**
+     * Find all the popular items posted
+     * @return a list of the popular items posted, null if there are no items
+     */
     public List<Item> findPopularItems() {
         List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.hits DESC").getResultList(); 
 
@@ -70,6 +86,10 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
             return items;
     }
     
+    /**
+     * Find all the recent items posted
+     * @return a list of the recently posted items, null if there are no items
+     */
     public List<Item> findCheapItems() {
         List<Item> items = em.createQuery("SELECT i FROM Item i WHERE i.sold = false ORDER BY i.cost ASC").getResultList(); 
 
@@ -79,6 +99,11 @@ public class CustomerItemFacade extends AbstractFacade<CustomerItem> {
             return items;
     }
 
+    /**
+     * Find all the items for a particular
+     * @param customerId the customer id
+     * @return the list of items belonging to the customer
+     */
     public List<Item> findUserItems(int customerId) {
         List<CustomerItem> customerItemList = em.createQuery("SELECT ci FROM CustomerItem ci WHERE ci.customerId.id = :customerId")
                 .setParameter("customerId", customerId)

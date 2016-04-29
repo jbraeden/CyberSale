@@ -1,6 +1,6 @@
 /*
  * Created by Joseph Sebastian on 2016.04.05  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.managers;
 
@@ -34,6 +34,7 @@ import org.jsoup.select.Elements;
  *
  * @author Braeden
  * @author Patrick Abod
+ * @author Shawn Amjad
  * 
  * This bean class is used to handle all interactions that involve
  * items, including creating an item, viewing an item, linking customers
