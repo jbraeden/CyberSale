@@ -34,6 +34,11 @@ import org.jsoup.select.Elements;
  *
  * @author Braeden
  * @author Patrick Abod
+ * 
+ * This bean class is used to handle all interactions that involve
+ * items, including creating an item, viewing an item, linking customers
+ * to items, linking items to photos, and performing price comparisons
+ * on items.
  */
 @Named(value = "itemManager")
 @SessionScoped
