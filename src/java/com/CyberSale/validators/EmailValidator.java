@@ -18,6 +18,13 @@ import javax.faces.validator.ValidatorException;
  */
 public class EmailValidator implements Validator {
 
+    /**
+     * Makes sure the email address is a valid one.
+     * @param context the FacesContext object
+     * @param component the UIComponent object
+     * @param value the Object value representing the user's email
+     * @throws ValidatorException 
+     */
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         

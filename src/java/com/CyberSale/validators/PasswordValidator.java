@@ -18,6 +18,13 @@ import javax.faces.validator.ValidatorException;
  */
 public class PasswordValidator implements Validator {
 
+    /**
+     * Makes sure that user entered password is valid in terms of password requirements
+     * @param context
+     * @param component
+     * @param value
+     * @throws ValidatorException 
+     */
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         
@@ -39,6 +46,7 @@ public class PasswordValidator implements Validator {
          */
         String regex = "^(?=.{8,31})(?=.*[!@#$%^&*])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).*$";
         
+        // If the password does not meet the password requirements an Exception is thrown
         if (!password.matches(regex)) {
             throw new ValidatorException(new FacesMessage("The password must be minimum 8 "
                     + "characters long, contain at least one special character, "
