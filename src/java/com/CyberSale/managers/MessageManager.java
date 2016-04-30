@@ -23,6 +23,12 @@ import javax.faces.context.FacesContext;
 /**
  *
  * @author Ryan Asper
+ * @author Patrick Abod
+ * @author Shawn Amjad
+ * 
+ * This bean class is used to handle all messaging capabilities,
+ * including when a user wants to contact the seller of an item
+ * or wants to share an item with a friend.
  */
 @Named(value = "messageManager")
 @SessionScoped
@@ -37,12 +43,15 @@ public class MessageManager implements Serializable {
     private Item share_item;
     private boolean attach_image;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private ItemFacade itemFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private CustomerItemFacade customerItemFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     private ItemPhotoFacade customerItemPhotoFacade;
     
@@ -58,6 +67,11 @@ public class MessageManager implements Serializable {
         attach_image = false;
     }
     
+    /**
+     * This method is called when the web page is loaded to 
+     * populate the email fields with default values.
+     * @param itemId The item id of the subject item of the email
+     */
     public void OnLoad(int itemId) {
         seller = customerItemFacade.findItemSeller(itemId);
         
@@ -66,6 +80,11 @@ public class MessageManager implements Serializable {
         subject = "Item Inquiry: " + itemFacade.findItemById(itemId).getItemName();
     }
 
+    /**
+     * This method is used to populate the email fields of the
+     * share item page with default values
+     * @param itemId The item id of the subject item of the email
+     */
     public void OnShareLoad(int itemId) {
         share_item = itemFacade.findItemById(itemId);
         subject = "Look at this item on CyberSale: " + share_item.getItemName();
@@ -74,6 +93,10 @@ public class MessageManager implements Serializable {
         attach_image = false;
     }
     
+    /**
+     * This method is used to send the message typed by the user
+     * @return The page redirect to the email sent page
+     */
     public String sendMessage() {
         boolean success = false;
         
@@ -124,6 +147,10 @@ public class MessageManager implements Serializable {
         }
     }
     
+    /**
+     * Used to send the share item message typed by the user
+     * @return The web page redirection string to the email set web page
+     */
     public String sendShareMessage() {
         boolean success = false;
         

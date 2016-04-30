@@ -19,17 +19,21 @@ import javax.inject.Named;
 /**
  *
  * @author patrickabod
+ * @author Shawn Amjad
  */
 @Named(value = "searchManager")
 @SessionScoped
 public class SearchManager implements Serializable {
-         
+    
+    /* Java Bean that is initialized at runtime */
     @EJB
     ItemFacade itemFacade;
     
+    /* Java Bean that is initialized at runtime */
     @EJB
     ItemPhotoFacade itemPhotoFacade;
     
+    /* Search Manager fields */
     private String category; 
     private String[] categories;
     private String query = "";
@@ -42,6 +46,9 @@ public class SearchManager implements Serializable {
         categories  = Constants.SEARCH;
     }
  
+    /*
+        Getters and Setters
+    */
     public String getCategory() {
         return category;
     }
@@ -92,17 +99,21 @@ public class SearchManager implements Serializable {
         this.filePath = filePath;
     }
     
+    /**
+     * This method is used to execute the search when the search icon is clicked
+     * @return The web page redirect string to the search page
+     */
     public String search() {
+        // search on all items
         if (category.equals("All")) {
-            System.out.println("Searching all");
             try {
                 results = itemFacade.findItemsByName(query);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
+            // search on items within specified category
             try {
-                System.out.println(Constants.SEARCH_CATEGORY.indexOf(category));
                 results = itemFacade.findItemsByNameAndCategory(query, Constants.SEARCH_CATEGORY.indexOf(category) - 1);
             } catch (Exception e) {
                 e.printStackTrace();

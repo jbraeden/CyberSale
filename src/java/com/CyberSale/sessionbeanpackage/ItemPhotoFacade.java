@@ -16,6 +16,11 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author Braeden
+ * @author Patrick Abod
+ * @author Shawn Amjad
+ * 
+ * This class is used for all DB queries to the Item-Photo
+ * relational table
  */
 @Stateless
 public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
@@ -32,6 +37,16 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
         super(ItemPhoto.class);
     }
     
+    /*
+        The following queries are added to the generated code
+    */
+    
+    /**
+     * Find all photos for a particular item
+     * Can be null since photos for an item are optional
+     * @param itemId the item id on which to find photos
+     * @return the list of photos, null if none are found
+     */
     public List<Photo> findPhotosForItem(Integer itemId) {
         List<ItemPhoto> itemPhotos = null;
         try {
@@ -52,6 +67,12 @@ public class ItemPhotoFacade extends AbstractFacade<ItemPhoto> {
         return null;
     }
     
+    /**
+     * Find the item to which a photo belongs
+     * @param photoId the photo id on which to search
+     * @return the item to which a photo belongs
+     * Should never be null
+     */
     public Item findItemForPhoto(Integer photoId) {
         ItemPhoto itemPhoto = null;
         try {

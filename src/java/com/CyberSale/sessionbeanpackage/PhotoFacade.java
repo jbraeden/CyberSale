@@ -1,6 +1,6 @@
 /*
  * Created by Joseph Sebastian on 2016.04.12  * 
- * Copyright © 2016 Osman Balci. All rights reserved. * 
+ * Copyright © 2016 Patrick Abod. All rights reserved. * 
  */
 package com.CyberSale.sessionbeanpackage;
 
@@ -12,6 +12,8 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author Braeden
+ * @author Patrick Abod
+ * @author Shawn Amjad
  */
 @Stateless
 public class PhotoFacade extends AbstractFacade<Photo> {
@@ -31,6 +33,12 @@ public class PhotoFacade extends AbstractFacade<Photo> {
     /*
         The following code is added to the generated code
     */
+    
+    /**
+     * Find a particular photo by its id
+     * @param id the id of the photo
+     * @return the photo found, null otherwise
+     */
     public Photo findPhotoById(Integer id) {
         try {
             if (em.createNamedQuery("Photo.findById", Photo.class)

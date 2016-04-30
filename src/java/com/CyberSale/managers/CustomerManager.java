@@ -26,6 +26,7 @@ import javax.faces.application.FacesMessage;
 /**
  *
  * @author patrickabod
+ * @author Shawn Amjad
  * 
  * This manager bean class handles all functions that involve customer actions,
  * including account creation, logging in/out from the application,
