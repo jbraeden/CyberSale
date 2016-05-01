@@ -1,6 +1,6 @@
 /*
- * Created by Patrick Abod on 2016.04.19  * 
- * Copyright © 2016 Patrick Abod. All rights reserved. * 
+ * Created by CyberSale on 2016.04.19  * 
+ * Copyright © 2016 CyberSale. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -23,7 +23,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Entity class that encapsulates the Object Relational Mapping (ORM) of the
+ * 'Photo' table in the relational database 'CyberSaleDB'.
+ * 
+ * The class also specifies Named Queries (predefined SQL queries) to execute
+ * on CyberSaleDB, using the '@NamedQuery' annotation.
+ * 
+ * Logically, Photo represents all data directly associated with a Photo that 
+ * has been uploaded alongside an item (such as the Photo's filename that 
+ * identifies it on the server's file-system).
+ * 
+ * @author Ryan Asper
  * @author patrickabod
  */
 @Entity
@@ -36,6 +46,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Photo implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
+    /* Private variables that map to columns in the 'Photo' table */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -49,22 +62,57 @@ public class Photo implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "photoId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
+    
+    /**
+     * Default constructor
+     * 
+     * Initializes a new instance of the Photo class
+     */
     public Photo() {
+        // Required empty constructor
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Photo class with the given 
+     * Photo id (unique, private integer key that specifies a record in the DB 
+     * table).
+     * 
+     * @param id The unique id that specifies an individual Photo record
+     */
     public Photo(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Photo class with the given Photo
+     * attributes.
+     * 
+     * @param id The unique id that specifies an individual Photo record
+     * @param fileName The name of the image file on the server's file-system
+     */
     public Photo(Integer id, String fileName) {
         this.id = id;
         this.fileName = fileName;
     }
     
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Photo class with the Photo's filename
+     * 
+     * @param fileName The name of the image file on the server's file-system
+     */
     public Photo(String fileName) {
         this.fileName = fileName;
     }
 
+    
+    
+    /////////////// Getters & Setters //////////////////////
     public Integer getId() {
         return id;
     }
@@ -90,6 +138,15 @@ public class Photo implements Serializable {
         this.itemPhotoCollection = itemPhotoCollection;
     }
 
+    //////////////////// Overridden Methods ////////////////////
+    /**
+     * Overridden Method
+     * 
+     * Computes a hash for this Photo object, using its unique id, to be used
+     * when indexing (i.e., in a hash table).
+     * 
+     * @return The computed hash value.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -97,9 +154,19 @@ public class Photo implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Checks whether this Photo object is equal to the given Object. They
+     * are considered equal if both objects:
+     * - Are instances of the Photo class
+     * - Have equal id variables
+     * 
+     * @param object The Object being compared to this one
+     * @return True if equal, False otherwise
+     */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Photo)) {
             return false;
         }
@@ -110,6 +177,14 @@ public class Photo implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Returns a string representation of this object that is essentially the
+     * package name and the id of the object.
+     * 
+     * @return A string representation of this object
+     */
     @Override
     public String toString() {
         return "com.CyberSale.entitypackage.Photo[ id=" + id + " ]";

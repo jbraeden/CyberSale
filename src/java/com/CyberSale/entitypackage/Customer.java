@@ -1,6 +1,6 @@
 /*
- * Created by Patrick Abod on 2016.04.19  * 
- * Copyright © 2016 Patrick Abod. All rights reserved. * 
+ * Created by CyberSale on 2016.04.19  * 
+ * Copyright © 2016 CyberSale. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -23,7 +23,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
+ * Entity class that encapsulates the Object Relational Mapping (ORM) of the
+ * 'Customer' table in the relational database 'CyberSaleDB'.
+ * 
+ * The class also specifies Named Queries (predefined SQL queries) to execute
+ * on CyberSaleDB, using the '@NamedQuery' annotation.
+ * 
+ * Logically, Customer represents all data directly related to a user that has
+ * created an account on the CyberSale website (such as his or her name, zipcode
+ * email address, etc).
+ * 
+ * @author Ryan Asper
  * @author patrickabod
  */
 @Entity
@@ -44,6 +54,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
+    /* Private variables that map to columns in the 'Customer' table */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -94,13 +107,44 @@ public class Customer implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private Collection<CustomerItem> customerItemCollection;
 
+    
+    /**
+     * Default constructor
+     * 
+     * Initializes a new instance of the Customer class
+     */
     public Customer() {
+        // Required empty constructor
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Customer class with the given Customer
+     * id (unique, private integer key that specifies a record in the DB table).
+     * 
+     * @param id The unique, customer id that specifies an individual Customer record
+     */
     public Customer(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Customer class with the given Customer
+     * attributes.
+     * 
+     * @param id The unique, customer id that specifies an individual Customer record
+     * @param username The username for the Customer (used to Login)
+     * @param password The password for the Customer (used to Login)
+     * @param firstName The first name of the Customer
+     * @param lastName The last name of the Customer
+     * @param zipcode The zipcode in which the Customer resides (used to geolocate items they post)
+     * @param securityQuestion The security question chosen by the Customer (used to recover password)
+     * @param securityAnswer The security answer given by the Customer (used to recover password)
+     * @param email The email of the Customer (used for email communications - i.e. ContactSeller)
+     */
     public Customer(Integer id, String username, String password, String firstName, String lastName, int zipcode, int securityQuestion, String securityAnswer, String email) {
         this.id = id;
         this.username = username;
@@ -113,6 +157,9 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
+    
+    
+    /////////////// Getters & Setters //////////////////////
     public Integer getId() {
         return id;
     }
@@ -202,6 +249,17 @@ public class Customer implements Serializable {
         this.customerItemCollection = customerItemCollection;
     }
 
+    
+    
+    //////////////////// Overridden Methods ////////////////////
+    /**
+     * Overridden Method
+     * 
+     * Computes a hash for this Customer object, using its unique id, to be used
+     * when indexing (i.e., in a hash table).
+     * 
+     * @return The computed hash value.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -209,9 +267,19 @@ public class Customer implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Checks whether this Customer object is equal to the given Object. They
+     * are considered equal if both objects:
+     * - Are instances of the Customer class
+     * - Have equal id variables
+     * 
+     * @param object The Object being compared to this one
+     * @return True if equal, False otherwise
+     */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Customer)) {
             return false;
         }
@@ -222,6 +290,14 @@ public class Customer implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Returns a string representation of this object that is essentially the
+     * package name and the id of the object.
+     * 
+     * @return A string representation of this object
+     */
     @Override
     public String toString() {
         return "com.CyberSale.entitypackage.Customer[ id=" + id + " ]";

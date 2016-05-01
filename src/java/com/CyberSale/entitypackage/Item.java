@@ -1,6 +1,6 @@
 /*
- * Created by Patrick Abod on 2016.04.19  * 
- * Copyright © 2016 Patrick Abod. All rights reserved. * 
+ * Created by CyberSale on 2016.04.19  * 
+ * Copyright © 2016 CyberSale. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -27,7 +27,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ * Entity class that encapsulates the Object Relational Mapping (ORM) of the
+ * 'Item' table in the relational database 'CyberSaleDB'.
  * 
+ * The class also specifies Named Queries (predefined SQL queries) to execute
+ * on CyberSaleDB, using the '@NamedQuery' annotation.
+ * 
+ * Logically, Item represents all data directly associated with an Item that has
+ * been posted on the website (such as the item's name, description, cost, date 
+ * that it was posted, etc).
+ * 
+ * @author Ryan Asper
  * @author patrickabod
  */
 @Entity
@@ -51,6 +61,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
+    /* Private variables that map to columns in the 'Item' table */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -102,13 +115,44 @@ public class Item implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "itemId")
     private Collection<ItemPhoto> itemPhotoCollection;
 
+    
+    /**
+     * Default constructor
+     * 
+     * Initializes a new instance of the Item class
+     */
     public Item() {
+        // Required empty constructor
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Item class with the given 
+     * Item id (unique, private integer key that specifies a record in the DB 
+     * table).
+     * 
+     * @param id The unique id that specifies an individual Item record
+     */
     public Item(Integer id) {
         this.id = id;
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the Item class with the given Item
+     * attributes.
+     * 
+     * @param id The unique id that specifies an individual Item record
+     * @param itemName The name of the item
+     * @param cost The cost of the item (in US dollars)
+     * @param description A string description of the item
+     * @param postedDate The date that this item was first posted
+     * @param sold Whether or not this item has been sold (to omit from searches)
+     * @param hits The number of views this Item has had on the website
+     * @param zipcode The zipcode in which this item is being sold in
+     */
     public Item(Integer id, String itemName, float cost, String description, Date postedDate, boolean sold, int hits, int zipcode) {
         this.id = id;
         this.itemName = itemName;
@@ -120,6 +164,9 @@ public class Item implements Serializable {
         this.zipcode = zipcode;
     }
 
+    
+    
+    /////////////// Getters & Setters //////////////////////
     public Integer getId() {
         return id;
     }
@@ -226,6 +273,17 @@ public class Item implements Serializable {
         this.itemPhotoCollection = itemPhotoCollection;
     }
 
+    
+    
+    //////////////////// Overridden Methods ////////////////////
+    /**
+     * Overridden Method
+     * 
+     * Computes a hash for this Item object, using its unique id, to be used
+     * when indexing (i.e., in a hash table).
+     * 
+     * @return The computed hash value.
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -233,9 +291,19 @@ public class Item implements Serializable {
         return hash;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Checks whether this Item object is equal to the given Object. They
+     * are considered equal if both objects:
+     * - Are instances of the Item class
+     * - Have equal id variables
+     * 
+     * @param object The Object being compared to this one
+     * @return True if equal, False otherwise
+     */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Item)) {
             return false;
         }
@@ -246,6 +314,14 @@ public class Item implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Returns a string representation of this object that is essentially the
+     * package name and the id of the object.
+     * 
+     * @return A string representation of this object
+     */
     @Override
     public String toString() {
         return "com.CyberSale.entitypackage.Item[ id=" + id + " ]";

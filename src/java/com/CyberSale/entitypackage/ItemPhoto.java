@@ -1,6 +1,6 @@
 /*
- * Created by Patrick Abod on 2016.04.19  * 
- * Copyright © 2016 Patrick Abod. All rights reserved. * 
+ * Created by CyberSale on 2016.04.19  * 
+ * Copyright © 2016 CyberSale. All rights reserved. * 
  */
 package com.CyberSale.entitypackage;
 
@@ -19,7 +19,18 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * Entity class that encapsulates the Object Relational Mapping (ORM) of the
+ * 'ItemPhoto' table in the relational database 'CyberSaleDB'.
+ * 
+ * The class also specifies Named Queries (predefined SQL queries) to execute
+ * on CyberSaleDB, using the '@NamedQuery' annotation.
+ * 
+ * Logically, ItemPhoto represents a relation between an Item that has been
+ * posted to the website and a Photo that has been uploaded with that Item. The
+ * two have a one-to-many relationship (one item may have multiple photos 
+ * uploaded with it).
+ * 
+ * @author Ryan Asper
  * @author patrickabod
  */
 @Entity
@@ -32,6 +43,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ItemPhoto implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    
+    /* Private variables that map to columns in the 'ItemPhoto' table */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -44,13 +58,32 @@ public class ItemPhoto implements Serializable {
     @ManyToOne(optional = false)
     private Photo photoId;
     
+    
+    /**
+     * Default constructor
+     * 
+     * Initializes a new instance of the ItemPhoto class
+     */
     public ItemPhoto() {
+        // Required empty constructor
     }
 
+    /**
+     * Overloaded constructor
+     * 
+     * Initializes a new instance of the ItemPhoto class with the given 
+     * ItemPhoto id (unique, private integer key that specifies a record in the 
+     * DB table).
+     * 
+     * @param id The unique id that specifies an individual ItemPhoto record
+     */
     public ItemPhoto(Integer id) {
         this.id = id;
     }
 
+    
+    
+    /////////////// Getters & Setters //////////////////////
     public Integer getId() {
         return id;
     }
@@ -82,9 +115,22 @@ public class ItemPhoto implements Serializable {
         return hash;
     }
 
+    
+    
+    //////////////////// Overridden Methods ////////////////////
+    /**
+     * Overridden Method
+     * 
+     * Checks whether this ItemPhoto object is equal to the given Object. They
+     * are considered equal if both objects:
+     * - Are instances of the ItemPhoto class
+     * - Have equal id variables
+     * 
+     * @param object The Object being compared to this one
+     * @return True if equal, False otherwise
+     */
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ItemPhoto)) {
             return false;
         }
@@ -95,6 +141,14 @@ public class ItemPhoto implements Serializable {
         return true;
     }
 
+    /**
+     * Overridden Method
+     * 
+     * Returns a string representation of this object that is essentially the
+     * package name and the id of the object.
+     * 
+     * @return A string representation of this object
+     */
     @Override
     public String toString() {
         return "com.CyberSale.entitypackage.ItemPhoto[ id=" + id + " ]";
